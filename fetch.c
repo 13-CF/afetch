@@ -78,14 +78,14 @@ Dist asciiart() {
 		info.dcol8  =   "";
 		info.getpkg = "xbps-query -l | wc -l"; }
 	else if (strncmp(dist, "Gentoo", 6) == 0) {
-       		info.dcol1=BWHITE"     .---. \n";
-      		info.dcol2=BWHITE"  /     \\    ";
-      		info.dcol3=BWHITE"    \\.@-@./     ";
-      		info.dcol4=BWHITE"    /`\\_/`\\     ";
-    		info.dcol5=BWHITE"   //  _  \\\\    ";
-   		info.dcol6=BWHITE"  | \\     )|_   ";
-   		info.dcol7=BWHITE" /`\\_`>  <_/ \\";
-   		info.dcol8=BWHITE" \\__/'---'\\__/";
+       		info.dcol1=BMAGENTA"   _-----_ \n";
+      		info.dcol2=BMAGENTA"(       \\ ";
+      		info.dcol3=BMAGENTA"  \\    0   \\ ";
+      		info.dcol4=BMAGENTA"   \\        )";
+    		info.dcol5=BMAGENTA"   /      _/ ";
+   		info.dcol6=BMAGENTA"  (     _-   ";
+   		info.dcol7=BMAGENTA"  \\____-   ";
+   		info.dcol8=BWHITE"\n";
 		info.getpkg = "equery list \"*\" | wc -l"; }
 	else if (strncmp(dist, "Arch Linux", 10)==0) {
        		info.dcol1=BWHITE"     .---. \n";
@@ -94,7 +94,7 @@ Dist asciiart() {
       		info.dcol4=BWHITE"    /`\\_/`\\     ";
     		info.dcol5=BWHITE"   //  _  \\\\    ";
    		info.dcol6=BWHITE"  | \\     )|_   ";
-   		info.dcol7=BWHITE" /`\\_`>  <_/ \\";
+   		info.dcol7=BWHITE" /`\\_`>  <_/ \\\n";
    		info.dcol8=BWHITE" \\__/'---'\\__/";
 		info.getpkg = "pacman -Qq | wc -l";  }
 	else if (strncmp(dist, "Fedora", 6)==0) {
@@ -105,7 +105,7 @@ Dist asciiart() {
     		info.dcol5=BWHITE"   //  _  \\\\    ";
    		info.dcol6=BWHITE"  | \\     )|_   ";
    		info.dcol7=BWHITE" /`\\_`>  <_/ \\";
-   		info.dcol8=BWHITE" \\__/'---'\\__/";
+   		info.dcol8=BWHITE" \\__/'---'\\__/\n";
 		info.getpkg="rpm -qa | wc -l";
 	}
 	else if (strncmp(dist, "FreeBSD", 7)==0) {
@@ -116,7 +116,7 @@ Dist asciiart() {
     		info.dcol5=BWHITE"   //  _  \\\\    ";
    		info.dcol6=BWHITE"  | \\     )|_   ";
    		info.dcol7=BWHITE" /`\\_`>  <_/ \\";
-   		info.dcol8=BWHITE" \\__/'---'\\__/";
+   		info.dcol8=BWHITE" \\__/'---'\\__/\n";
 		info.getpkg="pkg list -i | wc -l";
 	}
 
@@ -129,7 +129,7 @@ Dist asciiart() {
     		info.dcol5=BWHITE"   //  _  \\\\    ";
    		info.dcol6=BWHITE"  | \\     )|_   ";
    		info.dcol7=BWHITE" /`\\_`>  <_/ \\";
-   		info.dcol8=BWHITE" \\__/'---'\\__/";
+   		info.dcol8=BWHITE" \\__/'---'\\__/\n";
 		info.getpkg = "echo unknown";
 	}
 	return info;
