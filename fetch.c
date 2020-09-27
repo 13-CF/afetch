@@ -41,7 +41,9 @@ char * os()
 	fclose(f);
 	str = strtok(dist, "NAME=\""); //if dist is Arch Linux, it seems to return rch Linux, so the next to lines fix it
 	if (strncmp(str, "rch Linux", 9) == 0) {
-		str = "Arch Linux"; }
+	        str = "Arch Linux"; }
+	else if (strncmp(str, "Gentoo\n", 7) == 0) { //Removing the newline at the end of the file
+	        str = "Gentoo"; }
 	return str;
 }
 
