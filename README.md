@@ -9,7 +9,7 @@ Simple system info written in C
 
 **Partial Support (No logos yet)**
 *  Arch
-*  Gentoo (not sure about the package manager)
+*  Gentoo
 *  Fedora
 *  FreeBSD (not sure about the package manager)
 
