@@ -58,7 +58,7 @@ char * pkg() {
 	else if (strncmp(distro, "Arch Linux", 10) == 0) { //something I'm doing seems to make 'Arch Linux' not work. I think it might be the strtok() in the os() function
 		return "pacman -Qq | wc -l"; }
 	else if (strncmp(distro, "Gentoo", 6) == 0) {
-		return "equery list \"*\""; } //not sure if this is how to do it on gentoo
+		return "equery list \"*\" | wc -l"; }
 	else if (strncmp(distro, "FreeBSD", 7) == 0) {
 		return "pkg list -i | wc -l"; }//I think this is the correct command? 
 
