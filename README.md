@@ -6,6 +6,7 @@ Simple system info written in C
 
 **Currently Supports**
 *  void
+
 **Partial Support (No logos yet)**
 *  Arch
 *  Gentoo (not sure about the package manager)
