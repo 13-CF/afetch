@@ -77,7 +77,7 @@ int main(){
 	printf(BGREEN"| \\  ___  \\ |    DISTRO %s%s\n",WHITE,os());
 	printf(BGREEN"| | /   \\ | |    KERNEL %s%s %s\n", WHITE, ui.sysname, ui.release);
 	printf(BGREEN"| | \\___/ | |    UPTIME %s%lih %lim\n", WHITE, si.uptime / 3600, (si.uptime / 60) - (si.uptime / 3600 * 60));
-	printf(BGREEN"| \\______ \\_|     SHELL %s%s\n",WHITE, strtok(getenv("SHELL"), "/bin"));
+	printf(BGREEN"| \\______ \\_|     SHELL %s%s\n",WHITE, strtok(getenv("SHELL"), "/bin")); //if you want the shell path, remove the strtok
 	//system("echo \" -_______\\     \033[1;33mPACKAGES\033[0;37m $(xbps-query -l | wc -l) (xbps)\n\""); 
 	//printf(GREEN" -_______\\     %s \n", pkg());
 
