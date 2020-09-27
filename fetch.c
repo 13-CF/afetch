@@ -88,7 +88,7 @@ Dist asciiart() {
    		info.dcol6=BMAGENTA"  (     _-   ";
    		info.dcol7=BMAGENTA"  \\____-   ";
    		info.dcol8=BWHITE"\n";
-		info.getpkg = "equery list \"*\" | wc -l"; }
+		info.getpkg = "ls -d /var/db/pkg/*/* | wc -l"; }
 	else if (strncmp(dist, "Arch Linux", 10)==0) {
        		info.dcol1=BWHITE"     .---. \n";
       		info.dcol2=BWHITE"  /     \\    ";
