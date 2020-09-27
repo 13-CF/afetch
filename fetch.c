@@ -31,12 +31,17 @@ char * os()
 	char dist[50];
 	
 	f = fopen("/etc/os-release", "r");
-	fscanf(f, "%s", dist);
+	if (f == NULL) {
+		f = fopen("/var/run/os-release", "r"); } //for *BSD
+		if (f == NULL) {
+			return "unknown"; }
+//	fscanf(f, "%s", dist);
+
+	fgets(dist, 50, f);
 	fclose(f);
-	
-	
-	char * del = "NAME=\"";
-	str = strtok(dist, del);
+	str = strtok(dist, "NAME=\""); //if dist is Arch Linux, it seems to return rch Linux, so the next to lines fix it
+	if (strncmp(str, "rch Linux", 9) == 0) {
+		str = "Arch Linux"; }
 	return str;
 }
 
@@ -45,8 +50,16 @@ char * pkg() {
 	char *distro = os();
 	
 	if (strncmp(distro, "void", 4) == 0) {
-		return "xbps-query -l | wc -l";
-	}
+		return "xbps-query -l | wc -l"; }
+	else if (strncmp(distro, "Fedora", 6) == 0) {
+		return "rpm -qa | wc -l"; }
+	else if (strncmp(distro, "Arch Linux", 10) == 0) { //something I'm doing seems to make 'Arch Linux' not work. I think it might be the strtok() in the os() function
+		return "pacman -Qq | wc -l"; }
+	else if (strncmp(distro, "Gentoo", 6) == 0) {
+		return "equery list \"*\""; } //not sure if this is how to do it on gentoo
+	else if (strncmp(distro, "FreeBSD", 7) == 0) {
+		return "pkg list -i | wc -l"; }//I think this is the correct command? 
+
 	
 	return "echo unknown";
 }
@@ -64,7 +77,7 @@ int main(){
 	printf(BGREEN"| \\  ___  \\ |    DISTRO %s%s\n",WHITE,os());
 	printf(BGREEN"| | /   \\ | |    KERNEL %s%s %s\n", WHITE, ui.sysname, ui.release);
 	printf(BGREEN"| | \\___/ | |    UPTIME %s%lih %lim\n", WHITE, si.uptime / 3600, (si.uptime / 60) - (si.uptime / 3600 * 60));
-	printf(BGREEN"| \\______ \\_|     SHELL %s%s\n",WHITE, getenv("SHELL"));
+	printf(BGREEN"| \\______ \\_|     SHELL %s%s\n",WHITE, strtok(getenv("SHELL"), "/bin"));
 	//system("echo \" -_______\\     \033[1;33mPACKAGES\033[0;37m $(xbps-query -l | wc -l) (xbps)\n\""); 
 	//printf(GREEN" -_______\\     %s \n", pkg());
 
