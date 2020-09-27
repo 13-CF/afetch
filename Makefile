@@ -6,7 +6,7 @@ all: afetch
 afetch:
 	$(CC) $(SRC) -o afetch
 clean:
-	rm aftech
+	rm afetch
 install:
 	cp ./afetch /usr/bin/afetch
 	chmod 711 /usr/bin/afetch
