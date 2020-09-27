@@ -60,6 +60,8 @@ char * os()
 		str = "Arch Linux"; }
 	else if (strncmp(str, "Gentoo\n", 7) == 0) {
 		str = "Gentoo"; }
+	else if (strncmp(str, "rtix Linux", 10) == 0) {
+		str = "Artix Linux"; }
 	return str;
 }
 
