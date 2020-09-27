@@ -13,7 +13,8 @@ Simple system info written in C
 *  Fedora
 *  FreeBSD (not sure about the package manager)
 
-![Screenshot on void](screenshot.png)
+![Screenshot on void](screenshot1.png)
+![Screenshot on other distros currently](screenshot2.png)
 
 **To do**
 *  Add support for more distros (in progress)
