@@ -5,11 +5,11 @@ Simple system info written in C
 *  A /etc/os-release file
 
 **Currently Supports**
-*  void
+*  Void
+*  Gentoo
 
 **Partial Support (No logos yet)**
 *  Arch
-*  Gentoo
 *  Fedora
 *  FreeBSD (not sure about the package manager)
 
