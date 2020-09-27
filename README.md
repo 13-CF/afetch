@@ -1,4 +1,4 @@
-# aFetch
+# aFetch ~ Another Fetch
 Simple system info written in C
 
 **Requirments**
