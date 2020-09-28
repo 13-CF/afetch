@@ -22,4 +22,8 @@ Simple system info written in C
 
 **To do**
 *  Add support for more distros (please request your distro, and provide the content of the /etc/os-release file)
-*  Fix the strncmp deleting needed characters
+*  Fix strncmp function deleting needed characters (this will help make the program more efficient, with less if statements.
+
+**Thanks**
+*  [neofetch](https://github.com/dylanaraps/neofetch)
+
