@@ -2,21 +2,24 @@
 Simple system info written in C
 
 **Requirments**
-*  A /etc/os-release file
+*  A /etc/os-release file (/var/run/os-release on BSDs also works)
+*  A C compiler
 
 **Currently Supports**
 *  Void
 *  Gentoo
-
-**Partial Support (No logos yet)**
 *  Arch
+*  Artix
 *  Fedora
-*  FreeBSD (not sure about the package manager)
+*  FreeBSD
 
-![Screenshot on void](screenshot1.png)
-![Screenshot on other distros currently](screenshot2.png)
+**Please request your distro if you want it added**
+
+
+![Screenshot on Void](screenshot1.png)
+![screenshot on Gentoo](screenshot2.png)
+
 
 **To do**
-*  Add support for more distros (in progress)
-*  Add ascii art for more distros
-*  Fix the os() function to be support distros where NAME isn't on the first line of the os-release file
+*  Add support for more distros (please request your distro, and provide the content of the /etc/os-release file)
+*  Fix the strncmp deleting needed characters
