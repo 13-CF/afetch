@@ -44,7 +44,6 @@ char * os()
 {
 	FILE *f;
 	char *str = malloc(50);
-	char dist[50];
 	
 	f = fopen("/etc/os-release", "r");
 	if (f == NULL) {
@@ -53,9 +52,9 @@ char * os()
 			return "unknown"; }
 //	fscanf(f, "%s", dist);
 
-	fgets(dist, 50, f);
+	fgets(str, 50, f);
 	fclose(f);
-	str = strtok(dist, "NAME=\""); //if dist is Arch Linux, it seems to return rch Linux, so the next to lines fix it
+	str = strtok(str, "NAME=\""); //if dist is Arch Linux, it seems to return rch Linux, so the next to lines fix it
 	if (strncmp(str, "rch Linux", 9) == 0) {
 		str = "Arch Linux"; }
 	else if (strncmp(str, "Gentoo\n", 7) == 0) {
@@ -147,16 +146,18 @@ Dist asciiart() {
 
 char * shell() {
 	char * shell = strtok(getenv("SHELL"), "/bin");
-
 	//if your $SHELL is set to /usr/bin/*sh this will be run
+
+	if (strncmp(getenv("SHELL"), "/bin/bash", 9)==0)  {
+		return "bash"; }
+	if (strncmp(getenv("SHELL"), "/usr", 4)==0) {
+		return "bash"; }
 	if (strncmp(shell, "usr", 3) == 0){
 		while (strncmp(shell, "usr", 3)==0) {
-			shell = strtok(NULL, "bin/");
-		}
-	}
+			shell = strtok(NULL, "bin/");} }
+	 
 	return shell;
 }
-
 int main(){
 	/* initialise system info */
 	struct sysinfo si; //used for uptime
