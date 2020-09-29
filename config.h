@@ -9,11 +9,12 @@
 #define PACKAGETEXT "       PKGS"
 
 
+// For icons to display correctly, a nerd font may be required
 /* version with icons, delete the definitions above and uncomment this
 #define USERTEXT    "     •"
 #define DISROTEXT   "     •"
 #define KERNELTEXT  "     •" 
-#define UPTIMETEXT  "    祥•"
+#define UPTIMETEXT  "    祥•"
 #define SHELLTEXT   "     •"
 #define PACKAGETEXT "     •"
 */ 
