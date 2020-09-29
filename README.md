@@ -12,11 +12,11 @@ Can be configured at compile time by editing the [config.h file](config.h)
 *  Gentoo
 *  Arch
 *  Artix
-*  Fedora
+*  Fedora (slow due to the package manager)
 *  Debian
 
 **Partial Support**
-*  FreeBSD (Should be fully supported, but there are linking errors
+*  FreeBSD (Should be fully supported, but there are linking errors)
 
 **Please request your distro if you want it added**
 

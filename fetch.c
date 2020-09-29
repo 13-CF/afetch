@@ -111,8 +111,7 @@ Dist asciiart() {
    		info.dcol6=BRED"  --_    ";
    		info.dcol7=BRED"         ";
    		info.dcol8=BRED"";
-
-		info.getpkg="apt list --installed | wc -l";
+		info.getpkg="dpkg -l | tail -n+6 | wc -l";
 		return info;}
 	else {
        		info.dcol1=BWHITE"     .---. \n";
