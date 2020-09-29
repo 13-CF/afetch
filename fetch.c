@@ -43,7 +43,7 @@ typedef struct distinfo {
 char * os()
 {
 	FILE *f;
-	char *str = malloc(50);
+	char *str = malloc(100);
 	
 	f = fopen("/etc/os-release", "r");
 	if (f == NULL) {
@@ -52,15 +52,17 @@ char * os()
 			return "unknown"; }
 //	fscanf(f, "%s", dist);
 
-	fgets(str, 50, f);
+	fgets(str, 100, f);
 	fclose(f);
 	str = strtok(str, "NAME=\""); //if dist is Arch Linux, it seems to return rch Linux, so the next to lines fix it
 	if (strncmp(str, "rch Linux", 9) == 0) {
-		str = "Arch Linux"; }
+		return "Arch Linux"; }
 	else if (strncmp(str, "Gentoo\n", 7) == 0) {
-		str = "Gentoo"; }
+		return "Gentoo"; }
 	else if (strncmp(str, "rtix Linux\n", 10) == 0) {
-		str = "Artix Linux"; }
+		return "Artix Linux"; }
+	else if (strncmp(str, "PR", 2) == 0) { 
+		return "Debian"; } //PRETTY_NAME is on the first line on debian, but not sure about other distros
 	return str;
 }
 
@@ -77,7 +79,8 @@ Dist asciiart() {
 		info.dcol6 =	BGREEN" | \\______ \\_|";
 		info.dcol7  =	BGREEN "  -_______\\   "; 
 		info.dcol8  =   "";
-		info.getpkg = "xbps-query -l | wc -l"; }
+		info.getpkg = "xbps-query -l | wc -l";
+		return info; }
 	else if (strncmp(dist, "Gentoo", 6) == 0) {
        		info.dcol1=BMAGENTA"   _-----_ \n";
       		info.dcol2=BMAGENTA"  (       \\  ";
@@ -87,7 +90,8 @@ Dist asciiart() {
    		info.dcol6=BMAGENTA"  (     _-   ";
    		info.dcol7=BMAGENTA"  \\____-     ";
    		info.dcol8=BWHITE"\n";
-		info.getpkg = "ls -d /var/db/pkg/*/* | wc -l"; }
+		info.getpkg = "ls -d /var/db/pkg/*/* | wc -l";
+		return info; }
 	else if (strncmp(dist, "Arch Linux", 10)==0) {
        		info.dcol1=BCYAN"";
       		info.dcol2=BCYAN"      /\\      ";
@@ -97,7 +101,8 @@ Dist asciiart() {
    		info.dcol6=BCYAN"  /   ,,   \\  ";
    		info.dcol7=BCYAN" /   |  |  -\\ ";
    		info.dcol8=BCYAN"/_-''    ''-_\\\n";
-		info.getpkg = "pacman -Qq | wc -l";  }
+		info.getpkg = "pacman -Qq | wc -l";
+		return info; }
 	else if (strncmp(dist, "Artix Linux", 11)==0) {
        		info.dcol1=BCYAN"";
       		info.dcol2=BCYAN"      /\\      ";
@@ -107,7 +112,8 @@ Dist asciiart() {
    		info.dcol6=BCYAN"  /      ,`\\  ";
    		info.dcol7=BCYAN" /   ,.'`.  \\ ";
    		info.dcol8=BCYAN"/.,'`     `'.\\\n";
-		info.getpkg = "pacman -Qq | wc -l";  }
+		info.getpkg = "pacman -Qq | wc -l";
+		return info;  }
 	else if (strncmp(dist, "Fedora", 6)==0) {
        		info.dcol1=BBLUE"      _____\n";
       		info.dcol2=BBLUE"     /   __)\\ ";
@@ -117,7 +123,8 @@ Dist asciiart() {
    		info.dcol6=BBLUE"/ /  |  |     ";
    		info.dcol7=BBLUE"\\ \\__/  |     ";
    		info.dcol8=BBLUE" \\(_____/";
-		info.getpkg="rpm -qa | wc -l";	}
+		info.getpkg="rpm -qa | wc -l";	//this command is really slow, should probably find a faster way to find the packages
+		return info; }
 	else if (strncmp(dist, "FreeBSD", 7)==0) {
        		info.dcol2=BRED"/\\,-'''''-,/\\";
       		info.dcol3=BRED"\\_)       (_/";
@@ -127,8 +134,21 @@ Dist asciiart() {
    		info.dcol7=BRED"  '-_____-'  ";
    		info.dcol8=BRED"";
    		info.dcol1=BRED"";
-		info.getpkg="pkg info | wc -l"; }
+		info.getpkg="pkg info | wc -l";
+		return info; }
 
+	else if (strncmp(dist, "Debian", 6)==0) {
+       		info.dcol1=BRED"  _____\n";
+      		info.dcol2=BRED" /  __ \\ ";
+      		info.dcol3=BRED"|  /    |";
+      		info.dcol4=BRED"|  \\___- ";
+    		info.dcol5=BRED"-_       ";
+   		info.dcol6=BRED"  --_    ";
+   		info.dcol7=BRED"         ";
+   		info.dcol8=BRED"";
+
+		info.getpkg="apt list --installed | wc -l";
+		return info;}
 	else {
        		info.dcol1=BWHITE"     .---. \n";
       		info.dcol2=BWHITE"    /     \\     ";
@@ -138,8 +158,8 @@ Dist asciiart() {
    		info.dcol6=BWHITE"  | \\     )|_   ";
    		info.dcol7=BWHITE" /`\\_`>  <_/ \\  ";
    		info.dcol8=BWHITE" \\__/'---'\\__/\n";
-		info.getpkg = "echo unknown";}
-	return info;
+		info.getpkg = "echo unknown";
+		return info; }
 }
 
 
@@ -150,11 +170,11 @@ char * shell() {
 
 	if (strncmp(getenv("SHELL"), "/bin/bash", 9)==0)  {
 		return "bash"; }
-	if (strncmp(getenv("SHELL"), "/usr", 4)==0) {
-		return "bash"; }
 	if (strncmp(shell, "usr", 3) == 0){
 		while (strncmp(shell, "usr", 3)==0) {
 			shell = strtok(NULL, "bin/");} }
+	if (strncmp(getenv("SHELL"), "/usr/bin/bash", 13)==0) {
+		return "bash"; }
 	 
 	return shell;
 }

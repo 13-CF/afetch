@@ -4,6 +4,7 @@ Simple system info written in C
 **Requirments**
 *  A /etc/os-release file (/var/run/os-release on BSDs also works)
 *  A C compiler
+*  libsysinfo if on FreeBSD
 
 **Currently Supports**
 *  Void
@@ -11,7 +12,10 @@ Simple system info written in C
 *  Arch
 *  Artix
 *  Fedora
-*  FreeBSD
+*  Debian
+
+**Partial Support**
+*  FreeBSD (Should be fully supported, but there are linking errors
 
 **Please request your distro if you want it added**
 
