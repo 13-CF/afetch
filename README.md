@@ -23,6 +23,7 @@ Can be configured at compile time by editing the [config.h file](config.h)
 
 ![Screenshot on Void](screenshot1.png)
 ![screenshot on FreeBSD](screenshot2.png)
+
 (I don't use FreeBSD, but the screenshot above should look similar)
 
 
