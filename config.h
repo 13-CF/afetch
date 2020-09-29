@@ -1,10 +1,22 @@
 // used to change the text displayed, text boxes should all align
+
+
 #define USERTEXT    "       USER"
 #define DISROTEXT   "     DISTRO"
 #define KERNELTEXT  "     KERNEL" 
 #define UPTIMETEXT  "     UPTIME"
 #define SHELLTEXT   "      SHELL"
 #define PACKAGETEXT "       PKGS"
+
+
+/* version with icons, delete the definitions above and uncomment this
+#define USERTEXT    "     •"
+#define DISROTEXT   "     •"
+#define KERNELTEXT  "     •" 
+#define UPTIMETEXT  "    祥•"
+#define SHELLTEXT   "     •"
+#define PACKAGETEXT "     •"
+*/ 
 
 
 	/* BRIGHT */

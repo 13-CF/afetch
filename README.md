@@ -1,5 +1,6 @@
 # aFetch ~ Another Fetch
 Simple system info written in C
+Can be configured at compile time by editing the [config.h file](config.h) 
 
 **Requirments**
 *  A /etc/os-release file (/var/run/os-release on BSDs also works)
