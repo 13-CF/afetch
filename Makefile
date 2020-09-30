@@ -1,10 +1,11 @@
 SRC = fetch.c
 CC = gcc
+CFLAGS = -O2
 
 all: afetch
 
 afetch:
-	$(CC) $(SRC) -o afetch
+	$(CC) $(CFLAGS) $(SRC) -o afetch
 clean:
 	rm afetch
 install:
