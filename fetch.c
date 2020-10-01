@@ -99,7 +99,7 @@ Dist asciiart() {
    		info.dcol7=BRED"  '-_____-'  ";
    		info.dcol8=BRED"";
    		info.dcol1=BRED"";
-		info.getpkg="pkg info | wc -l";
+		info.getpkg="pkg info | wc -l | tr -d ' '";
 		return info; }
 
 	else if (strncmp(dist, "Debian", 6)==0) {
