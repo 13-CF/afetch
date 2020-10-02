@@ -167,5 +167,6 @@ int main(){
 		putchar(p); }
 	printf("%s", ascii.dcol8);
 	printf("\n");
+	printf("\e[0m"); // Reset terminal's colors
 	return 0;
 }
