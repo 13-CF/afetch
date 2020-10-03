@@ -22,6 +22,10 @@ Can be configured at compile time by editing the [config.h file](config.h)
 **Partial Support**
 *  FreeBSD (ldflags must be edited in the makefile to include sysinfo)
 
+**Building on FreeBSD**
+You will have to install the libsysinfo package, then follow the instructions in the first line of the makefile
+
+
 **Please request your distro if you want it added**
 
 
