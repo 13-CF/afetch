@@ -28,6 +28,10 @@ char * os()
 		return "Artix Linux"; }
 	else if (strncmp(str, "PR", 2) == 0) { 
 		return "Debian"; } //PRETTY_NAME is on the first line on debian, but not sure about other distros
+	else if (strncmp(str, "anjaro Linux", 12) == 0) {
+		return "Manjaro Linux"; }
+	else if (strncmp(str, "lpine Linux", 11) == 0) {
+		return "Alpine Linux"; }
 	return str;
 }
 
@@ -66,6 +70,17 @@ Dist asciiart() {
    		info.dcol6=BCYAN"  /   ,,   \\  ";
    		info.dcol7=BCYAN" /   |  |  -\\ ";
    		info.dcol8=BCYAN"/_-''    ''-_\\\n";
+		info.getpkg = "pacman -Qq | wc -l";
+		return info; }
+	else if (strncmp(dist, "Manjaro Linux", 13)==0) {
+   		info.dcol1=BGREEN" ________  __ \n";
+       		info.dcol2=BGREEN"|       | |  |";
+      		info.dcol3=BGREEN"|   ____| |  |";
+      		info.dcol4=BGREEN"|  |  __  |  |";
+      		info.dcol5=BGREEN"|  | |  | |  |";
+    		info.dcol6=BGREEN"|  | |  | |  |";
+   		info.dcol7=BGREEN"|  | |  | |  |";
+   		info.dcol8=BGREEN"|__| |__| |__|\n";
 		info.getpkg = "pacman -Qq | wc -l";
 		return info; }
 	else if (strncmp(dist, "Artix Linux", 11)==0) {
@@ -112,6 +127,28 @@ Dist asciiart() {
    		info.dcol7=BRED"         ";
    		info.dcol8=BRED"";
 		info.getpkg="dpkg -l | tail -n+6 | wc -l";
+		return info;}
+	else if (strncmp(dist, "Ubuntu", 6)==0) {
+   		info.dcol1=BRED"";
+       		info.dcol2=BRED"         _  ";
+      		info.dcol3=BRED"     ---(_) ";
+      		info.dcol4=BRED" _/  ---  \\ ";
+      		info.dcol5=BRED"(_) |   |   ";
+    		info.dcol6=BRED"  \\  --- _/ ";
+   		info.dcol7=BRED"     ---(_) ";
+   		info.dcol8=BRED"";
+		info.getpkg="dpkg -l | tail -n+6 | wc -l";
+		return info;}
+	else if (strncmp(dist, "Alpine Linux", 12)==0) {
+   		info.dcol1=BBLUE"\n";
+       		info.dcol2=BBLUE"    /\\ /\\    ";
+      		info.dcol3=BBLUE"   /  \\  \\   ";
+      		info.dcol4=BBLUE"  /    \\  \\  ";
+      		info.dcol5=BBLUE" /      \\  \\ ";
+    		info.dcol6=BBLUE"/        \\  \\";
+   		info.dcol7=BBLUE"          \\  ";
+   		info.dcol8=BBLUE"";
+		info.getpkg="apk info | wc -l";
 		return info;}
 	else {
        		info.dcol1=BWHITE"     .---. \n";

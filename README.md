@@ -14,9 +14,13 @@ Can be configured at compile time by editing the [config.h file](config.h)
 *  Artix
 *  Fedora (slow due to the package manager)
 *  Debian
+*  Ubuntu
+*  Manjaro
+*  Alpine
+
 
 **Partial Support**
-*  FreeBSD (Should be fully supported, but there are linking errors)
+*  FreeBSD (ldflags must be edited in the makefile to include sysinfo)
 
 **Please request your distro if you want it added**
 
