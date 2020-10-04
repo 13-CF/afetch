@@ -17,10 +17,8 @@ Can be configured at compile time by editing the [config.h file](config.h)
 *  Ubuntu
 *  Manjaro
 *  Alpine
+*  FreeBSD (Makefile must be edited)
 
-
-**Partial Support**
-*  FreeBSD (ldflags must be edited in the makefile to include sysinfo)
 
 **Building on FreeBSD**
 *  You will have to install the libsysinfo package, then follow the instructions in the first line of the makefile
@@ -36,9 +34,7 @@ Can be configured at compile time by editing the [config.h file](config.h)
 
 
 **To do**
-*  [!] Fix the lowercase function to work on more distros
 *  Add support for more distros (please request your distro, and provide the content of the /etc/os-release file)
-*  Fix strncmp function deleting needed characters (this will help make the program more efficient, with less if statements.
 *  Improve Makefile
 
 **Thanks**

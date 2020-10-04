@@ -3,9 +3,7 @@
 #include <stdlib.h>
 #include <sys/sysinfo.h>
 #include <sys/utsname.h>
-#include <ctype.h>
 #include "config.h"
-
 char * os()
 {
 	FILE *f;
@@ -16,25 +14,18 @@ char * os()
 		f = fopen("/var/run/os-release", "r"); }
 		if (f == NULL) {
 			return "unknown"; }
-//	fscanf(f, "%s", dist);
 
 	fgets(str, 100, f);
 	fclose(f);
-	str = strtok(str, "NAME=\""); //if dist is Arch Linux, it seems to return rch Linux, so the next to lines fix it
-	if (strncmp(str, "rch Linux", 9) == 0) {
-		return "Arch Linux"; }
-	else if (strncmp(str, "Gentoo\n", 7) == 0) {
+
+	snprintf(str, 100, "%.*s", 50, str + 5); //Delete the NAME= section
+	str = strtok(str, "\"\""); 	
+	if (strncmp(str, "Gentoo\n", 7) == 0) {
 		return "Gentoo"; }
-	else if (strncmp(str, "rtix Linux\n", 10) == 0) {
-		return "Artix Linux"; }
 	else if (strncmp(str, "PR", 2) == 0) { 
 		return "Debian"; } //PRETTY_NAME is on the first line on debian, but not sure about other distros
-	else if (strncmp(str, "anjaro Linux", 12) == 0) {
-		return "Manjaro Linux"; }
 	else if (strncmp(str, "FreeBSD\n", 8) == 0) {
 		return "FreeBSD"; }
-	else if (strncmp(str, "lpine Linux", 11) == 0) {
-		return "Alpine Linux"; }
 	return str;
 }
 
@@ -42,11 +33,10 @@ char * lowercase(char * str) {
 	if (LOWERCASE == 0) {
 		int i;
 		for (i=0; i<strlen(str); i++) {
-		//	if (str[i] >= 'A' && str[i] <= 'Z') {
-			//	str[i] += (32); } 
-			str[i] = tolower(str[i]);}
+			if (str[i] >= 'A' && str[i] <= 'Z') {
+				str[i] += (32); } 
 				}
-		return str; 
+		return str;  }
 	return str;
 }
 
