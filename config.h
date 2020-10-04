@@ -1,22 +1,26 @@
-// used to change the text displayed, text boxes should all align
+// ! LOWERCASE IS CURRENTLY BROKEN FOR SOME DISTROS, IT SHOULD BE FIXED
+// SOON. CURRENTLY IT RESULTS IN SEGFAULTS ON ARCH, ARTIX, MANJARO, ALPINE
+// DEBIAN AND POSSIBLY OTHERS
+#define LOWERCASE 1 // 0 for true, one for false. True should display all strings as lower case characters
 
 
+/*
 #define USERTEXT    "       USER"
 #define DISROTEXT   "     DISTRO"
 #define KERNELTEXT  "     KERNEL" 
 #define UPTIMETEXT  "     UPTIME"
 #define SHELLTEXT   "      SHELL"
 #define PACKAGETEXT "       PKGS"
-
+*/
 
 // For icons to display correctly, a nerd font may be required 
-/*
+
 #define USERTEXT    "     "
 #define DISROTEXT   "     "
 #define KERNELTEXT  "     " 
 #define UPTIMETEXT  "     "
 #define SHELLTEXT   "     "
-#define PACKAGETEXT "     " */
+#define PACKAGETEXT "     " 
 
 
 	/* BRIGHT */

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <sys/sysinfo.h>
 #include <sys/utsname.h>
+#include <ctype.h>
 #include "config.h"
 
 char * os()
@@ -30,8 +31,22 @@ char * os()
 		return "Debian"; } //PRETTY_NAME is on the first line on debian, but not sure about other distros
 	else if (strncmp(str, "anjaro Linux", 12) == 0) {
 		return "Manjaro Linux"; }
+	else if (strncmp(str, "FreeBSD\n", 8) == 0) {
+		return "FreeBSD"; }
 	else if (strncmp(str, "lpine Linux", 11) == 0) {
 		return "Alpine Linux"; }
+	return str;
+}
+
+char * lowercase(char * str) {
+	if (LOWERCASE == 0) {
+		int i;
+		for (i=0; i<strlen(str); i++) {
+		//	if (str[i] >= 'A' && str[i] <= 'Z') {
+			//	str[i] += (32); } 
+			str[i] = tolower(str[i]);}
+				}
+		return str; 
 	return str;
 }
 
@@ -188,9 +203,9 @@ int main(){
 	Dist ascii = asciiart();
 
 	printf("%s", ascii.dcol1);
-	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, WHITE, getenv("USER"));
-	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, WHITE,os());
-	printf("%s %s %s%s %s\n",ascii.dcol4,KERNELTEXT, WHITE, ui.sysname, ui.release);
+	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, WHITE, lowercase(getenv("USER")));
+	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, WHITE, lowercase(os()));
+	printf("%s %s %s%s %s\n",ascii.dcol4,KERNELTEXT, WHITE,lowercase(ui.sysname), ui.release);
 	printf("%s %s %s%lih %lim\n", ascii.dcol5,UPTIMETEXT, WHITE, si.uptime / 3600, (si.uptime / 60) - (si.uptime / 3600 * 60));
 	printf("%s %s %s%s\n",ascii.dcol6, SHELLTEXT,WHITE, shell());
 	printf("%s %s %s",ascii.dcol7, PACKAGETEXT, WHITE);
