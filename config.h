@@ -1,4 +1,4 @@
-#define LOWERCASE 0 // 0 for true, one for false. True should display all strings as lower case characters
+#define LOWERCASE 1 // 0 for true, one for false. True should display all strings as lower case characters
 
 #define USERTEXT    "       USER"
 #define DISROTEXT   "     DISTRO"
