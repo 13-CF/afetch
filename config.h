@@ -2,10 +2,6 @@
 #define LOWERCASE 1 // 0 for true, one for false. True should display all strings as lower case characters
 #define SHELLPATH 1 //if set to 0, the full file path for the users shell will display
 
-=======
-#define LOWERCASE 1 // 0 for true, one for false. True should display all strings as lower case characters
-
-
 #define USERTEXT    "       USER"
 #define DISROTEXT   "     DISTRO"
 #define KERNELTEXT  "     KERNEL" 
