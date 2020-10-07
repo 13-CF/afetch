@@ -6,10 +6,8 @@
 #include "config.h"
 char * os()
 {
-	FILE *f;
 	char *str = malloc(100);
-	
-	f = fopen("/etc/os-release", "r");
+	FILE *f = fopen("/etc/os-release", "r");
 	if (f == NULL) {
 		f = fopen("/var/run/os-release", "r"); }
 		if (f == NULL) {
@@ -19,10 +17,10 @@ char * os()
 	fclose(f);
 
 	snprintf(str, 100, "%.*s", 50, str + 5); //Delete the NAME= section
-	str = strtok(str, "\"\""); 	
+	str = strtok(str, "\"\"");
 	if (strncmp(str, "Gentoo\n", 7) == 0) {
 		return "Gentoo"; }
-	else if (strncmp(str, "PR", 2) == 0) { 
+	else if (strncmp(str, "Y_NAME=", 7) == 0) {
 		return "Debian"; } //PRETTY_NAME is on the first line on debian, but not sure about other distros
 	else if (strncmp(str, "FreeBSD\n", 8) == 0) {
 		return "FreeBSD"; }
@@ -34,29 +32,42 @@ char * lowercase(char * str) {
 		int i;
 		for (i=0; i<strlen(str); i++) {
 			if (str[i] >= 'A' && str[i] <= 'Z') {
-				str[i] += (32); } 
+				str[i] += (32); }
 				}
 		return str;  }
 	return str;
 }
 
+void replace(char * source, char * sub, char * with) { //stolen off of a youtube video, thank you stranger
+	char * substring_source = strstr(source, sub);
+	if (substring_source == NULL) {
+		return; }
+
+
+	memmove(
+		substring_source + strlen(with),
+		substring_source + strlen(sub),
+		strlen(substring_source) - strlen(sub) +1 );
+	memcpy(substring_source, with, strlen(with));
+
+}
 
 Dist asciiart() {
 	char * dist = os();
 	Dist info;
-	if (strncmp(dist, "void", 4) == 0) {	
+	if (strncmp(dist, "void", 4) == 0) {
 		info.dcol1 =    BGREEN "     _______\n";
 		info.dcol2 =    BGREEN  "  _ \\______ - ";
 		info.dcol3 =	BGREEN  " | \\  ___  \\ |";
 		info.dcol4 = 	BGREEN" | | /   \\ | |";
 		info.dcol5 =	BGREEN" | | \\___/ | |";
 		info.dcol6 =	BGREEN" | \\______ \\_|";
-		info.dcol7  =	BGREEN "  -_______\\   "; 
+		info.dcol7  =	BGREEN "  -_______\\   ";
 		info.dcol8  =   "";
 		info.getpkg = "xbps-query -l | wc -l";
 		return info; }
 	else if (strncmp(dist, "Gentoo", 6) == 0) {
-       		info.dcol1=BMAGENTA"   _-----_ \n";
+		info.dcol1=BMAGENTA"   _-----_ \n";
       		info.dcol2=BMAGENTA"  (       \\  ";
       		info.dcol3=BMAGENTA"  \\    0   \\ ";
       		info.dcol4=BMAGENTA"   \\        )";
@@ -171,19 +182,21 @@ Dist asciiart() {
 
 
 char * shell() {
-	char * shell = strtok(getenv("SHELL"), "/bin");
-	//if your $SHELL is set to /usr/bin/*sh this will be run
+	if (SHELLPATH == 0) {
+		return getenv("SHELL"); }
 
-	if (strncmp(getenv("SHELL"), "/bin/bash", 9)==0)  {
-		return "bash"; }
-	if (strncmp(shell, "usr", 3) == 0){
-		while (strncmp(shell, "usr", 3)==0) {
-			shell = strtok(NULL, "bin/");} }
-	if (strncmp(getenv("SHELL"), "/usr/bin/bash", 13)==0) {
-		return "bash"; }
-	 
+
+	char * shell = getenv("SHELL");
+	char * final;
+	int i,ii;
+
+	replace(shell, "/bin/", "\0");
+	replace(shell, "/usr", "\0");
+	replace(shell, "/local", "\0");
 	return shell;
-}
+	
+}	
+
 int main(){
 	/* initialise system info */
 	struct sysinfo si; //used for uptime

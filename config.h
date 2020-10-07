@@ -1,4 +1,7 @@
-#define LOWERCASE 0 // 0 for true, one for false. True should display all strings as lower case characters
+//LOWERCASE FUNCTION IS EXPERIMENTAL (BROKEN) - COULD RESULT IN SEGFAULTS
+#define LOWERCASE 1 // 0 for true, one for false. True should display all strings as lower case characters
+#define SHELLPATH 1 //if set to 0, the full file path for the users shell will display
+
 
 #define USERTEXT    "       USER"
 #define DISROTEXT   "     DISTRO"
