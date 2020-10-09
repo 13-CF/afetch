@@ -1,4 +1,4 @@
-# aFetch ~ Another Fetch
+# afetch ~ Another Fetch
 Simple system info written in C
 Can be configured at compile time by editing the [config.h file](config.h) 
 
@@ -18,7 +18,7 @@ Can be configured at compile time by editing the [config.h file](config.h)
 *  Manjaro
 *  Alpine
 *  FreeBSD (Makefile must be edited)
-
+*  Slackware
 
 **Building on FreeBSD**
 *  You will have to install the libsysinfo package, then follow the instructions in the first line of the makefile
@@ -36,6 +36,8 @@ Can be configured at compile time by editing the [config.h file](config.h)
 **To do**
 *  Add support for more distros (please request your distro, and provide the content of the /etc/os-release file)
 *  Improve Makefile
+*  Improve the lowercase function
+*  Clean up the config file
 
 **Thanks**
 *  [neofetch](https://github.com/dylanaraps/neofetch)
