@@ -37,6 +37,8 @@ char * os()
 		strncpy(os, "Debian", 7);
 	} else if (strncmp(os, "FreeBSD\n", 8) == 0) {
 		os[7] = '\0';
+	} else if (strncmp(os, "Slackware\n", 10) == 0) {
+		os[9] = '\0'; 
 	}
 	return os;
 }
@@ -169,6 +171,16 @@ Dist asciiart() {
    		info.dcol7=BBLUE"          \\  ";
    		info.dcol8=BBLUE"";
 		info.getpkg="apk info | wc -l";
+	} else if (strncmp(dist, "Slackware", 10) == 0) {
+		info.dcol1=BBLUE"   ________\n";
+		info.dcol2=BBLUE"  /  ______| ";
+		info.dcol3=BBLUE"  | |______  ";
+		info.dcol4=BBLUE"  \\______  \\ ";
+		info.dcol5=BBLUE"   ______| | ";
+		info.dcol6=BBLUE"| |________/ ";
+		info.dcol7=BBLUE"|____________";
+		info.dcol8=BBLUE"";
+		info.getpkg="ls /var/log/packages | wc -l";
 	} else {
        		info.dcol1=BWHITE"     .---. \n";
       		info.dcol2=BWHITE"    /     \\     ";
