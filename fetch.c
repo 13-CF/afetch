@@ -181,6 +181,17 @@ Dist asciiart() {
 		info.dcol7=BBLUE"|____________";
 		info.dcol8=BBLUE"";
 		info.getpkg="ls /var/log/packages | wc -l";
+	} else if (strncmp(dist, "openSUSE Leap", 10) == 0 || strncmp(dist, "openSUSE Tumbleweed", 19) == 0) {
+		info.dcol1=BGREEN"  _______\n";
+		info.dcol2=BGREEN"__|   __ \\ ";
+		info.dcol3=BGREEN"     / .\\ \\";
+		info.dcol4=BGREEN"     \\__/ |";
+		info.dcol5=BGREEN"   _______|";
+		info.dcol6=BGREEN"   \\_______";
+		info.dcol7=BGREEN"__________/";
+		info.dcol8=BGREEN"";
+		info.getpkg="rpm -qa | wc -l";
+
 	} else {
        		info.dcol1=BWHITE"     .---. \n";
       		info.dcol2=BWHITE"    /     \\     ";
