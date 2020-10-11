@@ -28,7 +28,6 @@ char * os()
 	fclose(f);
 
 	snprintf(releasefileContents, 100, "%.*s", 50, releasefileContents + 5); //Delete the NAME= section
-	printf("%s", releasefileContents);
 	
 	strncpy(os, strtok(releasefileContents, "\""), 100);
 	free(releasefileContents);
