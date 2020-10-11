@@ -16,6 +16,8 @@ char * os()
 
 	FILE *f = fopen("/etc/os-release", "r");
 	if (f == NULL) { f = fopen("/var/run/os-release", "r"); }
+	//if neither of these files exist, it could be a basic FreeBSD install
+	if (f == NULL) { f = fopen("/bin/freebsd-version", "r"); }
 	if (f == NULL) {
 		strncpy(os, "unknown", 7);
 		free(releasefileContents);
@@ -39,7 +41,8 @@ char * os()
 		os[7] = '\0';
 	} else if (strncmp(os, "Slackware\n", 10) == 0) {
 		os[9] = '\0'; 
-	}
+	} else if (strncmp(os, "n/sh", 4) == 0) {
+		strncpy(os, "FreeBSD", 7); }
 	return os;
 }
 

@@ -3,8 +3,8 @@ Simple system info written in C
 Can be configured at compile time by editing the [config.h file](config.h) 
 
 **Requirments**
-*  A /etc/os-release file (/var/run/os-release on BSDs also works)
-*  A C compiler
+*  A /etc/os-release file (/var/run/os-release works, or freebsd-version command)
+*  A C compiler (preferably GCC, I can't get it to compile with clang on FreeBSD)
 *  libsysinfo if on FreeBSD
 
 **Currently Supports**
