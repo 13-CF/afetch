@@ -29,8 +29,7 @@ Can be configured at compile time by editing the [config.h file](config.h)
 **| Please request your distro if you want it added**
 
 
-![Screenshot on Void](screenshot1.png)
-![screenshot on FreeBSD](screenshot2.png)
+![gif](preview.gif)
 
 (I don't use FreeBSD, but the screenshot above should look similar)
 
