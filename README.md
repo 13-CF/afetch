@@ -19,7 +19,7 @@ Can be configured at compile time by editing the [config.h file](config.h)
 *  Ubuntu
 *  Manjaro
 *  Alpine
-*  FreeBSD (Makefile must be edited)
+*  FreeBSD (Makefile must be edited to include libsysinfo)
 *  Slackware
 
 **Building on FreeBSD**
@@ -35,6 +35,7 @@ Can be configured at compile time by editing the [config.h file](config.h)
 
 
 **To do**
+*  Fix segfaults on certain distros when lowercase text is enabled, maybe a memory error?
 *  Improve Makefile
 *  Clean up the config file
 *  Find a faster way to list packages on distros using RPM
