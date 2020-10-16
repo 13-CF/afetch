@@ -1,6 +1,5 @@
-# afetch ~ Another Fetch
-Simple system info written in C
-Can be configured at compile time by editing the [config.h file](config.h) 
+# afetch - another fetch
+Simple system info written in C, that can be configured at compile time by editing the [config.h](config.h) file.
 
 **Requirments**
 *  A /etc/os-release file (/var/run/os-release works, or freebsd-version command)
@@ -31,7 +30,12 @@ Can be configured at compile time by editing the [config.h file](config.h)
 
 ![gif](preview.gif)
 
-
+**Configuration options**
+*  Custom colours
+*  Custom artwork
+*  Custom text display
+*  Force lowercase text (unstable)
+*  Show path to shell
 
 
 **To do**

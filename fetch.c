@@ -206,6 +206,17 @@ Dist asciiart() {
    		info.dcol8=BWHITE" \\__/'---'\\__/\n";
 		info.getpkg = "echo unknown";
 	}
+	if (CUSTOMART == 0) {
+		info.dcol1 = COL1;
+		info.dcol2 = COL2;
+		info.dcol3 = COL3;
+		info.dcol4 = COL4;
+		info.dcol5 = COL5;
+		info.dcol6 = COL6;
+		info.dcol7 = COL7;
+		info.dcol8 = COL8; }
+
+
 	free(dist);
 	return info;
 }
