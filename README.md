@@ -1,11 +1,10 @@
-# afetch
+<h2 align="center"> afetch </h2>
 
-<h3 align="center">![logo](logo.png) </h3>
+<h3 align="center"> <img src="https://raw.githubusercontent.com/13-CF/afetch/master/logo.png"> </h3>
 
 
-<p align=center>Fast and simple system info written in C, that can be configured at compile time by editing the [config.h](config.h) file. </p>
-
-afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with minimal dependencies. 
+<p align=center>Fast and simple system info written in C, that can be configured at compile time by editing the <a href="https://raw.githubusercontent.com/13-CF/afetch/master/config.h"> config.h</a> file. <br> 
+afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with minimal dependencies. </p>
 
 **Requirments**
 *  A /etc/os-release file (/var/run/os-release works, or freebsd-version command)
