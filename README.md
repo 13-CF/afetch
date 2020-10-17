@@ -1,5 +1,7 @@
-# afetch - another fetch
-Simple system info written in C, that can be configured at compile time by editing the [config.h](config.h) file.
+![logo](logo.png)
+
+
+Fast and simple system info written in C, that can be configured at compile time by editing the [config.h](config.h) file.
 
 **Requirments**
 *  A /etc/os-release file (/var/run/os-release works, or freebsd-version command)
@@ -33,10 +35,10 @@ Simple system info written in C, that can be configured at compile time by editi
 **Configuration options**
 *  Custom colours
 *  Custom artwork
-*  Custom text display
+*  Edit headings for info rows 
 *  Force lowercase text (unstable)
 *  Show path to shell
-
+*  Select text colour
 
 **To do**
 *  Fix segfaults on certain distros when lowercase text is enabled, maybe a memory error?
@@ -46,4 +48,5 @@ Simple system info written in C, that can be configured at compile time by editi
 
 **Thanks**
 *  [neofetch](https://github.com/dylanaraps/neofetch)
-
+*  [ufetch](https://github.com/jschx/ufetch)
+*  [nerdfetch](https://github.com/ThatOneCalculator/NerdFetch)
