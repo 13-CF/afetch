@@ -59,6 +59,20 @@ char * lowercase(char * str) {
 	return str;
 }
 
+void blockdraw() {
+	char * colours[] = {"\033[1;30m", "\033[1;31m","\033[1;32m","\033[1;33m","\033[1;34m","\033[1;35m","\033[1;36m","\033[1;37m"};
+
+	int i;
+	for (i=0;i<8;i++){
+		printf("%s", colours[i]);
+		printf(" ▅▅");	
+	}
+	printf("\n\n");
+	printf("\e[0m");
+}
+
+
+
 void replace(char * source, char * sub, char * with) { //stolen off of a youtube video, thank you stranger
 	char * substring_source = strstr(source, sub);
 	if (substring_source == NULL) {
@@ -194,7 +208,6 @@ Dist asciiart() {
 		info.dcol7=BGREEN"__________/";
 		info.dcol8=BGREEN"";
 		info.getpkg="rpm -qa | wc -l";
-
 	} else {
        		info.dcol1=BWHITE"     .---. \n";
       		info.dcol2=BWHITE"    /     \\     ";
@@ -215,7 +228,6 @@ Dist asciiart() {
 		info.dcol6 = COL6;
 		info.dcol7 = COL7;
 		info.dcol8 = COL8; }
-
 
 	free(dist);
 	return info;
@@ -263,6 +275,9 @@ int main(){
 	pclose(pkgs);
 	printf("%s", ascii.dcol8);
 	printf("\n");
+	if (BLOCKS == 0) {
+		blockdraw();
+	}
 	printf("%s", RESET); // Reset terminal's colors
 
 	free(os_string);

@@ -7,6 +7,12 @@
 
 //---------------------------------------------------------------------------------------------
 
+// if set to 0, the coloured blocks will be shown. Set to 1 to disable them
+#define BLOCKS 1 
+
+
+
+//---------------------------------------------------------------------------------------------
 /* If you can see the icons, your font supports them */
 #define USERTEXT    "    USER"//
 #define DISROTEXT   "  DISTRO"//
@@ -38,7 +44,7 @@
 
 //---------------------------------------------------------------------------------------------
 
-#define CUSTOMART 1 //set to 1 to disable custom art
+#define CUSTOMART 1 //set to 1 to disable custom art, set to 0 to enable
 
 // custom ascii art can be edited by editing the variabled below
 	     //COLOUR  //ASCII ART LINES
