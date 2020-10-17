@@ -8,12 +8,25 @@
 //---------------------------------------------------------------------------------------------
 
 /* If you can see the icons, your font supports them */
-#define USERTEXT    "       USER"//
-#define DISROTEXT   "     DISTRO"//
-#define KERNELTEXT  "     KERNEL"// 
-#define UPTIMETEXT  "     UPTIME"//
-#define SHELLTEXT   "      SHELL"//
-#define PACKAGETEXT "       PKGS"//
+#define USERTEXT    "    USER"//
+#define DISROTEXT   "  DISTRO"//
+#define KERNELTEXT  "  KERNEL"//
+#define UPTIMETEXT  "  UPTIME"//
+#define SHELLTEXT   "   SHELL"//
+#define PACKAGETEXT "    PKGS"//
+
+/* If you want to use a custom colour for the text defined above, you can define them as shown below
+ 
+#define USERTEXT BMAGENTA"  USER"
+
+*/
+
+
+//---------------------------------------------------------------------------------------------
+
+
+#define TEXTCOLOUR WHITE
+
 
 //---------------------------------------------------------------------------------------------
 
@@ -29,13 +42,13 @@
 
 // custom ascii art can be edited by editing the variabled below
 	     //COLOUR  //ASCII ART LINES
-#define COL1 BRED     "      ___   \n"
-#define COL2 BRED     "  ___/   \\___ " //info starts on column 2
-#define COL3 BRED     " /   '---'   \\"
-#define COL4 BRED     " '--_______--'"
-#define COL5 BRED     "      / \\     "
-#define COL6 BRED     "     /   \\    "
-#define COL7 BRED     "     /   \\    " //info ends on column 7
+#define COL1 BRED     "\033[1;36m     ___   \n"
+#define COL2 BRED     "\033[1;31m ___\033[1;36m/   \\\033[1;31m___ " //info starts on column 2
+#define COL3 BRED     "\033[1;31m/   \033[1;36m'---'\033[1;31m   \\"
+#define COL4 BRED     "\033[1;31m'--_______--'"
+#define COL5 BRED     "\033[1;33m     / \\     "
+#define COL6 BRED     "\033[1;33m    /   \\    "
+#define COL7 BRED     "\033[1;33m   /     \\   " //info ends on column 7
 #define COL8 BRED     ""
 
 
@@ -44,9 +57,12 @@
 // Probably don't change stuff below here
 
 
+#define RESET "\e[0m"
 
 
 #ifdef OVERRIDECOLOUR
+
+
 		/* BOLD */
 	#define BBLACK CUSTOMCOLOUR
 	#define BRED CUSTOMCOLOUR
@@ -67,6 +83,7 @@
 	#define WHITE "\033[0;37m"
 
 #else
+
 		/* BOLD */
 	#define BBLACK "\033[1;30m"
 	#define BRED "\033[1;31m"

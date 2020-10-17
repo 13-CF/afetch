@@ -246,12 +246,12 @@ int main(){
 	char *os_string = os();
 
 	printf("%s", ascii.dcol1);
-	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, WHITE, lowercase(getenv("USER")));
-	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, WHITE, lowercase(os_string));
-	printf("%s %s %s%s %s\n",ascii.dcol4,KERNELTEXT, WHITE,lowercase(ui.sysname), ui.release);
-	printf("%s %s %s%lih %lim\n", ascii.dcol5,UPTIMETEXT, WHITE, si.uptime / 3600, (si.uptime / 60) - (si.uptime / 3600 * 60));
-	printf("%s %s %s%s\n",ascii.dcol6, SHELLTEXT,WHITE, shell());
-	printf("%s %s %s",ascii.dcol7, PACKAGETEXT, WHITE);
+	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
+	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
+	printf("%s %s %s%s\n",ascii.dcol4,KERNELTEXT, TEXTCOLOUR, ui.release);
+	printf("%s %s %s%lih %lim\n", ascii.dcol5,UPTIMETEXT, TEXTCOLOUR, si.uptime / 3600, (si.uptime / 60) - (si.uptime / 3600 * 60));
+	printf("%s %s %s%s\n",ascii.dcol6, SHELLTEXT,TEXTCOLOUR, shell());
+	printf("%s %s %s",ascii.dcol7, PACKAGETEXT, TEXTCOLOUR);
 
 	FILE *pkgs;
 	char p;
@@ -263,7 +263,7 @@ int main(){
 	pclose(pkgs);
 	printf("%s", ascii.dcol8);
 	printf("\n");
-	printf("\e[0m"); // Reset terminal's colors
+	printf("%s", RESET); // Reset terminal's colors
 
 	free(os_string);
 
