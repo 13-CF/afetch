@@ -42,6 +42,7 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Force lowercase text (unstable)
 *  Show path to shell
 *  Select text colour
+*  Colour blocks
 
 **To do**
 *  Fix segfaults on certain distros when lowercase text is enabled, maybe a memory error?
@@ -53,3 +54,4 @@ afetch is a command line tool to display basic system information. The goal is t
 *  [neofetch](https://github.com/dylanaraps/neofetch)
 *  [ufetch](https://github.com/jschx/ufetch)
 *  [nerdfetch](https://github.com/ThatOneCalculator/NerdFetch)
+*  [bitfetch](https://gitlab.com/bit9tream/bitfetch)
