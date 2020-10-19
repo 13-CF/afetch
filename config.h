@@ -1,53 +1,26 @@
-//LOWERCASE FUNCTION IS EXPERIMENTAL (BROKEN) - COULD RESULT IN SEGFAULTS
-#define LOWERCASE 1 // 0 for true, 1 for false. True should display all strings as lower case characters, but it might not work properly
-
+#define LOWERCASE 1 
 //---------------------------------------------------------------------------------------------
-
-#define SHELLPATH 1 //if set to 0, the full file path for the users shell will display
-
+#define SHELLPATH 1 
 //---------------------------------------------------------------------------------------------
-
-// if set to 0, the coloured blocks will be shown. Set to 1 to disable them
 #define BLOCKS 1 
-
-
-
 //---------------------------------------------------------------------------------------------
-/* If you can see the icons, your font supports them */
 #define USERTEXT    "    USER"//
 #define DISROTEXT   "  DISTRO"//
 #define KERNELTEXT  "  KERNEL"//
 #define UPTIMETEXT  "  UPTIME"//
 #define SHELLTEXT   "   SHELL"//
 #define PACKAGETEXT "    PKGS"//
-
-/* If you want to use a custom colour for the text defined above, you can define them as shown below
- 
-#define USERTEXT BMAGENTA"  USER"
-
-*/
-
-
 //---------------------------------------------------------------------------------------------
-
-
 #define TEXTCOLOUR WHITE
-
-
 //---------------------------------------------------------------------------------------------
 
-//IF YOU WANT TO USE A CUSTOM COLOUR, UNCOMMENT THE LINE BELOW
 //#define OVERRIDECOLOUR 
-
-//This option only matters if the one above is enabled, it must be one of the colours listed in the 'COLOURS' file
 #define CUSTOMCOLOUR "\033[1;36m"
 
 //---------------------------------------------------------------------------------------------
 
-#define CUSTOMART 1 //set to 1 to disable custom art, set to 0 to enable
+#define CUSTOMART 1 
 
-// custom ascii art can be edited by editing the variabled below
-	     //COLOUR  //ASCII ART LINES
 #define COL1 BRED     "\033[1;36m     ___   \n"
 #define COL2 BRED     "\033[1;31m ___\033[1;36m/   \\\033[1;31m___ " //info starts on column 2
 #define COL3 BRED     "\033[1;31m/   \033[1;36m'---'\033[1;31m   \\"

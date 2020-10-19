@@ -3,7 +3,7 @@
 <h3 align="center"> <img src="https://raw.githubusercontent.com/13-CF/afetch/master/logo.png"> </h3>
 
 
-<p align=center>Fast and simple system info written in C, that can be configured at compile time by editing the <a href="https://raw.githubusercontent.com/13-CF/afetch/master/config.h"> config.h</a> file. <br> 
+<p align=center>Fast and simple system info written in C, that can be configured at compile time by editing the <a href="https://raw.githubusercontent.com/13-CF/afetch/master/config.h"> config.h</a> file. <br> <br>
 afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with minimal dependencies. </p>
 
 **Requirments**
@@ -34,6 +34,10 @@ afetch is a command line tool to display basic system information. The goal is t
 
 
 ![gif](preview.gif)
+
+**Manual**
+I have provided a manual for configuration in the [afetch.1](afetch.1) file. You can view it by running `mandoc afetch.1 | less`
+
 
 **Configuration options**
 *  Custom colours
