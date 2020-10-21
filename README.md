@@ -25,6 +25,7 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Alpine
 *  FreeBSD (Makefile must be edited to include libsysinfo)
 *  Slackware
+*  Pop!_OS
 
 **Building on FreeBSD**
 *  You will have to install the libsysinfo package, then follow the instructions in the Makefile

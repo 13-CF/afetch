@@ -208,6 +208,16 @@ Dist asciiart() {
 		info.dcol7=BGREEN"__________/";
 		info.dcol8=BGREEN"";
 		info.getpkg="rpm -qa | wc -l";
+	} else if (strncmp(dist, "Pop!_OS", 7) == 0) {
+		info.dcol1=BCYAN"______\n";
+		info.dcol2=BCYAN"\\   _ \\        __";
+		info.dcol3=BCYAN" \\ \\ \\ \\      / /";
+		info.dcol4=BCYAN"  \\ \\_\\ \\    / / ";
+		info.dcol5=BCYAN"   \\  ___\\  /_/  ";
+		info.dcol6=BCYAN"    \\ \\    _     ";
+		info.dcol7=BCYAN"   __\\_\\__(_)_   ";
+		info.dcol8=BCYAN"  (___________)";
+		info.getpkg="dpkg -l | tail -n+6 | wc -l";
 	} else {
        		info.dcol1=BWHITE"     .---. \n";
       		info.dcol2=BWHITE"    /     \\     ";
