@@ -33,6 +33,7 @@ afetch is a command line tool to display basic system information. The goal is t
 ![gif](preview.gif)
 
 **Manual**
+
 I have provided a manual for configuration in the [afetch.1](afetch.1) file. You can view it by running `mandoc afetch.1 | less`, or `man afetch` if you've already ran `make install`.
 
 
@@ -46,6 +47,7 @@ I have provided a manual for configuration in the [afetch.1](afetch.1) file. You
 *  Colour blocks
 
 **Building on FreeBSD**
+
 If you try running the `make` command on FreeBSd, there will be errors. This is becaue FreeBSD doesn't have the same header files as a standard Linux install.I have provided a patch file (thanks to someone who opened an issue showing how to support clang) 
 
 There are 2 ways to apply the patch. You can either run `patch -p1 < FreeBSD.diff`, or `git apply FreeBSD.diff`. After this you can run `make` and the program should build! 
