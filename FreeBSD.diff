@@ -1,0 +1,40 @@
+diff --git a/fetch.c b/fetch.c
+index 7f69eb3..cab6949 100644
+--- a/fetch.c
++++ b/fetch.c
+@@ -1,8 +1,10 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdlib.h>
+-#include <sys/sysinfo.h>
+ #include <sys/utsname.h>
++#include <time.h>
++#include <sys/types.h>
++#include <sys/sysctl.h>
+ #include "config.h"
+ char * os()
+ {
+@@ -259,19 +261,17 @@ char * shell() {
+ 
+ int main(){
+ 	/* initialise system info */
+-	struct sysinfo si; //used for uptime
+-	struct utsname ui; //used for hostname, system name and system release
++	struct timespec si;
++	struct utsname ui;
+ 	uname(&ui);
+-	sysinfo(&si);
+ 	Dist ascii = asciiart();
+-
++	clock_gettime(CLOCK_UPTIME, &si);
+ 	char *os_string = os();
+-
+ 	printf("%s", ascii.dcol1);
+ 	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
+ 	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
+ 	printf("%s %s %s%s\n",ascii.dcol4,KERNELTEXT, TEXTCOLOUR, ui.release);
+-	printf("%s %s %s%lih %lim\n", ascii.dcol5,UPTIMETEXT, TEXTCOLOUR, si.uptime / 3600, (si.uptime / 60) - (si.uptime / 3600 * 60));
++	printf("%s %s %s%lih %lim\n", ascii.dcol5,UPTIMETEXT, TEXTCOLOUR, si.tv_sec / 3600, (si.tv_sec / 60) - (si.tv_sec / 3600 * 60));
+ 	printf("%s %s %s%s\n",ascii.dcol6, SHELLTEXT,TEXTCOLOUR, shell());
+ 	printf("%s %s %s",ascii.dcol7, PACKAGETEXT, TEXTCOLOUR);
+ 
