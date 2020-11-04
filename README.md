@@ -7,9 +7,8 @@
 afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with minimal dependencies. </p>
 
 **Requirments**
-*  A /etc/os-release file (/var/run/os-release works, or freebsd-version command)
-*  A C compiler (preferably GCC, I can't get it to compile with clang on FreeBSD)
-*  libsysinfo if on FreeBSD
+*  A /etc/os-release file (/var/run/os-release)
+*  A C compiler
 
 **Currently Supports**
 *  Void
@@ -23,12 +22,9 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Ubuntu
 *  Manjaro
 *  Alpine
-*  FreeBSD (Makefile must be edited to include libsysinfo)
+*  FreeBSD (patch must be applied)
 *  Slackware
 *  Pop!_OS
-
-**Building on FreeBSD**
-*  You will have to install the libsysinfo package, then follow the instructions in the Makefile
 
 
 **| Please request your distro if you want it added**
@@ -37,7 +33,7 @@ afetch is a command line tool to display basic system information. The goal is t
 ![gif](preview.gif)
 
 **Manual**
-I have provided a manual for configuration in the [afetch.1](afetch.1) file. You can view it by running `mandoc afetch.1 | less`
+I have provided a manual for configuration in the [afetch.1](afetch.1) file. You can view it by running `mandoc afetch.1 | less`, or `man afetch` if you've already ran `make install`.
 
 
 **Configuration options**
@@ -52,7 +48,6 @@ I have provided a manual for configuration in the [afetch.1](afetch.1) file. You
 **To do**
 *  Fix segfaults on certain distros when lowercase text is enabled, maybe a memory error?
 *  Improve Makefile
-*  Clean up the config file
 *  Find a faster way to list packages on distros using RPM
 
 **Thanks**

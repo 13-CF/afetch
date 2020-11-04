@@ -1,13 +1,6 @@
-#UNCOMMENT THE LINE BELOW IF ON FREEBSD, AND DELETE THE LINE AFTER
-#LDFLAGS=-lsysinfo
-LDFLAGS=
-
-
 SRC = fetch.c
-CC = gcc
+CC = cc
 CFLAGS = -O2
-
-
 
 all: afetch
 
@@ -18,6 +11,7 @@ clean:
 install:
 	cp ./afetch /usr/local/bin/afetch
 	chmod 711 /usr/local/bin/afetch
+	cp ./afetch.1 /usr/local/share/man/man1/afetch.1
 uninstall:
-	rm -f /usr/local/bin/afetch
+	rm -f /usr/local/bin/afetch /usr/local/man/man1/afetch.1
 .PHONY: clean all install
