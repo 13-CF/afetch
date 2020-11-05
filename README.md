@@ -7,8 +7,8 @@
 afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with minimal dependencies. </p>
 
 **Requirments**
-*  A /etc/os-release file (/var/run/os-release)
-*  A C compiler
+*  A /etc/os-release file (FreeBSD or OpenBSD don't require this after they've been patched)
+*  A C compiler (gcc, clang and tcc have been tested)
 
 **Currently Supports**
 *  Void
@@ -23,6 +23,7 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Manjaro
 *  Alpine
 *  FreeBSD (patch must be applied)
+*  OpenBSD (patch must be applied)
 *  Slackware
 *  Pop!_OS
 
@@ -46,11 +47,11 @@ I have provided a manual for configuration in the [afetch.1](afetch.1) file. You
 *  Select text colour
 *  Colour blocks
 
-**Building on FreeBSD**
+**Building on BSD**
 
-If you try running the `make` command on FreeBSd, there will be errors. This is becaue FreeBSD doesn't have the same header files as a standard Linux install.I have provided a patch file (thanks to someone who opened an issue showing how to support clang) 
+If you try running the `make` command on FreeBSD or OpenBSD, there will be errors. This is becaue they don't have the same header files as a standard Linux install. I have provided a patch file (thanks to someone who opened an issue showing how to support clang) 
 
-There are 2 ways to apply the patch. You can either run `patch -p1 < FreeBSD.diff`, or `git apply FreeBSD.diff`. After this you can run `make` and the program should build! 
+There are 2 ways to apply the patch. You can either run `patch -p1 < BSD.diff`, or `git apply BSD.diff`. After this you can run `make` and the program should build! 
 
 
 **To do**
