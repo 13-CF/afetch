@@ -213,14 +213,14 @@ index 7f69eb3..0a4a9da 100644
 -   		info.dcol6=BWHITE"  | \\     )|_   ";
 -   		info.dcol7=BWHITE" /`\\_`>  <_/ \\  ";
 -   		info.dcol8=BWHITE" \\__/'---'\\__/\n";
-+       		info.dcol1=BWHITE"\n";
-+      		info.dcol2=BWHITE"";
-+      		info.dcol3=BWHITE"";
-+      		info.dcol4=BWHITE"";
-+    		info.dcol5=BWHITE"";
-+   		info.dcol6=BWHITE"";
-+   		info.dcol7=BWHITE"";
-+   		info.dcol8=BWHITE"";
++               info.dcol1=BWHITE"\n";
++		info.dcol2=BWHITE"";
++		info.dcol3=BWHITE"";
++		info.dcol4=BWHITE"";
++		info.dcol5=BWHITE"";
++		info.dcol6=BWHITE"";
++		info.dcol7=BWHITE"";
++		info.dcol8=BWHITE"";
  		info.getpkg = "echo unknown";
  	}
  	if (CUSTOMART == 0) {
