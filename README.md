@@ -22,8 +22,8 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Ubuntu
 *  Manjaro
 *  Alpine
-*  FreeBSD (patch must be applied)
-*  OpenBSD (patch must be applied)
+*  FreeBSD 
+*  OpenBSD 
 *  Slackware
 *  Pop!_OS
 
@@ -47,11 +47,6 @@ I have provided a manual for configuration in the [afetch.1](afetch.1) file. You
 *  Select text colour
 *  Colour blocks
 
-**Building on BSD**
-
-If you try running the `make` command on FreeBSD or OpenBSD, there will be errors. This is becaue they don't have the same header files as a standard Linux install. I have provided a patch file (thanks to someone who opened an issue showing how to support clang) 
-
-There are 2 ways to apply the patch. You can either run `patch -p1 < BSD.diff`, or `git apply BSD.diff`. After this you can run `make` and the program should build! 
 
 
 **To do**

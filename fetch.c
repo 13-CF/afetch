@@ -1,11 +1,23 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#ifdef __linux__
 #include <sys/sysinfo.h>
+#endif
 #include <sys/utsname.h>
+#if defined(__FreeBSD__) || defined(__OpenBSD__)
+#include <time.h>
+#include <sys/types.h>
+#include <sys/sysctl.h>
+#endif
 #include "config.h"
 char * os()
 {
+#if defined(__FreeBSD__) || defined(__OpenBSD__)
+	struct utsname bsdID;
+	uname(&bsdID);
+	return bsdID.sysname;
+#endif
 	char *releasefileContents = malloc(100);
 	char *os = malloc(100);
 	
@@ -17,7 +29,6 @@ char * os()
 	FILE *f = fopen("/etc/os-release", "r");
 	if (f == NULL) { f = fopen("/var/run/os-release", "r"); }
 	//if neither of these files exist, it could be a basic FreeBSD install
-	if (f == NULL) { f = fopen("/bin/freebsd-version", "r"); }
 	if (f == NULL) {
 		strncpy(os, "unknown", 7);
 		free(releasefileContents);
@@ -37,12 +48,8 @@ char * os()
 	} else if (strncmp(os, "Y_NAME=", 7) == 0) {
 		//PRETTY_NAME is on the first line on debian
 		strncpy(os, "Debian", 7);
-	} else if (strncmp(os, "FreeBSD\n", 8) == 0) {
-		os[7] = '\0';
 	} else if (strncmp(os, "Slackware\n", 10) == 0) {
-		os[9] = '\0'; 
-	} else if (strncmp(os, "n/sh", 4) == 0) {
-		strncpy(os, "FreeBSD", 7); }
+		os[9] = '\0'; }
 	return os;
 }
 
@@ -86,7 +93,15 @@ void replace(char * source, char * sub, char * with) { //stolen off of a youtube
 }
 
 Dist asciiart() {
+#ifdef __linux__
 	char* dist = os();
+#endif
+
+#if defined(__FreeBSD__) || defined(__OpenBSD__)
+	struct utsname ui;
+	uname(&ui);
+	char* dist = ui.sysname;
+#endif
 	Dist info;
 	if (strncmp(dist, "void", 4) == 0) {
 		info.dcol1 =    BGREEN "     _______\n";
@@ -148,6 +163,16 @@ Dist asciiart() {
    		info.dcol7=BBLUE"\\ \\__/  |     ";
    		info.dcol8=BBLUE" \\(_____/";
 		info.getpkg="rpm -qa | wc -l";	//this command is really slow, should probably find a faster way to find the packages
+	} else if (strncmp(dist, "OpenBSD", 7) == 0) {
+		info.dcol1 =    BYELLOW"      _____    \n";
+		info.dcol2 =	BYELLOW"    \\-     -/  ";
+		info.dcol3 = 	BYELLOW" \\_/         \\ ";
+		info.dcol4 =	BYELLOW" |        \033[1;37mO O \033[1;33m|";
+		info.dcol5 =	BYELLOW" |_  <   )  3 )";
+		info.dcol6  =	BYELLOW" / \\         / ";
+		info.dcol7  =   BYELLOW"    /-_____-\\  ";
+		info.dcol8 =    BYELLOW"";
+		info.getpkg = "pkg_info | wc -l | tr -d ' '";
 	} else if (strncmp(dist, "FreeBSD", 7)==0) {
        		info.dcol2=BRED"/\\,-'''''-,/\\";
       		info.dcol3=BRED"\\_)       (_/";
@@ -239,7 +264,9 @@ Dist asciiart() {
 		info.dcol7 = COL7;
 		info.dcol8 = COL8; }
 
+#ifdef __linux__
 	free(dist);
+#endif
 	return info;
 }
 
@@ -259,19 +286,30 @@ char * shell() {
 
 int main(){
 	/* initialise system info */
-	struct sysinfo si; //used for uptime
 	struct utsname ui; //used for hostname, system name and system release
 	uname(&ui);
+#ifdef __linux__
+	struct sysinfo si;
 	sysinfo(&si);
-	Dist ascii = asciiart();
+#endif
 
+#if defined(__FreeBSD__) || defined(__OpenBSD__)
+	struct timespec si;	
+	clock_gettime(CLOCK_UPTIME, &si);
+#endif
+	Dist ascii = asciiart();
 	char *os_string = os();
 
 	printf("%s", ascii.dcol1);
 	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
 	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
 	printf("%s %s %s%s\n",ascii.dcol4,KERNELTEXT, TEXTCOLOUR, ui.release);
+#ifdef __linux__
 	printf("%s %s %s%lih %lim\n", ascii.dcol5,UPTIMETEXT, TEXTCOLOUR, si.uptime / 3600, (si.uptime / 60) - (si.uptime / 3600 * 60));
+#endif
+#if defined(__FreeBSD__) || defined(__OpenBSD__)
+	printf("%s %s %s%lih %lim\n", ascii.dcol5,UPTIMETEXT, TEXTCOLOUR, si.tv_sec / 3600, (si.tv_sec / 60) - (si.tv_sec / 3600 * 60));
+#endif
 	printf("%s %s %s%s\n",ascii.dcol6, SHELLTEXT,TEXTCOLOUR, shell());
 	printf("%s %s %s",ascii.dcol7, PACKAGETEXT, TEXTCOLOUR);
 
@@ -289,8 +327,8 @@ int main(){
 		blockdraw();
 	}
 	printf("%s", RESET); // Reset terminal's colors
-
+#ifdef __linux__
 	free(os_string);
-
+#endif
 	return 0;
 }
