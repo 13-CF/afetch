@@ -10,6 +10,7 @@ afetch:
 clean:
 	rm afetch
 install:
+	mkdir -p ${DESTDIR}${PREFIX}
 	cp ./afetch ${DESTDIR}${PREFIX}/bin/afetch
 	chmod 711 ${DESTDIR}${PREFIX}/bin/afetch
 	cp ./afetch.1 ${DESTDIR}${PREFIX}/share/man/man1/afetch.1
