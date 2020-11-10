@@ -1,25 +1,32 @@
+#define _POSIX_C_SOURCE 200809L
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#ifdef __linux__
-#include <sys/sysinfo.h>
-#endif
 #include <sys/utsname.h>
-#if defined(__FreeBSD__) || defined(__OpenBSD__)
 #include <time.h>
-#include <sys/types.h>
-#include <sys/sysctl.h>
-#endif
+
 #include "config.h"
+
+long int uptimealt(){
+	FILE *uptimefile;
+	char * uptimebuf = malloc(75);
+	long int uptime;
+	if (((uptimefile=fopen("/proc/uptime", "r")) == NULL) || uptimebuf==NULL) { fclose(uptimefile); return 1; }
+	fgets(uptimebuf, 75,  uptimefile);
+	fclose(uptimefile);
+	uptime = strtol(uptimebuf, NULL, 10);
+	return uptime;
+}
+
+
+
 char * os()
 {
-#if defined(__FreeBSD__) || defined(__OpenBSD__)
-	struct utsname bsdID;
-	uname(&bsdID);
-	return bsdID.sysname;
-#endif
-	char *releasefileContents = malloc(100);
+
 	char *os = malloc(100);
+#ifdef __linux__
+	char *releasefileContents = malloc(100);
 	
 	if (releasefileContents == NULL || os == NULL) {
 		perror("os(): ");
@@ -51,6 +58,12 @@ char * os()
 	} else if (strncmp(os, "Slackware\n", 10) == 0) {
 		os[9] = '\0'; }
 	return os;
+#else
+	struct utsname posixos;
+	uname(&posixos);
+	os = posixos.sysname;
+	return os;
+#endif
 }
 
 char * lowercase(char * str) {
@@ -58,8 +71,7 @@ char * lowercase(char * str) {
 		int i;
 		for (i=0; i<strlen(str); i++) {
 			if (str[i] >= 'A' && str[i] <= 'Z') {
-				str[i] += (32);
-			}
+				str[i] += (32);}
 		}
 		return str;
 	}
@@ -92,17 +104,15 @@ void replace(char * source, char * sub, char * with) { //stolen off of a youtube
 	memcpy(substring_source, with, strlen(with));
 }
 
-Dist asciiart() {
+struct distinfo asciiart() {
 #ifdef __linux__
 	char* dist = os();
-#endif
-
-#if defined(__FreeBSD__) || defined(__OpenBSD__)
+#else
 	struct utsname ui;
 	uname(&ui);
 	char* dist = ui.sysname;
 #endif
-	Dist info;
+	struct distinfo info;
 	if (strncmp(dist, "void", 4) == 0) {
 		info.dcol1 =    BGREEN "     _______\n";
 		info.dcol2 =    BGREEN  "  _ \\______ - ";
@@ -244,15 +254,15 @@ Dist asciiart() {
 		info.dcol8=BCYAN"  (___________)";
 		info.getpkg="dpkg -l | tail -n+6 | wc -l";
 	} else {
-       		info.dcol1=BWHITE"     .---. \n";
-      		info.dcol2=BWHITE"    /     \\     ";
-      		info.dcol3=BWHITE"    \\.@-@./     ";
-      		info.dcol4=BWHITE"    /`\\_/`\\     ";
-    		info.dcol5=BWHITE"   //  _  \\\\    ";
-   		info.dcol6=BWHITE"  | \\     )|_   ";
-   		info.dcol7=BWHITE" /`\\_`>  <_/ \\  ";
-   		info.dcol8=BWHITE" \\__/'---'\\__/\n";
-		info.getpkg = "echo unknown";
+       		info.dcol1=BWHITE"     ___   \n";
+      		info.dcol2=BWHITE" ___/   \\___ ";
+      		info.dcol3=BWHITE"/   '---'   \\";
+      		info.dcol4=BWHITE"'--_______--'";
+    		info.dcol5=BWHITE"     / \\     ";
+   		info.dcol6=BWHITE"    /   \\    ";
+   		info.dcol7=BWHITE"   /     \\   ";
+   		info.dcol8=BWHITE"";
+		info.getpkg = "echo ???";
 	}
 	if (CUSTOMART == 0) {
 		info.dcol1 = COL1;
@@ -288,31 +298,30 @@ int main(){
 	/* initialise system info */
 	struct utsname ui; //used for hostname, system name and system release
 	uname(&ui);
-#ifdef __linux__
-	struct sysinfo si;
-	sysinfo(&si);
-#endif
-
-#if defined(__FreeBSD__) || defined(__OpenBSD__)
 	struct timespec si;	
+#ifdef CLOCK_BOOTTIME
+	clock_gettime(CLOCK_BOOTTIME, &si);
+#elif CLOCK_UPTIME
 	clock_gettime(CLOCK_UPTIME, &si);
+#else
+	long int uptime = uptimealt(); //  uptime/3600 for minutes, (uptime/60)-(uptime/3600*60) for hours
 #endif
-	Dist ascii = asciiart();
+	struct distinfo ascii = asciiart();
 	char *os_string = os();
+	
 
 	printf("%s", ascii.dcol1);
 	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
 	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
 	printf("%s %s %s%s\n",ascii.dcol4,KERNELTEXT, TEXTCOLOUR, ui.release);
-#ifdef __linux__
-	printf("%s %s %s%lih %lim\n", ascii.dcol5,UPTIMETEXT, TEXTCOLOUR, si.uptime / 3600, (si.uptime / 60) - (si.uptime / 3600 * 60));
-#endif
-#if defined(__FreeBSD__) || defined(__OpenBSD__)
-	printf("%s %s %s%lih %lim\n", ascii.dcol5,UPTIMETEXT, TEXTCOLOUR, si.tv_sec / 3600, (si.tv_sec / 60) - (si.tv_sec / 3600 * 60));
+#if defined(CLOCK_BOOTTIME) || defined(CLOCK_UPTIME)
+	printf("%s %s %s%ldh %ldm\n", ascii.dcol5,lowercase(UPTIMETEXT), TEXTCOLOUR, si.tv_sec / 3600, (si.tv_sec / 60) - (si.tv_sec / 3600 * 60));
+#else
+	printf("%s %s %s%ldh %ldm\n", ascii.dcol5,UPTIMETEXT, TEXTCOLOUR, uptime / 3600, (uptime / 60) - (uptime / 3600 * 60));
 #endif
 	printf("%s %s %s%s\n",ascii.dcol6, SHELLTEXT,TEXTCOLOUR, shell());
 	printf("%s %s %s",ascii.dcol7, PACKAGETEXT, TEXTCOLOUR);
-
+//	system(ascii.getpkg);
 	FILE *pkgs;
 	char p;
 	pkgs = popen(ascii.getpkg, "r");
@@ -325,7 +334,7 @@ int main(){
 	printf("\n");
 	if (BLOCKS == 0) {
 		blockdraw();
-	}
+	} 
 	printf("%s", RESET); // Reset terminal's colors
 #ifdef __linux__
 	free(os_string);

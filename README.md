@@ -3,14 +3,17 @@
 <h3 align="center"> <img src="https://raw.githubusercontent.com/13-CF/afetch/master/logo.png"> </h3>
 
 
-<p align=center>Fast and simple system info written in C, that can be configured at compile time by editing the <a href="https://raw.githubusercontent.com/13-CF/afetch/master/config.h"> config.h</a> file. <br> <br>
+<p align=center>Fast and simple POSIX compliant system info written in C99, that can be configured at compile time by editing the <a href="https://raw.githubusercontent.com/13-CF/afetch/master/config.h"> config.h</a> file. <br> <br>
 afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with minimal dependencies. </p>
 
 **Requirments**
-*  A /etc/os-release file (FreeBSD or OpenBSD don't require this after they've been patched)
-*  A C compiler (gcc, clang and tcc have been tested)
+*  A /etc/os-release file 
+*  A C compiler 
 
 **Currently Supports**
+If an OS/distro is marked as supported, then that means the number of packages and a custom logo will be displayed, but the program should still work if your OS/distro isn't on this list.
+
+
 *  Void
 *  Gentoo
 *  Arch
@@ -27,8 +30,11 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Slackware
 *  Pop!_OS
 
+It can also be build on a variety of other POSIX complient operating systems that have the necessary header files. It's been tested on MINIX and NetBSD (which may be supported soon)
 
-**| Please request your distro if you want it added**
+
+**Please request your distro if you want it added**
+If on Linux, please show me the contents of the `/etc/os-release` file. 
 
 
 ![gif](preview.gif)

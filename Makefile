@@ -1,12 +1,12 @@
 SRC = fetch.c
 CC = cc
-CFLAGS = -O2
+CFLAGS = -O2 -std=c99
 PREFIX ?= /usr/local
 
 all: afetch
 
 afetch:
-	$(CC) $(CFLAGS) $(SRC) -o afetch $(LDFLAGS)
+	$(CC) $(CFLAGS) $(SRC) -o afetch 
 clean:
 	rm afetch
 install:
