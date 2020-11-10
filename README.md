@@ -3,12 +3,13 @@
 <h3 align="center"> <img src="https://raw.githubusercontent.com/13-CF/afetch/master/logo.png"> </h3>
 
 
-<p align=center>Fast and simple POSIX compliant system info written in C99, that can be configured at compile time by editing the <a href="https://raw.githubusercontent.com/13-CF/afetch/master/config.h"> config.h</a> file. <br> <br>
+<p align=center>Fast and simple system info (for POSIX operating systems) written in C99, that can be configured at compile time by editing the <a href="https://raw.githubusercontent.com/13-CF/afetch/master/config.h"> config.h</a> file. <br> <br>
 afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with minimal dependencies. </p>
 
 **Requirments**
 *  A /etc/os-release file 
-*  A C compiler 
+*  A C compiler
+*  A compatible C standard library implementation
 
 **Currently Supports**
 If an OS/distro is marked as supported, then that means the number of packages and a custom logo will be displayed, but the program should still work if your OS/distro isn't on this list.

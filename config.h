@@ -84,7 +84,7 @@
 #endif
 //
 //I wouldn't suggest trying to change this, theres no need to and it'll break things
-typedef struct distinfo {
+struct distinfo {
 	char * dcol1;
 	char * dcol2;
 	char * dcol3;
@@ -94,4 +94,4 @@ typedef struct distinfo {
 	char * dcol7;
 	char * dcol8;
 	char * getpkg;
-} Dist;
+};
