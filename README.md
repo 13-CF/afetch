@@ -3,7 +3,7 @@
 <h3 align="center"> <img src="https://raw.githubusercontent.com/13-CF/afetch/master/logo.png"> </h3>
 
 
-<p align=center>Fast and simple system info (for POSIX operating systems) written in C99, that can be configured at compile time by editing the <a href="https://raw.githubusercontent.com/13-CF/afetch/master/config.h"> config.h</a> file. <br> <br>
+<p align=center>Fast and simple system info (for UNIX based operating systems) written in C99, that can be configured at compile time by editing the <a href="https://raw.githubusercontent.com/13-CF/afetch/master/config.h"> config.h</a> file. <br> <br>
 afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with minimal dependencies. </p>
 
 **Requirments**
@@ -12,6 +12,7 @@ afetch is a command line tool to display basic system information. The goal is t
 *  A compatible C standard library implementation
 
 **Currently Supports**
+
 If an OS/distro is marked as supported, then that means the number of packages and a custom logo will be displayed, but the program should still work if your OS/distro isn't on this list.
 
 
@@ -33,7 +34,7 @@ If an OS/distro is marked as supported, then that means the number of packages a
 *  Slackware
 *  Pop!_OS
 
-If your OS isn't in the list above, you'll still be able to build the program as long as you're either using Linux, or a POSIX compliant operating system.
+If your OS isn't in the list above, you'll still be able to build the program as long as you're either using Linux, or another UNIX based operating system with the necessary header files.
 
 
 **Please request your distro if you want it added**
