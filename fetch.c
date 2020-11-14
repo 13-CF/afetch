@@ -114,9 +114,9 @@ struct distinfo asciiart() {
 #endif
 	struct distinfo info;
 	if (strncmp(dist, "void", 4) == 0) {
-		info.dcol1 =    BGREEN "     _______\n";
-		info.dcol2 =    BGREEN  "  _ \\______ - ";
-		info.dcol3 =	BGREEN  " | \\  ___  \\ |";
+		info.dcol1 =    BGREEN"     _______\n";
+		info.dcol2 =    BGREEN"  _ \\______ - ";
+		info.dcol3 =	BGREEN" | \\  ___  \\ |";
 		info.dcol4 = 	BGREEN" | | /   \\ | |";
 		info.dcol5 =	BGREEN" | | \\___/ | |";
 		info.dcol6 =	BGREEN" | \\______ \\_|";
@@ -177,13 +177,14 @@ struct distinfo asciiart() {
 		info.dcol1 =    BYELLOW"      _____    \n";
 		info.dcol2 =	BYELLOW"    \\-     -/  ";
 		info.dcol3 = 	BYELLOW" \\_/         \\ ";
-		info.dcol4 =	BYELLOW" |        \033[1;37mO O \033[1;33m|";
+		info.dcol4 =	BYELLOW" |        "BWHITE"O O |BYELLOW";
 		info.dcol5 =	BYELLOW" |_  <   )  3 )";
 		info.dcol6  =	BYELLOW" / \\         / ";
 		info.dcol7  =   BYELLOW"    /-_____-\\  ";
 		info.dcol8 =    BYELLOW"";
 		info.getpkg = "pkg_info | wc -l | tr -d ' '";
 	} else if (strncmp(dist, "FreeBSD", 7)==0) {
+   		info.dcol1=BRED"";
        		info.dcol2=BRED"/\\,-'''''-,/\\";
       		info.dcol3=BRED"\\_)       (_/";
       		info.dcol4=BRED"|           |";
@@ -191,7 +192,26 @@ struct distinfo asciiart() {
     		info.dcol6=BRED" ;         ; ";
    		info.dcol7=BRED"  '-_____-'  ";
    		info.dcol8=BRED"";
-   		info.dcol1=BRED"";
+		info.getpkg="pkg info | wc -l | tr -d ' '";
+	} else if (strncmp(dist, "NetBSD", 6)==0) {
+   		info.dcol1=BWHITE"\\\\"BMAGENTA"\\`-______,----__\n";
+       		info.dcol2=BWHITE" \\\\"BMAGENTA"        __,---\\`_";
+      		info.dcol3=BWHITE"  \\\\"BMAGENTA"       \\`.____  ";
+      		info.dcol4=BWHITE"   \\\\"BMAGENTA"-______,----\\`-";
+      		info.dcol5=BWHITE"    \\\\"BMAGENTA"              ";
+    		info.dcol6=BWHITE"     \\\\"BMAGENTA"             ";
+   		info.dcol7=BWHITE"      \\\\"BMAGENTA"            ";
+   		info.dcol8=BWHITE"";
+		info.getpkg="pkg_info | wc -l | tr -d ' '";
+	} else if (strncmp(dist, "DragonFly", 9)==0) {
+       		info.dcol1=BCYAN"   ,"BBLUE"_"BCYAN",   \n";
+      		info.dcol2=BCYAN"('-_"BBLUE"|"BCYAN"_-')";
+      		info.dcol3=BCYAN" >--"BBLUE"|"BCYAN"--< ";
+      		info.dcol4=BCYAN"(_-'"BBLUE"|"BCYAN"'-_)";
+    		info.dcol5=BCYAN"    "BBLUE"|"BCYAN"    ";
+   		info.dcol6=BCYAN"    "BBLUE"|"BCYAN"    ";
+   		info.dcol7=BCYAN"    "BBLUE"|"BCYAN"    ";
+   		info.dcol8=BCYAN"";
 		info.getpkg="pkg info | wc -l | tr -d ' '";
 	} else if (strncmp(dist, "Debian", 6)==0) {
        		info.dcol1=BRED"  _____\n";
@@ -290,15 +310,14 @@ char * shell() {
 	replace(shell, "/bin/", "\0");
 	replace(shell, "/usr", "\0");
 	replace(shell, "/local", "\0");
-	return shell;
-	
-}	
+	return shell; 
+}
 
 int main(){
 	/* initialise system info */
 	struct utsname ui; //used for hostname, system name and system release
 	uname(&ui);
-	struct timespec si;	
+	struct timespec si;
 #ifdef CLOCK_BOOTTIME
 	clock_gettime(CLOCK_BOOTTIME, &si);
 #elif CLOCK_UPTIME
@@ -308,6 +327,10 @@ int main(){
 #endif
 	struct distinfo ascii = asciiart();
 	char *os_string = os();
+	FILE *pkgs;
+	char i;
+	int index = 0;
+	char *pkgstring = malloc(20);
 	
 
 	printf("%s", ascii.dcol1);
@@ -321,15 +344,20 @@ int main(){
 #endif
 	printf("%s %s %s%s\n",ascii.dcol6, SHELLTEXT,TEXTCOLOUR, shell());
 	printf("%s %s %s",ascii.dcol7, PACKAGETEXT, TEXTCOLOUR);
-//	system(ascii.getpkg);
-	FILE *pkgs;
-	char p;
+
+	if (pkgstring==NULL || os_string==NULL) {printf("malloc error");}
 	pkgs = popen(ascii.getpkg, "r");
 	if (pkgs == NULL) {
 		puts("\0"); }
-	while ( (p=fgetc(pkgs)) != EOF) {
-		putchar(p); }
+	while ( (i=fgetc(pkgs)) != EOF) {
+		if ((pkgstring[index] >= '0') || pkgstring[index] <= '9') {
+			pkgstring[index] = i;
+		}
+		index++;}
+
 	pclose(pkgs);
+	printf("%s", pkgstring);
+	free(pkgstring);
 	printf("%s", ascii.dcol8);
 	printf("\n");
 	if (BLOCKS == 0) {

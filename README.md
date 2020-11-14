@@ -28,13 +28,16 @@ If an OS/distro is marked as supported, then that means the number of packages a
 *  Alpine
 *  FreeBSD 
 *  OpenBSD 
+*  NetBSD
+*  DragonflyBSD
 *  Slackware
 *  Pop!_OS
 
-It can also be build on a variety of other POSIX complient operating systems that have the necessary header files. It's been tested on MINIX and NetBSD (which may be supported soon)
+If your OS isn't in the list above, you'll still be able to build the program as long as you're either using Linux, or a POSIX compliant operating system.
 
 
 **Please request your distro if you want it added**
+
 If on Linux, please show me the contents of the `/etc/os-release` file. 
 
 
@@ -58,8 +61,8 @@ I have provided a manual for configuration in the [afetch.1](afetch.1) file. You
 
 **To do**
 *  Fix segfaults on certain distros when lowercase text is enabled, maybe a memory error?
+*  Improve the OS function
 *  Improve Makefile
-*  Find a faster way to list packages on distros using RPM
 
 **Thanks**
 *  [neofetch](https://github.com/dylanaraps/neofetch)
