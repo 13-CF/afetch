@@ -13,7 +13,6 @@ afetch is a command line tool to display basic system information. The goal is t
 
 **Currently Supports**
 
-If an OS/distro is marked as supported, then that means the number of packages and a custom logo will be displayed, but the program should still work if your OS/distro isn't on this list.
 
 
 *  Void

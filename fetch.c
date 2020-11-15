@@ -16,6 +16,7 @@ long int uptimealt(){
 	fgets(uptimebuf, 75,  uptimefile);
 	fclose(uptimefile);
 	uptime = strtol(uptimebuf, NULL, 10);
+	free(uptimebuf);
 	return uptime;
 }
 
@@ -61,7 +62,7 @@ char * os()
 #else
 	struct utsname posixos;
 	uname(&posixos);
-	os = posixos.sysname;
+	strcpy(os, posixos.sysname);
 	return os;
 #endif
 }
@@ -110,9 +111,12 @@ struct distinfo asciiart() {
 #else
 	struct utsname ui;
 	uname(&ui);
-	char* dist = ui.sysname;
+	char* dist = malloc(50);
+	strcpy(dist, ui.sysname);
 #endif
 	struct distinfo info;
+#ifdef __linux__
+/* Linux distros go below here. Make sure they are not before the '#else' */
 	if (strncmp(dist, "void", 4) == 0) {
 		info.dcol1 =    BGREEN"     _______\n";
 		info.dcol2 =    BGREEN"  _ \\______ - ";
@@ -173,46 +177,6 @@ struct distinfo asciiart() {
    		info.dcol7=BBLUE"\\ \\__/  |     ";
    		info.dcol8=BBLUE" \\(_____/";
 		info.getpkg="rpm -qa | wc -l";	//this command is really slow, should probably find a faster way to find the packages
-	} else if (strncmp(dist, "OpenBSD", 7) == 0) {
-		info.dcol1 =    BYELLOW"      _____    \n";
-		info.dcol2 =	BYELLOW"    \\-     -/  ";
-		info.dcol3 = 	BYELLOW" \\_/         \\ ";
-		info.dcol4 =	BYELLOW" |        "BWHITE"O O |BYELLOW";
-		info.dcol5 =	BYELLOW" |_  <   )  3 )";
-		info.dcol6  =	BYELLOW" / \\         / ";
-		info.dcol7  =   BYELLOW"    /-_____-\\  ";
-		info.dcol8 =    BYELLOW"";
-		info.getpkg = "pkg_info | wc -l | tr -d ' '";
-	} else if (strncmp(dist, "FreeBSD", 7)==0) {
-   		info.dcol1=BRED"";
-       		info.dcol2=BRED"/\\,-'''''-,/\\";
-      		info.dcol3=BRED"\\_)       (_/";
-      		info.dcol4=BRED"|           |";
-      		info.dcol5=BRED"|           |";
-    		info.dcol6=BRED" ;         ; ";
-   		info.dcol7=BRED"  '-_____-'  ";
-   		info.dcol8=BRED"";
-		info.getpkg="pkg info | wc -l | tr -d ' '";
-	} else if (strncmp(dist, "NetBSD", 6)==0) {
-   		info.dcol1=BWHITE"\\\\"BMAGENTA"\\`-______,----__\n";
-       		info.dcol2=BWHITE" \\\\"BMAGENTA"        __,---\\`_";
-      		info.dcol3=BWHITE"  \\\\"BMAGENTA"       \\`.____  ";
-      		info.dcol4=BWHITE"   \\\\"BMAGENTA"-______,----\\`-";
-      		info.dcol5=BWHITE"    \\\\"BMAGENTA"              ";
-    		info.dcol6=BWHITE"     \\\\"BMAGENTA"             ";
-   		info.dcol7=BWHITE"      \\\\"BMAGENTA"            ";
-   		info.dcol8=BWHITE"";
-		info.getpkg="pkg_info | wc -l | tr -d ' '";
-	} else if (strncmp(dist, "DragonFly", 9)==0) {
-       		info.dcol1=BCYAN"   ,"BBLUE"_"BCYAN",   \n";
-      		info.dcol2=BCYAN"('-_"BBLUE"|"BCYAN"_-')";
-      		info.dcol3=BCYAN" >--"BBLUE"|"BCYAN"--< ";
-      		info.dcol4=BCYAN"(_-'"BBLUE"|"BCYAN"'-_)";
-    		info.dcol5=BCYAN"    "BBLUE"|"BCYAN"    ";
-   		info.dcol6=BCYAN"    "BBLUE"|"BCYAN"    ";
-   		info.dcol7=BCYAN"    "BBLUE"|"BCYAN"    ";
-   		info.dcol8=BCYAN"";
-		info.getpkg="pkg info | wc -l | tr -d ' '";
 	} else if (strncmp(dist, "Debian", 6)==0) {
        		info.dcol1=BRED"  _____\n";
       		info.dcol2=BRED" /  __ \\ ";
@@ -272,8 +236,51 @@ struct distinfo asciiart() {
 		info.dcol6=BCYAN"    \\ \\    _     ";
 		info.dcol7=BCYAN"   __\\_\\__(_)_   ";
 		info.dcol8=BCYAN"  (___________)";
-		info.getpkg="dpkg -l | tail -n+6 | wc -l";
-	} else {
+		info.getpkg="dpkg -l | tail -n+6 | wc -l"; }
+#else
+	/* All operating systems that aren't Linux distros go under here. */
+	if (strncmp(dist, "OpenBSD", 7) == 0) {
+		info.dcol1 =    BYELLOW"      _____    \n";
+		info.dcol2 =	BYELLOW"    \\-     -/  ";
+		info.dcol3 = 	BYELLOW" \\_/         \\ ";
+		info.dcol4 =	BYELLOW" |        "BWHITE"O O |BYELLOW";
+		info.dcol5 =	BYELLOW" |_  <   )  3 )";
+		info.dcol6  =	BYELLOW" / \\         / ";
+		info.dcol7  =   BYELLOW"    /-_____-\\  ";
+		info.dcol8 =    BYELLOW"";
+		info.getpkg = "pkg_info | wc -l | tr -d ' '";
+	} else if (strncmp(dist, "FreeBSD", 7)==0) {
+   		info.dcol1=BRED"";
+       		info.dcol2=BRED"/\\,-'''''-,/\\";
+      		info.dcol3=BRED"\\_)       (_/";
+      		info.dcol4=BRED"|           |";
+      		info.dcol5=BRED"|           |";
+    		info.dcol6=BRED" ;         ; ";
+   		info.dcol7=BRED"  '-_____-'  ";
+   		info.dcol8=BRED"";
+		info.getpkg="pkg info | wc -l | tr -d ' '";
+	} else if (strncmp(dist, "NetBSD", 6)==0) {
+   		info.dcol1=BWHITE"\\\\"BMAGENTA"\\`-______,----__\n";
+       		info.dcol2=BWHITE" \\\\"BMAGENTA"        __,---\\`_";
+      		info.dcol3=BWHITE"  \\\\"BMAGENTA"       \\`.____  ";
+      		info.dcol4=BWHITE"   \\\\"BMAGENTA"-______,----\\`-";
+      		info.dcol5=BWHITE"    \\\\"BMAGENTA"              ";
+    		info.dcol6=BWHITE"     \\\\"BMAGENTA"             ";
+   		info.dcol7=BWHITE"      \\\\"BMAGENTA"            ";
+   		info.dcol8=BWHITE"";
+		info.getpkg="pkg_info | wc -l | tr -d ' '";
+	} else if (strncmp(dist, "DragonFly", 9)==0) {
+       		info.dcol1=BCYAN"   ,"BBLUE"_"BCYAN",   \n";
+      		info.dcol2=BCYAN"('-_"BBLUE"|"BCYAN"_-')";
+      		info.dcol3=BCYAN" >--"BBLUE"|"BCYAN"--< ";
+      		info.dcol4=BCYAN"(_-'"BBLUE"|"BCYAN"'-_)";
+    		info.dcol5=BCYAN"    "BBLUE"|"BCYAN"    ";
+   		info.dcol6=BCYAN"    "BBLUE"|"BCYAN"    ";
+   		info.dcol7=BCYAN"    "BBLUE"|"BCYAN"    ";
+   		info.dcol8=BCYAN"";
+		info.getpkg="pkg info | wc -l | tr -d ' '"; }
+#endif
+	 else {
        		info.dcol1=BWHITE"     ___   \n";
       		info.dcol2=BWHITE" ___/   \\___ ";
       		info.dcol3=BWHITE"/   '---'   \\";
@@ -285,18 +292,15 @@ struct distinfo asciiart() {
 		info.getpkg = "echo ???";
 	}
 	if (CUSTOMART == 0) {
-		info.dcol1 = COL1;
-		info.dcol2 = COL2;
-		info.dcol3 = COL3;
-		info.dcol4 = COL4;
-		info.dcol5 = COL5;
-		info.dcol6 = COL6;
-		info.dcol7 = COL7;
-		info.dcol8 = COL8; }
-
-#ifdef __linux__
+		strcpy(info.dcol1, COL1);
+		strcpy(info.dcol2, COL2);
+		strcpy(info.dcol3, COL3);
+		strcpy(info.dcol4, COL4);
+		strcpy(info.dcol5, COL5);
+		strcpy(info.dcol6, COL6);
+		strcpy(info.dcol7, COL7);
+		strcpy(info.dcol8, COL8); }
 	free(dist);
-#endif
 	return info;
 }
 
@@ -314,10 +318,10 @@ char * shell() {
 }
 
 int main(){
-	/* initialise system info */
-	struct utsname ui; //used for hostname, system name and system release
+	struct utsname ui; 
 	uname(&ui);
 	struct timespec si;
+
 #ifdef CLOCK_BOOTTIME
 	clock_gettime(CLOCK_BOOTTIME, &si);
 #elif CLOCK_UPTIME
@@ -329,10 +333,7 @@ int main(){
 	char *os_string = os();
 	FILE *pkgs;
 	char i;
-	int index = 0;
-	char *pkgstring = malloc(20);
 	
-
 	printf("%s", ascii.dcol1);
 	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
 	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
@@ -345,27 +346,19 @@ int main(){
 	printf("%s %s %s%s\n",ascii.dcol6, SHELLTEXT,TEXTCOLOUR, shell());
 	printf("%s %s %s",ascii.dcol7, PACKAGETEXT, TEXTCOLOUR);
 
-	if (pkgstring==NULL || os_string==NULL) {printf("malloc error");}
 	pkgs = popen(ascii.getpkg, "r");
 	if (pkgs == NULL) {
 		puts("\0"); }
 	while ( (i=fgetc(pkgs)) != EOF) {
-		if ((pkgstring[index] >= '0') || pkgstring[index] <= '9') {
-			pkgstring[index] = i;
-		}
-		index++;}
+		putchar(i); }
 
 	pclose(pkgs);
-	printf("%s", pkgstring);
-	free(pkgstring);
 	printf("%s", ascii.dcol8);
 	printf("\n");
 	if (BLOCKS == 0) {
 		blockdraw();
 	} 
 	printf("%s", RESET); // Reset terminal's colors
-#ifdef __linux__
 	free(os_string);
-#endif
 	return 0;
 }
