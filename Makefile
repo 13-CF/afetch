@@ -1,6 +1,6 @@
 SRC = fetch.c
 CC = cc
-CFLAGS = -O2 -std=c99
+CFLAGS = -O2 -std=c99 -Wpedantic
 PREFIX ?= /usr/local
 
 all: afetch

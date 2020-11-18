@@ -49,6 +49,7 @@ I have provided a manual for configuration in the [afetch.1](afetch.1) file. You
 
 
 **Configuration options**
+*  Support for one custom shell command (replaces the package count)
 *  Custom colours
 *  Custom artwork
 *  Edit headings for info rows 

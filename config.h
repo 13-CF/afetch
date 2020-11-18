@@ -1,15 +1,18 @@
+#define CUSTOMCMD 1
+#define PKGCMD "ps aux | tail -n+1 | wc -l"
+//---------------------------------------------------------------------------------------------
 #define LOWERCASE 1 
 //---------------------------------------------------------------------------------------------
 #define SHELLPATH 1 
 //---------------------------------------------------------------------------------------------
-#define BLOCKS 1 
+#define BLOCKS 1
 //---------------------------------------------------------------------------------------------
-#define USERTEXT    "    USER"//
-#define DISROTEXT   "  DISTRO"//
-#define KERNELTEXT  "  KERNEL"//
-#define UPTIMETEXT  "  UPTIME"//
-#define SHELLTEXT   "   SHELL"//
-#define PACKAGETEXT "    PKGS"//
+#define USERTEXT    "     USER"//
+#define DISROTEXT   "   DISTRO"//
+#define KERNELTEXT  "   KERNEL"//
+#define UPTIMETEXT  "   UPTIME"//
+#define SHELLTEXT   "    SHELL"//
+#define PACKAGETEXT "     PKGS"//
 //---------------------------------------------------------------------------------------------
 #define TEXTCOLOUR WHITE
 //---------------------------------------------------------------------------------------------
@@ -36,7 +39,7 @@
 // Probably don't change stuff below here
 
 
-#define RESET "\e[0m"
+#define RESET "\033[0m"
 
 
 #ifdef OVERRIDECOLOUR
