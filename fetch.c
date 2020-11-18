@@ -261,7 +261,7 @@ struct distinfo asciiart() {
 		info.dcol1 =    BYELLOW"      _____    \n";
 		info.dcol2 =	BYELLOW"    \\-     -/  ";
 		info.dcol3 = 	BYELLOW" \\_/         \\ ";
-		info.dcol4 =	BYELLOW" |        "BWHITE"O O"BYELLOW"|";
+		info.dcol4 =	BYELLOW" |        "BWHITE"O O"BYELLOW" |";
 		info.dcol5 =	BYELLOW" |_  <   )  3 )";
 		info.dcol6  =	BYELLOW" / \\         / ";
 		info.dcol7  =   BYELLOW"    /-_____-\\  ";
