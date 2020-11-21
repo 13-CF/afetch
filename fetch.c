@@ -8,10 +8,10 @@
 
 #include "config.h"
 
-long int uptimealt(){
+long long uptimealt(){
 	FILE *uptimefile;
 	char * uptimebuf = malloc(75);
-	long int uptime;
+	long long uptime;
 	if (((uptimefile=fopen("/proc/uptime", "r")) == NULL) || uptimebuf==NULL) { fclose(uptimefile); return 1; }
 	fgets(uptimebuf, 75,  uptimefile);
 	fclose(uptimefile);
@@ -38,7 +38,7 @@ char * os()
 	if (f == NULL) { f = fopen("/var/run/os-release", "r"); }
 	//if neither of these files exist, it could be a basic FreeBSD install
 	if (f == NULL) {
-		strncpy(os, "unknown", 7);
+		strncpy(os, "unknown", 8);
 		free(releasefileContents);
 		return os;
 	}
@@ -69,8 +69,8 @@ char * os()
 
 char * lowercase(char * str) {
 	if (LOWERCASE == 0) {
-		int i;
-		for (i=0; i<strlen(str); i++) {
+		int len=strlen(str);
+		for (int i=0; i<len; i++) {
 			if (str[i] >= 'A' && str[i] <= 'Z') {
 				str[i] += (32);}
 		}
@@ -85,12 +85,7 @@ void blockdraw() {
 	printf("  ");
 	for (int i=0;i<8;i++){
 		printf("%s", colours[i]);
-		printf(" ▄▄");	
-	}
-	printf("\n  ");
-	for (int i=0;i<8;i++){
-		printf("%s", colours[i]);
-		printf(" ▀▀");	
+		printf("%s", BLOCKCHAR);	
 	}
 	printf("\n\n");
 	printf("\033[0m");
@@ -351,7 +346,7 @@ int main(){
 #elif CLOCK_UPTIME
 	clock_gettime(CLOCK_UPTIME, &si);
 #else
-	long int uptime = uptimealt(); //  uptime/3600 for minutes, (uptime/60)-(uptime/3600*60) for hours
+	long long uptime = uptimealt(); //  uptime/3600 for minutes, (uptime/60)-(uptime/3600*60) for hours
 #endif
 	struct distinfo ascii = asciiart();
 	char *os_string = os();
@@ -365,7 +360,7 @@ int main(){
 #if defined(CLOCK_BOOTTIME) || defined(CLOCK_UPTIME)
 	printf("%s %s %s%ldh %ldm\n", ascii.dcol5,lowercase(UPTIMETEXT), TEXTCOLOUR, si.tv_sec / 3600, (si.tv_sec / 60) - (si.tv_sec / 3600 * 60));
 #else
-	printf("%s %s %s%ldh %ldm\n", ascii.dcol5,UPTIMETEXT, TEXTCOLOUR, uptime / 3600, (uptime / 60) - (uptime / 3600 * 60));
+	printf("%s %s %s%ldh %ldm\n", ascii.dcol5,lowercase(UPTIMETEXT), TEXTCOLOUR, uptime / 3600, (uptime / 60) - (uptime / 3600 * 60));
 #endif
 	printf("%s %s %s%s\n",ascii.dcol6, SHELLTEXT,TEXTCOLOUR, shell());
 	printf("%s %s %s",ascii.dcol7, PACKAGETEXT, TEXTCOLOUR);
