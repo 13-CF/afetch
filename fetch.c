@@ -57,7 +57,9 @@ char * os()
 		//PRETTY_NAME is on the first line on debian
 		strncpy(os, "Debian", 7);
 	} else if (strncmp(os, "Slackware\n", 10) == 0) {
-		os[9] = '\0'; }
+		os[9] = '\0';
+	} else if (strncmp(os, "NixOS\n", 6) == 0) {
+		os[5] = '\0'; }
 	return os;
 #else
 	struct utsname posixos;
@@ -254,6 +256,17 @@ struct distinfo asciiart() {
 		info.dcol7=BCYAN"   __\\_\\__(_)_   ";
 		info.dcol8=BCYAN"  (___________)";
 		info.getpkg="dpkg -l | tail -n+6 | wc -l"; 
+		break;
+	} else if (strncmp(dist, "NixOS", 5) == 0) {
+		info.dcol1=BMAGENTA"            \n";
+		info.dcol2=BMAGENTA"  \\\\  \\\\ //     ";
+		info.dcol3=BMAGENTA" ==\\\\__\\\\/ //   ";
+		info.dcol4=BMAGENTA"   //   \\\\//    ";
+		info.dcol5=BMAGENTA"==//     //==   ";
+		info.dcol6=BMAGENTA" //\\\\___//      ";
+		info.dcol7=BMAGENTA"// /\\\\  \\\\==    ";
+		info.dcol8=BMAGENTA"  // \\\\  \\\\     ";
+		info.getpkg="nix-store -q --requisites /run/current-system/sw | wc -l";
 		break; }
 #else
 	/* All operating systems that aren't Linux distros go under here. */
