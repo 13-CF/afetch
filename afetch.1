@@ -10,8 +10,10 @@ Setting this to 0 will allow you to run a custom command instead of running the 
 Defining LOWERCASE to 1 will force all text to be lowercase, but there is currently an unknown error causing the program to segfault on some distros when this is enabled. Set to 0 to enable, and 1 to disable
 .SH SHELLPATH
 Defining SHELLPATH to 1 will disable this, so only the shell name will be displayed. If set to 0, it's enabled and will show the full file path to the shell (eg /bin/bash)
-.SH BLOCKS
+.SH BLOCKS/BLOCKCHAR
 If set to 0, coloured blocks will be printed on screen below the logo. Set to 1 to disable.
+The string that BLOCKCHAR is defined as will be printed out in various colours when BLOCKS is set to 0.
+Theres a list of block characters below that have been commented out, some may not work depending on the current font.
 .SH *TEXT
 This is the string that is printed out before the information is displayed. (eg If 'SHELLTEXT is set to 'MYSHELL', then the program will output 'MYSHELL /bin/bash')
 .SH TEXTCOLOUR

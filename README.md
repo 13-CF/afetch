@@ -13,8 +13,6 @@ afetch is a command line tool to display basic system information. The goal is t
 
 **Currently Supports**
 
-
-
 *  Void
 *  Gentoo
 *  Arch
@@ -26,12 +24,14 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Ubuntu
 *  Manjaro
 *  Alpine
+*  Slackware
+*  Pop!_OS
+*  NixOS
+
 *  FreeBSD 
 *  OpenBSD 
 *  NetBSD
 *  DragonflyBSD
-*  Slackware
-*  Pop!_OS
 
 If your OS isn't in the list above, you'll still be able to build the program as long as you're either using Linux, or another UNIX based operating system with the necessary header files.
 
