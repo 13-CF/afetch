@@ -10,11 +10,10 @@ afetch:
 clean:
 	rm afetch
 install:
-	mkdir -p ${DESTDIR}${PREFIX}/bin
-	mkdir -p ${DESTDIR}${PREFIX}/share/man/man1
-	cp ./afetch ${DESTDIR}${PREFIX}/bin/afetch
-	chmod 711 ${DESTDIR}${PREFIX}/bin/afetch
-	cp ./afetch.1 ${DESTDIR}${PREFIX}/share/man/man1/afetch.1
+	install -o root -g root -d ${DESTDIR}${PREFIX}/bin
+	install -o root -g root -d ${DESTDIR}${PREFIX}/share/man/man1
+	install -o root -g root -m 711 ./afetch ${DESTDIR}${PREFIX}/bin/afetch
+	install -o root -g root ./afetch.1 ${DESTDIR}${PREFIX}/share/man/man1/afetch.1
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/afetch ${DESTDIR}${PREFIX}/man/man1/afetch.1
 .PHONY: clean all install
