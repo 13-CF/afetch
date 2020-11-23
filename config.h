@@ -26,7 +26,7 @@ Block characters are shown inside this comment. If you can't see them, then your
 //---------------------------------------------------------------------------------------------
 
 //#define OVERRIDECOLOUR 
-#define CUSTOMCOLOUR "\033[1;36m"
+#define CUSTOMCOLOUR "\033[1;33m"
 
 //---------------------------------------------------------------------------------------------
 

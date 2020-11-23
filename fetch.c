@@ -9,6 +9,9 @@
 #include "config.h"
 
 long long uptimealt(){
+	/* function to read from /proc/uptime to get the uptime. 
+	 * It is only called when CLOCK_UPTIME or CLOCK_BOOTTIME
+	 * aren't defined. */
 	FILE *uptimefile;
 	char * uptimebuf = malloc(75);
 	long long uptime;
@@ -28,17 +31,15 @@ char * os()
 	char *os = malloc(100);
 #ifdef __linux__
 	char *releasefileContents = malloc(100);
-	
 	if (releasefileContents == NULL || os == NULL) {
 		perror("os(): ");
 		exit(1);
 	}
 
 	FILE *f = fopen("/etc/os-release", "r");
-	if (f == NULL) { f = fopen("/var/run/os-release", "r"); }
-	//if neither of these files exist, it could be a basic FreeBSD install
+	if (f == NULL) { f = fopen("/var/run/os-release", "r"); } // this file exists one some BSD operating systems
 	if (f == NULL) {
-		strncpy(os, "unknown", 8);
+		strncpy(os, "? Linux", 8);
 		free(releasefileContents);
 		return os;
 	}
@@ -62,6 +63,8 @@ char * os()
 		os[5] = '\0'; }
 	return os;
 #else
+	/* If you aren't runnig a Linux distro then this is run.
+	 * Output should be the same as output from uname -s. */
 	struct utsname posixos;
 	uname(&posixos);
 	strcpy(os, posixos.sysname);
@@ -108,6 +111,7 @@ void replace(char * source, char * sub, char * with) { //stolen off of a youtube
 }
 
 struct distinfo asciiart() {
+
 #ifdef __linux__
 	char* dist = os();
 #else
@@ -151,6 +155,17 @@ struct distinfo asciiart() {
    		info.dcol6=BCYAN"  /   ,,   \\  ";
    		info.dcol7=BCYAN" /   |  |  -\\ ";
    		info.dcol8=BCYAN"/_-''    ''-_\\\n";
+		info.getpkg = "pacman -Qq | wc -l";
+		break;
+	} else if (strncmp(dist, "ArcoLinux", 9)==0) {
+       		info.dcol1=BBLUE"";
+      		info.dcol2=BBLUE"      /\\      ";
+      		info.dcol3=BBLUE"     /  \\     ";
+      		info.dcol4=BBLUE"    / /\\ \\    ";
+    		info.dcol5=BBLUE"   / /  \\ \\   ";
+   		info.dcol6=BBLUE"  / /    \\ \\  ";
+   		info.dcol7=BBLUE" / / _____\\ \\ ";
+   		info.dcol8=BBLUE"/_/  `----.\\_\\\n";
 		info.getpkg = "pacman -Qq | wc -l";
 		break;
 	} else if (strncmp(dist, "Manjaro Linux", 13)==0) {
