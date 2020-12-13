@@ -1,6 +1,6 @@
 <h2 align="center"> afetch </h2>
 
-<h3 align="center"> <img src="logo.png"> </h3>
+<h3 align="center"> <img src="img/logo.png"> </h3>
 
 
 <p align=center>Fast and simple system info (for UNIX based operating systems) written in C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. <br> <br>
@@ -41,7 +41,7 @@ If your OS isn't in the list above, you'll still be able to build the program as
 If on Linux, please show me the contents of the `/etc/os-release` file. 
 
 
-![gif](preview.gif)
+![gif](img/preview.gif)
 
 **Manual**
 
@@ -61,9 +61,8 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 
 
 **To do**
-*  Fix segfaults on certain distros when lowercase text is enabled, maybe a memory error?
-*  Improve the OS function
-*  Improve Makefile
+*  Optimise
+
 
 **Thanks**
 *  [neofetch](https://github.com/dylanaraps/neofetch)
