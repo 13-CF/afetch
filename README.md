@@ -1,13 +1,13 @@
 <h2 align="center"> afetch </h2>
 
-<h3 align="center"> <img src="https://raw.githubusercontent.com/13-CF/afetch/master/logo.png"> </h3>
+<h3 align="center"> <img src="logo.png"> </h3>
 
 
-<p align=center>Fast and simple system info (for UNIX based operating systems) written in C99, that can be configured at compile time by editing the <a href="https://raw.githubusercontent.com/13-CF/afetch/master/config.h"> config.h</a> file. <br> <br>
+<p align=center>Fast and simple system info (for UNIX based operating systems) written in C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. <br> <br>
 afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with minimal dependencies. </p>
 
 **Requirments**
-*  A /etc/os-release file 
+*  A `/etc/os-release` file 
 *  A C compiler
 *  A compatible C standard library implementation
 
@@ -45,7 +45,7 @@ If on Linux, please show me the contents of the `/etc/os-release` file.
 
 **Manual**
 
-I have provided a manual for configuration in the [afetch.1](afetch.1) file. You can view it by running `mandoc afetch.1 | less`, or `man afetch` if you've already ran `make install`.
+I have provided a manual for configuration in the [afetch.1](src/afetch.1) file. You can view it by running `mandoc afetch.1 | less`, or `man afetch` if you've already ran `make install`.
 
 
 **Configuration options**
