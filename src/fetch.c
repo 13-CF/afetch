@@ -199,7 +199,7 @@ struct distinfo asciiart() {
    		info.dcol6=BBLUE"/ /  "BWHITE"|  |     "BBLUE;
    		info.dcol7=BBLUE"\\ \\"BWHITE"__/  |     "BBLUE;
    		info.dcol8=BBLUE" \\"BWHITE"(_____/"BBLUE;
-		info.getpkg="rpm -qa | wc -l";	//this command is really slow, should probably find a faster way to find the packages
+		info.getpkg="[[ $(which sqlite3 2>/dev/null) && $? -ne 1 ]] && (sqlite3 /var/lib/rpm/rpmdb.sqlite \"select * from Name\"|wc -l) || rpm -qa | wc -l";
 		break;
 	} else if (strncmp(dist, "Debian", 6)==0) {
        		info.dcol1=BRED"  _____\n";
