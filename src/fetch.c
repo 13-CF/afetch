@@ -10,12 +10,12 @@
 
 long long uptimealt(){
 	/* function to read from /proc/uptime to get the uptime. 
-	 * It is only called when CLOCK_UPTIME or CLOCK_BOOTTIME
-	 * aren't defined. */
+	   It is only called when CLOCK_UPTIME or CLOCK_BOOTTIME
+	   aren't defined. */
 	FILE *uptimefile;
 	char * uptimebuf = malloc(75);
 	long long uptime;
-	if (((uptimefile=fopen("/proc/uptime", "r")) == NULL) || uptimebuf==NULL) { fclose(uptimefile); return 1; }
+	if (((uptimefile=fopen("/proc/uptime", "r")) == NULL) || uptimebuf==NULL) { fclose(uptimefile); return 0; }
 	fgets(uptimebuf, 75,  uptimefile);
 	fclose(uptimefile);
 	uptime = strtol(uptimebuf, NULL, 10);
@@ -23,48 +23,33 @@ long long uptimealt(){
 	return uptime;
 }
 
-
-
 char * os()
 {
-
-	char *os = malloc(100);
 #ifdef __linux__
-	char *releasefileContents = malloc(100);
-	if (releasefileContents == NULL || os == NULL) {
-		perror("os(): ");
-		exit(1);
-	}
-
-	FILE *f = fopen("/etc/os-release", "r");
-	if (f == NULL) { f = fopen("/var/run/os-release", "r"); } // this file exists one some BSD operating systems
-	if (f == NULL) {
-		strncpy(os, "? Linux", 8);
-		free(releasefileContents);
-		return os;
-	}
-
-	fgets(releasefileContents, 100, f);
+	char *osContents = malloc(512);
+	char *newContents = malloc(512);
+	int line = 0;
+	FILE *f = fopen("/etc/os-release", "rt");
+	if (f == NULL || osContents == NULL) return "Linux";
+	while (fgets(osContents, 512, f)) {
+		snprintf(newContents, 512, "%.*s", 511, osContents+5);
+		if (strncmp(newContents, "\"", 1)==0) break;
+		line++; }
 	fclose(f);
+	free(osContents);
 
-	snprintf(releasefileContents, 100, "%.*s", 50, releasefileContents + 5); //Delete the NAME= section
-	
-	strncpy(os, strtok(releasefileContents, "\""), 100);
-	free(releasefileContents);
-
-	if (strncmp(os, "Gentoo\n", 7) == 0) {
-		os[6] = '\0';
-	} else if (strncmp(os, "Y_NAME=", 7) == 0) {
-		//PRETTY_NAME is on the first line on debian
-		strncpy(os, "Debian", 7);
-	} else if (strncmp(os, "Slackware\n", 10) == 0) {
-		os[9] = '\0';
-	} else if (strncmp(os, "NixOS\n", 6) == 0) {
-		os[5] = '\0'; }
-	return os;
+	strtok(newContents, "\"");
+	if (strncmp(newContents, "\"", 1)==0) {
+		int len = strlen(newContents);
+		for (int i = 0; i<len; i++){
+			newContents[i] = newContents[i+1];
+		}
+	}
+	return newContents;
 #else
 	/* If you aren't runnig a Linux distro then this is run.
 	 * Output should be the same as output from uname -s. */
+	char *os = malloc(100);
 	struct utsname posixos;
 	uname(&posixos);
 	strcpy(os, posixos.sysname);
@@ -85,13 +70,15 @@ char * lowercase(char * str) {
 }
 
 void blockdraw() {
-	char * colours[] = {"\033[1;30m", "\033[1;31m","\033[1;32m","\033[1;33m","\033[1;34m","\033[1;35m","\033[1;36m","\033[1;37m"};
-
 	printf("  ");
-	for (int i=0;i<8;i++){
-		printf("%s", colours[i]);
-		printf("%s", BLOCKCHAR);	
+	for (int i = 30; i<38; i++){
+		printf("\033[0;%dm%s", i, BLOCKCHAR);
 	}
+	printf("\n  ");
+	for (int i = 30; i<38; i++){
+		printf("\033[1;%dm%s", i, BLOCKCHAR);
+	}
+
 	printf("\n\n");
 	printf("\033[0m");
 }
@@ -201,7 +188,7 @@ struct distinfo asciiart() {
    		info.dcol8=BBLUE" \\"BWHITE"(_____/"BBLUE;
 		info.getpkg="rpm -qa | wc -l";	//this command is really slow, should probably find a faster way to find the packages
 		break;
-	} else if (strncmp(dist, "Debian", 6)==0) {
+	} else if (strncmp(dist, "Debian GNU/Linux", 16)==0) {
        		info.dcol1=BRED"  _____\n";
       		info.dcol2=BRED" /  __ \\ ";
       		info.dcol3=BRED"|  /    |";
@@ -303,13 +290,13 @@ struct distinfo asciiart() {
 		info.getpkg="pkg info | wc -l | tr -d ' '";
 		break;
 	} else if (strncmp(dist, "NetBSD", 6)==0) {
-   		info.dcol1=BWHITE"\\\\"BMAGENTA"\\`-______,----__\n";
-       		info.dcol2=BWHITE" \\\\"BMAGENTA"        __,---\\`_";
-      		info.dcol3=BWHITE"  \\\\"BMAGENTA"       \\`.____  ";
-      		info.dcol4=BWHITE"   \\\\"BMAGENTA"-______,----\\`-";
-      		info.dcol5=BWHITE"    \\\\"BMAGENTA"              ";
-    		info.dcol6=BWHITE"     \\\\"BMAGENTA"             ";
-   		info.dcol7=BWHITE"      \\\\"BMAGENTA"            ";
+   		info.dcol1=BWHITE"\\\\"BYELLOW"\\`-______,----__\n";
+       		info.dcol2=BWHITE" \\\\"BYELLOW"        __,---\\`_";
+      		info.dcol3=BWHITE"  \\\\"BYELLOW"       \\`.____  ";
+      		info.dcol4=BWHITE"   \\\\"BYELLOW"-______,----\\`-";
+      		info.dcol5=BWHITE"    \\\\"BYELLOW"              ";
+    		info.dcol6=BWHITE"     \\\\"BYELLOW"             ";
+   		info.dcol7=BWHITE"      \\\\"BYELLOW"            ";
    		info.dcol8=BWHITE"";
 		info.getpkg="pkg_info | wc -l | tr -d ' '";
 		break;
@@ -334,7 +321,7 @@ struct distinfo asciiart() {
    		info.dcol6=BWHITE"    /   \\    ";
    		info.dcol7=BWHITE"   /     \\   ";
    		info.dcol8=BWHITE"";
-		info.getpkg = "echo ???";
+		info.getpkg = "echo unsupported";
 	 	break; }}
 	if (CUSTOMART == 0) {
 		info.dcol1 = COL1;
@@ -369,6 +356,11 @@ int main(){
 	uname(&ui);
 	struct timespec si;
 
+	/* There doesn't seem to be a standard way to get the time, but
+	   CLOCK_BOOTTIME or CLOCK_UPTIME are usually defined. If neither
+	   are defined then the uptimealt() function reads from /proc/uptime
+	   to get it. */
+
 #ifdef CLOCK_BOOTTIME
 	clock_gettime(CLOCK_BOOTTIME, &si);
 #elif CLOCK_UPTIME
@@ -393,9 +385,11 @@ int main(){
 	printf("%s %s %s%s\n",ascii.dcol6, SHELLTEXT,TEXTCOLOUR, shell());
 	printf("%s %s %s",ascii.dcol7, PACKAGETEXT, TEXTCOLOUR);
 
+	/* Open the process that displays the number of packages,
+	   then read the output and display characters.        */
 	pkgs = popen(ascii.getpkg, "r");
 	if (pkgs == NULL) {
-		puts("\0"); }
+		printf("?"); }
 	while ( (i=fgetc(pkgs)) != EOF) {
 		putchar(i); }
 
