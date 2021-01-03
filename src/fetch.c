@@ -31,6 +31,7 @@ char * os()
 	int line = 0;
 	FILE *f = fopen("/etc/os-release", "rt");
 	if (f == NULL || osContents == NULL) return "Linux";
+	// look through each line of /etc/os-release until we're on the NAME= line
 	while (fgets(osContents, 512, f)) {
 		snprintf(newContents, 512, "%.*s", 511, osContents+5);
 		if (strncmp(newContents, "\"", 1)==0) break;
@@ -70,11 +71,11 @@ char * lowercase(char * str) {
 }
 
 void blockdraw() {
-	printf("  ");
+	printf("    ");
 	for (int i = 30; i<38; i++){
 		printf("\033[0;%dm%s", i, BLOCKCHAR);
 	}
-	printf("\n  ");
+	printf("\n    ");
 	for (int i = 30; i<38; i++){
 		printf("\033[1;%dm%s", i, BLOCKCHAR);
 	}
@@ -371,7 +372,7 @@ int main(){
 	struct distinfo ascii = asciiart();
 	char *os_string = os();
 	FILE *pkgs;
-	char i;
+	char *pkgString = malloc(25);
 	
 	printf("%s", ascii.dcol1);
 	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
@@ -388,18 +389,15 @@ int main(){
 	/* Open the process that displays the number of packages,
 	   then read the output and display characters.        */
 	pkgs = popen(ascii.getpkg, "r");
-	if (pkgs == NULL) {
-		printf("?"); }
-	while ( (i=fgetc(pkgs)) != EOF) {
-		putchar(i); }
+	fscanf(pkgs, "%s", pkgString); 
 
-	pclose(pkgs);
-	printf("%s", ascii.dcol8);
+	printf("%s %s",pkgString, ascii.dcol8);
 	printf("\n");
 	if (BLOCKS == 0) {
 		blockdraw();
 	} 
 	printf("%s", RESET); // Reset terminal's colors
 	free(os_string);
+	free(pkgString);
 	return 0;
 }
