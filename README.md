@@ -18,6 +18,7 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Arch
 *  Artix
 *  Arco
+*  EndeavourOS
 *  Fedora (slow due to package manager)
 *  OpenSUSE Leap (slow due to package manager)
 *  OpenSUSE Tumbleweed (slow due to package manager)
