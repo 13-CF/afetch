@@ -70,3 +70,7 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 *  [ufetch](https://github.com/jschx/ufetch)
 *  [nerdfetch](https://github.com/ThatOneCalculator/NerdFetch)
 *  [bitfetch](https://gitlab.com/bit9tream/bitfetch)
+
+**A Disclaimer**
+
+I'm not very good at using git, and this is my first project using the git CLI, so there'll be a stupid amount of commits, and other commits that only change tiny details.
