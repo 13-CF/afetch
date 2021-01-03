@@ -3,15 +3,15 @@
 <h3 align="center"> <img src="img/logo.png"> </h3>
 
 
-<p align=center>Fast and simple system info (for UNIX based operating systems) written in C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. <br> <br>
-afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with minimal dependencies. </p>
+<p align=center>Fast and simple system info (for UNIX based operating systems) written in POSIX compliant C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. It uses the C Preprocessor to implement config options at compile time. <br> <br>
+afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with no dependencies apart from the POSIX header files. </p>
 
 **Requirments**
 *  A `/etc/os-release` file 
 *  A C compiler
-*  A compatible C standard library implementation
+*  A <a href="https://en.wikipedia.org/wiki/C_POSIX_library">compatible C standard library</a> implementation
 
-**Currently Supports**
+**Package count supported**
 
 *  Void
 *  Gentoo
@@ -45,7 +45,7 @@ If on Linux, please show me the contents of the `/etc/os-release` file.
 
 **Manual**
 
-I have provided a manual for configuration in the [afetch.1](src/afetch.1) file. You can view it by running `mandoc afetch.1 | less`, or `man afetch` if you've already ran `make install`.
+I have provided a manual for configuration in the [afetch.1](src/afetch.1) file. You can view it by running `mandoc src/afetch.1 | less`, or `man afetch` if you've already ran `make install`.
 
 
 **Configuration options**
