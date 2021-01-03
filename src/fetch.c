@@ -362,7 +362,21 @@ struct distinfo asciiart() {
    		info.dcol7=BCYAN"    "BBLUE"|"BCYAN"    ";
    		info.dcol8=BCYAN"";
 		info.getpkg="pkg info | wc -l | tr -d ' '";
-		break; }
+		break; 
+	} else if (strncmp(dist, "macOS", 5)==0) {
+        /* ascii art author: jgs */
+		info.dcol1=""BYELLOW;
+		info.dcol2=BGREEN"          .:'   "BYELLOW;
+		info.dcol3=BGREEN"      __ :'__   "BYELLOW;
+		info.dcol4=BYELLOW"   .'`__`-'__``."BYELLOW;
+		info.dcol5=BRED"  :__________.-'"BYELLOW;
+		info.dcol6=BRED"  :_________:   "BYELLOW;
+		info.dcol7=BMAGENTA"   :_________`-;"BYELLOW;
+		info.dcol8=BBLUE"    `.__.-.__.' "BYELLOW;
+		/* fast way to get brew packages */
+		info.getpkg = "ls /usr/local/Cellar/* | grep ':' | wc -l | xargs";
+		break;
+    }
 #endif
 	else {
        		info.dcol1=BWHITE"     ___   \n";
