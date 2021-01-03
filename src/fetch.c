@@ -14,9 +14,14 @@
 #include "config.h"
 
 long long uptimealt(){
+#ifdef __APPLE__
+    struct timespec uptime;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &uptime);
+    return uptime.tv_sec;
+#else
 	/* function to read from /proc/uptime to get the uptime. 
 	   It is only called when CLOCK_UPTIME or CLOCK_BOOTTIME
-	   aren't defined. */
+	   aren't defined and the OS isn't macOS. */
 	FILE *uptimefile;
 	char * uptimebuf = malloc(75);
 	long long uptime;
@@ -26,6 +31,7 @@ long long uptimealt(){
 	uptime = strtol(uptimebuf, NULL, 10);
 	free(uptimebuf);
 	return uptime;
+#endif
 }
 
 char * os()
