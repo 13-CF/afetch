@@ -447,7 +447,7 @@ int main(){
 	   then read the output and display characters.        */
 	pkgs = popen(ascii.getpkg, "r");
 	fscanf(pkgs, "%s", pkgString);
-	fclose(pkgs);
+	pclose(pkgs);
 
 	printf("%s \n%s",pkgString, ascii.dcol8);
 	printf("\n");
