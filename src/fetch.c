@@ -127,15 +127,7 @@ void replace(char * source, char * sub, char * with) { //stolen off of a youtube
 }
 
 struct distinfo asciiart() {
-
-#ifdef __linux__
 	char* dist = os();
-#else
-	struct utsname ui;
-	uname(&ui);
-	char* dist = malloc(50);
-	strcpy(dist, ui.sysname);
-#endif
 	struct distinfo info;
 	while (1) {
 #ifdef __linux__
