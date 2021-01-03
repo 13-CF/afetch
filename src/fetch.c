@@ -60,8 +60,23 @@ char * os()
 		 }
 	}
 	return newContents;
+#elif __APPLE__
+    char *macVersion = malloc(50);
+    strcpy(macVersion, "macOS ");
+
+    char *productVersion = malloc(50);
+    
+    
+    FILE *verPipe = popen("sw_vers -productVersion", "r");
+    fscanf(verPipe, "%s", productVersion);
+    pclose(verPipe);
+    
+    strcat(macVersion, productVersion);
+    free(productVersion);
+    
+    return macVersion;
 #else
-	/* If you aren't runnig a Linux distro then this is run.
+	/* If you aren't runnig a Linux distro or macOS then this is run.
 	 * Output should be the same as output from uname -s. */
 	char *os = malloc(100);
 	struct utsname posixos;
