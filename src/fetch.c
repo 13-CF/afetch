@@ -178,6 +178,17 @@ struct distinfo asciiart() {
    		info.dcol8=BCYAN"/.,'`     `'.\\\n";
 		info.getpkg = "pacman -Qq | wc -l";
 		break;
+	} else if (strncmp(dist, "EndeavourOS", 11)==0) {
+		info.dcol1=BCYAN"";
+		info.dcol2=BRED"      /"BBLUE"\\     "BCYAN;
+   		info.dcol3=BRED"    /"BBLUE"/  \\"BCYAN"\\   "BCYAN;
+   		info.dcol4=BRED"   /"BBLUE"/    \\ "BCYAN"\\ "BCYAN;
+   		info.dcol5=BRED" / "BBLUE"/     _) "BCYAN")"BCYAN;
+   		info.dcol6=BRED"/_"BBLUE"/___-- "BCYAN"__- "BCYAN;
+   		info.dcol7=BCYAN" /____--     "BCYAN;
+   		info.dcol8=BCYAN"";
+		info.getpkg="pacman -Qq | wc -l";
+		break;
 	} else if (strncmp(dist, "Fedora", 6)==0) {
        		info.dcol1=BWHITE"      _____\n"BBLUE;
       		info.dcol2=BWHITE"     /   __)"BBLUE"\\ ";
