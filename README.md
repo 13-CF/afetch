@@ -34,6 +34,7 @@ afetch is a command line tool to display basic system information. The goal is t
 *  OpenBSD 
 *  NetBSD
 *  DragonflyBSD
+*  macOS (Homebrew)
 
 If your OS isn't in the list above, you'll still be able to build the program as long as you're either using Linux, or another UNIX based operating system with the necessary header files.
 

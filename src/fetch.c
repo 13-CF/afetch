@@ -1,17 +1,36 @@
+#ifndef __APPLE__
 #define _POSIX_C_SOURCE 200809L
+#endif
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <sys/utsname.h>
 #include <time.h>
+#ifdef __APPLE__
+#include <sys/sysctl.h>
+#endif
 
 #include "config.h"
 
+char *pipeRead(const char *cmd){
+    FILE *pipeFile = popen(cmd, "r");
+    if (pipeFile == NULL) return NULL;
+    char *outPtr = malloc(50);
+    fscanf(pipeFile, "%[^\n]s", outPtr);
+    pclose(pipeFile);
+    return outPtr;
+}
+
 long long uptimealt(){
+#ifdef __APPLE__
+    struct timespec uptime;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &uptime);
+    return uptime.tv_sec;
+#else
 	/* function to read from /proc/uptime to get the uptime. 
 	   It is only called when CLOCK_UPTIME or CLOCK_BOOTTIME
-	   aren't defined. */
+	   aren't defined and the OS isn't macOS. */
 	FILE *uptimefile;
 	char * uptimebuf = malloc(75);
 	long long uptime;
@@ -21,6 +40,7 @@ long long uptimealt(){
 	uptime = strtol(uptimebuf, NULL, 10);
 	free(uptimebuf);
 	return uptime;
+#endif
 }
 
 char * os()
@@ -49,8 +69,18 @@ char * os()
 		 }
 	}
 	return newContents;
+#elif __APPLE__
+    char *macVersion = malloc(50);
+    strcpy(macVersion, "macOS ");
+
+    char *productVersion = pipeRead("sw_vers -productVersion");
+    
+    strcat(macVersion, productVersion);
+    free(productVersion);
+    
+    return macVersion;
 #else
-	/* If you aren't runnig a Linux distro then this is run.
+	/* If you aren't runnig a Linux distro or macOS then this is run.
 	 * Output should be the same as output from uname -s. */
 	char *os = malloc(100);
 	struct utsname posixos;
@@ -101,15 +131,7 @@ void replace(char * source, char * sub, char * with) { //stolen off of a youtube
 }
 
 struct distinfo asciiart() {
-
-#ifdef __linux__
 	char* dist = os();
-#else
-	struct utsname ui;
-	uname(&ui);
-	char* dist = malloc(50);
-	strcpy(dist, ui.sysname);
-#endif
 	struct distinfo info;
 	while (1) {
 #ifdef __linux__
@@ -336,7 +358,29 @@ struct distinfo asciiart() {
    		info.dcol7=BCYAN"    "BBLUE"|"BCYAN"    ";
    		info.dcol8=BCYAN"";
 		info.getpkg="pkg info | wc -l | tr -d ' '";
-		break; }
+		break; 
+#ifdef __APPLE__
+	} else if (strncmp(dist, "macOS", 5)==0) {
+		/* ascii art author: jgs */
+		info.dcol1=""BYELLOW;
+		info.dcol2=BGREEN"          .:'   "BYELLOW;
+		info.dcol3=BGREEN"      __ :'__   "BYELLOW;
+		info.dcol4=BYELLOW"   .'`__`-'__``."BYELLOW;
+		info.dcol5=BRED"  :__________.-'"BYELLOW;
+		info.dcol6=BRED"  :_________:   "BYELLOW;
+		info.dcol7=BMAGENTA"   :_________`-;"BYELLOW;
+		info.dcol8=BBLUE"    `.__.-.__.' "BYELLOW;
+
+		char *homebrewPath = pipeRead("which brew");
+		if (homebrewPath == NULL || *homebrewPath == '\0')
+		    info.getpkg = "echo \"Warning: only Homebrew is supported.\"";
+		else
+		    info.getpkg = "ls /usr/local/Cellar/* | grep ':' | wc -l | xargs";
+
+		free(homebrewPath);
+		break;
+    	}
+#endif
 #endif
 	else {
        		info.dcol1=BWHITE"     ___   \n";
@@ -397,8 +441,6 @@ int main(){
 	struct distinfo ascii = asciiart();
 	char *os_string = os();
 	FILE *pkgs;
-	char *pkgString = malloc(25);
-	
 	printf("%s", ascii.dcol1);
 	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
 	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
@@ -413,9 +455,7 @@ int main(){
 
 	/* Open the process that displays the number of packages,
 	   then read the output and display characters.        */
-	pkgs = popen(ascii.getpkg, "r");
-	fscanf(pkgs, "%s", pkgString);
-	fclose(pkgs);
+	char *pkgString = pipeRead(ascii.getpkg);
 
 	printf("%s \n%s",pkgString, ascii.dcol8);
 	printf("\n");
