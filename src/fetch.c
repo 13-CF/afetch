@@ -32,18 +32,19 @@ char * os()
 	FILE *f = fopen("/etc/os-release", "rt");
 	if (f == NULL || osContents == NULL) return "Linux";
 	// look through each line of /etc/os-release until we're on the NAME= line
-	while (fgets(osContents, 512, f)) {
-		snprintf(newContents, 512, "%.*s", 511, osContents+5);
-		if (strncmp(newContents, "\"", 1)==0) break;
-		line++; }
+	while (fgets(osContents, 512, f)) { 
+		snprintf(newContents, 512, "%.*s", 511, osContents+4);
+		if (strncmp(newContents, "=", 1)==0) break;
+		line++; } 
 	fclose(f);
 	free(osContents);
 
-	strtok(newContents, "\"");
-	if (strncmp(newContents, "\"", 1)==0) {
+	strtok(newContents, "=");
+	if (strncmp(newContents, "=", 1)==0) {
 		int len = strlen(newContents);
 		for (int i = 0; i<len; i++){
 			newContents[i] = newContents[i+1];
+			if (newContents[i] == '\n') newContents[i] = '\0'; 
 		}
 	}
 	return newContents;
