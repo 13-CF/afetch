@@ -13,6 +13,15 @@
 
 #include "config.h"
 
+char *pipeRead(const char *cmd){
+    FILE *pipeFile = popen(cmd, "r");
+    if (pipeFile == NULL) return NULL;
+    char *outPtr = malloc(50);
+    fscanf(pipeFile, "%[^\n]s", outPtr);
+    pclose(pipeFile);
+    return outPtr;
+}
+
 long long uptimealt(){
 #ifdef __APPLE__
     struct timespec uptime;
@@ -64,12 +73,7 @@ char * os()
     char *macVersion = malloc(50);
     strcpy(macVersion, "macOS ");
 
-    char *productVersion = malloc(50);
-    
-    
-    FILE *verPipe = popen("sw_vers -productVersion", "r");
-    fscanf(verPipe, "%s", productVersion);
-    pclose(verPipe);
+    char *productVersion = pipeRead("sw_vers -productVersion");
     
     strcat(macVersion, productVersion);
     free(productVersion);
@@ -355,8 +359,9 @@ struct distinfo asciiart() {
    		info.dcol8=BCYAN"";
 		info.getpkg="pkg info | wc -l | tr -d ' '";
 		break; 
+#ifdef __APPLE__
 	} else if (strncmp(dist, "macOS", 5)==0) {
-        /* ascii art author: jgs */
+		/* ascii art author: jgs */
 		info.dcol1=""BYELLOW;
 		info.dcol2=BGREEN"          .:'   "BYELLOW;
 		info.dcol3=BGREEN"      __ :'__   "BYELLOW;
@@ -365,10 +370,17 @@ struct distinfo asciiart() {
 		info.dcol6=BRED"  :_________:   "BYELLOW;
 		info.dcol7=BMAGENTA"   :_________`-;"BYELLOW;
 		info.dcol8=BBLUE"    `.__.-.__.' "BYELLOW;
-		/* fast way to get brew packages */
-		info.getpkg = "ls /usr/local/Cellar/* | grep ':' | wc -l | xargs";
+
+		char *homebrewPath = pipeRead("which brew");
+		if (homebrewPath == NULL || *homebrewPath == '\0')
+		    info.getpkg = "echo \"Warning: only Homebrew is supported.\"";
+		else
+		    info.getpkg = "ls /usr/local/Cellar/* | grep ':' | wc -l | xargs";
+
+		free(homebrewPath);
 		break;
-    }
+    	}
+#endif
 #endif
 	else {
        		info.dcol1=BWHITE"     ___   \n";
@@ -429,8 +441,6 @@ int main(){
 	struct distinfo ascii = asciiart();
 	char *os_string = os();
 	FILE *pkgs;
-	char *pkgString = malloc(25);
-	
 	printf("%s", ascii.dcol1);
 	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
 	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
@@ -445,9 +455,7 @@ int main(){
 
 	/* Open the process that displays the number of packages,
 	   then read the output and display characters.        */
-	pkgs = popen(ascii.getpkg, "r");
-	fscanf(pkgs, "%s", pkgString);
-	pclose(pkgs);
+	char *pkgString = pipeRead(ascii.getpkg);
 
 	printf("%s \n%s",pkgString, ascii.dcol8);
 	printf("\n");
