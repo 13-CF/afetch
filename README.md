@@ -26,6 +26,7 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Ubuntu
 *  Manjaro
 *  Alpine
+*  Solus
 *  Slackware
 *  Pop!_OS
 *  NixOS
@@ -63,7 +64,7 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 
 **To do**
 *  Optimise
-
+*  Put distros in alphabetical order in README.md and `os()` function.
 
 **Thanks**
 *  [neofetch](https://github.com/dylanaraps/neofetch)
@@ -73,4 +74,4 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 
 **A Disclaimer**
 
-I'm not very good at using git, and this is my first project using the git CLI, so there'll be a stupid amount of commits, and other commits that only change tiny details.
+I'm not very good at using git, and this is my first project using the git CLI, so there'll be a stupid amount of commits, and other commits with very minor changes to one or two files.

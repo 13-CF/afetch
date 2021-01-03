@@ -278,7 +278,19 @@ struct distinfo asciiart() {
 		info.dcol7=BMAGENTA"// /\\\\  \\\\==    ";
 		info.dcol8=BMAGENTA"  // \\\\  \\\\     ";
 		info.getpkg="nix-store -q --requisites /run/current-system/sw | wc -l";
-		break; }
+		break;
+    	} else if (strncmp(dist, "Solus", 5) == 0) {
+        	info.dcol1=BMAGENTA"";
+       		info.dcol2=BMAGENTA"";
+        	info.dcol3=BMAGENTA"";
+        	info.dcol4=BMAGENTA"";
+        	info.dcol5=BMAGENTA"";
+        	info.dcol6=BMAGENTA"";
+        	info.dcol7=BMAGENTA"";
+        	info.dcol8=BMAGENTA"";
+        	info.getpkg="ls /var/lib/eopkg/package/ | wc -l";
+        	break;
+	}
 #else
 	/* All operating systems that aren't Linux distros go under here. */
 	if (strncmp(dist, "OpenBSD", 7) == 0) {

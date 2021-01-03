@@ -12,7 +12,7 @@ Block characters are shown inside this comment. If you can't see them, then your
 
 	▀ ▁ ▂ ▃ ▄ ▅ ▆ ▇ █ ▉ ▊ ▋ ▌ ▍ ▎ ▏
 
-	█ ▄ ▀
+	█ ▄ ▀ ●
 	*/
 //---------------------------------------------------------------------------------------------
 #define USERTEXT    "     USER"//
