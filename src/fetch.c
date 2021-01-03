@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <sys/utsname.h>
 #include <time.h>
+#ifdef __APPLE__
+#include <sys/sysctl.h>
+#endif
 
 #include "config.h"
 
