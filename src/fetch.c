@@ -389,7 +389,8 @@ int main(){
 	/* Open the process that displays the number of packages,
 	   then read the output and display characters.        */
 	pkgs = popen(ascii.getpkg, "r");
-	fscanf(pkgs, "%s", pkgString); 
+	fscanf(pkgs, "%s", pkgString);
+	fclose(pkgs);
 
 	printf("%s %s",pkgString, ascii.dcol8);
 	printf("\n");
