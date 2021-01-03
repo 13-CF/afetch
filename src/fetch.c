@@ -324,7 +324,7 @@ struct distinfo asciiart() {
 		info.getpkg="pkg info | wc -l | tr -d ' '";
 		break; }
 #endif
-	 else {
+	else {
        		info.dcol1=BWHITE"     ___   \n";
       		info.dcol2=BWHITE" ___/   \\___ ";
       		info.dcol3=BWHITE"/   '---'   \\";
@@ -403,7 +403,7 @@ int main(){
 	fscanf(pkgs, "%s", pkgString);
 	fclose(pkgs);
 
-	printf("%s %s",pkgString, ascii.dcol8);
+	printf("%s \n%s",pkgString, ascii.dcol8);
 	printf("\n");
 	if (BLOCKS == 0) {
 		blockdraw();
