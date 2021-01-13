@@ -217,7 +217,7 @@ struct distinfo asciiart() {
    		info.dcol6=BCYAN"\\   /__/  /";
    		info.dcol7=BCYAN" \\_______/";
    		info.dcol8=BCYAN"";
-		info.getpkg="pacman -Qq | wc -l";
+		info.getpkg="dpkg -l | tail -n+6 | wc -l";
 		break;
 	} else if (strncmp(dist, "EndeavourOS", 11)==0) {
 		info.dcol1=BCYAN"";
