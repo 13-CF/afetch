@@ -125,6 +125,8 @@ void replace(char * source, char * sub, char * with) { //stolen off of a youtube
 	memcpy(substring_source, with, strlen(with));
 }
 
+
+/* Logos created by neofetch and ufetch developers */
 struct distinfo asciiart() {
 	char* dist = os();
 	struct distinfo info;
@@ -154,11 +156,11 @@ struct distinfo asciiart() {
 		info.getpkg = "ls -d /var/db/pkg/*/* | wc -l";
 		break;
 	} else if (strncmp(dist, "Arch Linux", 10)==0) {
-       		info.dcol1=BCYAN"";
-      		info.dcol2=BCYAN"      /\\      ";
-      		info.dcol3=BCYAN"     /  \\     ";
-      		info.dcol4=BCYAN"    /\\   \\    ";
-    		info.dcol5=BCYAN"   /      \\   ";
+       	info.dcol1=BCYAN"";
+      	info.dcol2=BCYAN"      /\\      ";
+      	info.dcol3=BCYAN"     /  \\     ";
+      	info.dcol4=BCYAN"    /\\   \\    ";
+    	info.dcol5=BCYAN"   /      \\   ";
    		info.dcol6=BCYAN"  /   ,,   \\  ";
    		info.dcol7=BCYAN" /   |  |  -\\ ";
    		info.dcol8=BCYAN"/_-''    ''-_\\\n";
@@ -166,21 +168,21 @@ struct distinfo asciiart() {
 		break;
 	} else if (strncmp(dist, "Arch bang Linux", 15)==0) {
 		info.dcol1=BCYAN"          ____\n";
-      		info.dcol2=BCYAN"      /\\ /   /";
-      		info.dcol3=BCYAN"     /  /   /   ";
-      		info.dcol4=BCYAN"    /   / /     ";
-    		info.dcol5=BCYAN"   /   /_/\\     ";
+      	info.dcol2=BCYAN"      /\\ /   /";
+      	info.dcol3=BCYAN"     /  /   /   ";
+      	info.dcol4=BCYAN"    /   / /     ";
+    	info.dcol5=BCYAN"   /   /_/\\     ";
    		info.dcol6=BCYAN"  /   __   \\   ";
    		info.dcol7=BCYAN" /   /_/\\   \\ ";
    		info.dcol8=BCYAN"/_-''    ''-_\\\n";
 		info.getpkg = "pacman -Qq | wc -l";
 		break;
 	} else if (strncmp(dist, "ArcoLinux", 9)==0) {
-       		info.dcol1=BBLUE"";
-      		info.dcol2=BBLUE"      /\\      ";
-      		info.dcol3=BBLUE"     /  \\     ";
-      		info.dcol4=BBLUE"    / /\\ \\    ";
-    		info.dcol5=BBLUE"   / /  \\ \\   ";
+       	info.dcol1=BBLUE"";
+      	info.dcol2=BBLUE"      /\\      ";
+      	info.dcol3=BBLUE"     /  \\     ";
+      	info.dcol4=BBLUE"    / /\\ \\    ";
+    	info.dcol5=BBLUE"   / /  \\ \\   ";
    		info.dcol6=BBLUE"  / /    \\ \\  ";
    		info.dcol7=BBLUE" / / _____\\ \\ ";
    		info.dcol8=BBLUE"/_/  `----.\\_\\\n";
@@ -188,21 +190,21 @@ struct distinfo asciiart() {
 		break;
 	} else if (strncmp(dist, "Manjaro Linux", 13)==0) {
    		info.dcol1=BGREEN" ________  __ \n";
-       		info.dcol2=BGREEN"|       | |  |";
-      		info.dcol3=BGREEN"|   ____| |  |";
-      		info.dcol4=BGREEN"|  |  __  |  |";
-      		info.dcol5=BGREEN"|  | |  | |  |";
-    		info.dcol6=BGREEN"|  | |  | |  |";
+       	info.dcol2=BGREEN"|       | |  |";
+      	info.dcol3=BGREEN"|   ____| |  |";
+      	info.dcol4=BGREEN"|  |  __  |  |";
+      	info.dcol5=BGREEN"|  | |  | |  |";
+    	info.dcol6=BGREEN"|  | |  | |  |";
    		info.dcol7=BGREEN"|  | |  | |  |";
    		info.dcol8=BGREEN"|__| |__| |__|\n";
 		info.getpkg = "pacman -Qq | wc -l";
 		break;
 	} else if (strncmp(dist, "Artix Linux", 11)==0) {
-       		info.dcol1=BCYAN"";
-      		info.dcol2=BCYAN"      /\\      ";
-      		info.dcol3=BCYAN"     /  \\     ";
-      		info.dcol4=BCYAN"    /`'.,\\    ";
-    		info.dcol5=BCYAN"   /     ',   ";
+       	info.dcol1=BCYAN"";
+      	info.dcol2=BCYAN"      /\\      ";
+      	info.dcol3=BCYAN"     /  \\     ";
+      	info.dcol4=BCYAN"    /`'.,\\    ";
+    	info.dcol5=BCYAN"   /     ',   ";
    		info.dcol6=BCYAN"  /      ,`\\  ";
    		info.dcol7=BCYAN" /   ,.'`.  \\ ";
    		info.dcol8=BCYAN"/.,'`     `'.\\\n";
@@ -231,22 +233,22 @@ struct distinfo asciiart() {
 		info.getpkg="pacman -Qq | wc -l";
 		break;
 	} else if (strncmp(dist, "Fedora", 6)==0) {
-       		info.dcol1=BWHITE"      _____\n"BBLUE;
-      		info.dcol2=BWHITE"     /   __)"BBLUE"\\ ";
-      		info.dcol3=BWHITE"     |  /  "BBLUE"\\ \\";
-      		info.dcol4=BWHITE"  ___|  |"BBLUE"__/ /";
-    		info.dcol5=BBLUE" / "BWHITE"(_    _)"BBLUE"_/ ";
+       	info.dcol1=BWHITE"      _____\n"BBLUE;
+      	info.dcol2=BWHITE"     /   __)"BBLUE"\\ ";
+      	info.dcol3=BWHITE"     |  /  "BBLUE"\\ \\";
+      	info.dcol4=BWHITE"  ___|  |"BBLUE"__/ /";
+    	info.dcol5=BBLUE" / "BWHITE"(_    _)"BBLUE"_/ ";
    		info.dcol6=BBLUE"/ /  "BWHITE"|  |     "BBLUE;
    		info.dcol7=BBLUE"\\ \\"BWHITE"__/  |     "BBLUE;
    		info.dcol8=BBLUE" \\"BWHITE"(_____/"BBLUE;
 		info.getpkg="[[ $(which sqlite3 2>/dev/null) && $? -ne 1 ]] && (sqlite3 /var/lib/rpm/rpmdb.sqlite \"select * from Name\"|wc -l) || rpm -qa | wc -l";
 		break;
 	} else if (strncmp(dist, "Debian GNU/Linux", 16)==0) {
-       		info.dcol1=BRED"  _____\n";
-      		info.dcol2=BRED" /  __ \\ ";
-      		info.dcol3=BRED"|  /    |";
-      		info.dcol4=BRED"|  \\___- ";
-    		info.dcol5=BRED"-_       ";
+       	info.dcol1=BRED"  _____\n";
+      	info.dcol2=BRED" /  __ \\ ";
+      	info.dcol3=BRED"|  /    |";
+      	info.dcol4=BRED"|  \\___- ";
+    	info.dcol5=BRED"-_       ";
    		info.dcol6=BRED"  --_    ";
    		info.dcol7=BRED"         ";
    		info.dcol8=BRED"";
@@ -254,22 +256,22 @@ struct distinfo asciiart() {
 		break;
 	} else if (strncmp(dist, "Ubuntu", 6)==0) {
    		info.dcol1=BRED"";
-       		info.dcol2=BRED"         _  ";
-      		info.dcol3=BRED"     ---(_) ";
-      		info.dcol4=BRED" _/  ---  \\ ";
-      		info.dcol5=BRED"(_) |   |   ";
-    		info.dcol6=BRED"  \\  --- _/ ";
+       	info.dcol2=BRED"         _  ";
+      	info.dcol3=BRED"     ---(_) ";
+      	info.dcol4=BRED" _/  ---  \\ ";
+      	info.dcol5=BRED"(_) |   |   ";
+    	info.dcol6=BRED"  \\  --- _/ ";
    		info.dcol7=BRED"     ---(_) ";
    		info.dcol8=BRED"";
 		info.getpkg="dpkg -l | tail -n+6 | wc -l";
 		break;
 	} else if (strncmp(dist, "Alpine Linux", 12)==0) {
    		info.dcol1=BBLUE"\n";
-       		info.dcol2=BBLUE"    /\\ /\\    ";
-      		info.dcol3=BBLUE"   /  \\  \\   ";
-      		info.dcol4=BBLUE"  /    \\  \\  ";
-      		info.dcol5=BBLUE" /      \\  \\ ";
-    		info.dcol6=BBLUE"/        \\  \\";
+       	info.dcol2=BBLUE"    /\\ /\\    ";
+      	info.dcol3=BBLUE"   /  \\  \\   ";
+      	info.dcol4=BBLUE"  /    \\  \\  ";
+      	info.dcol5=BBLUE" /      \\  \\ ";
+    	info.dcol6=BBLUE"/        \\  \\";
    		info.dcol7=BBLUE"          \\  ";
    		info.dcol8=BBLUE"";
 		info.getpkg="apk info | wc -l";
@@ -318,17 +320,17 @@ struct distinfo asciiart() {
 		info.dcol8=BMAGENTA"  // \\\\  \\\\     ";
 		info.getpkg="nix-store -q --requisites /run/current-system/sw | wc -l";
 		break;
-    	} else if (strncmp(dist, "Solus", 5) == 0) {
-        	info.dcol1=BMAGENTA"";
-       		info.dcol2=BMAGENTA"";
-        	info.dcol3=BMAGENTA"";
-        	info.dcol4=BMAGENTA"";
-        	info.dcol5=BMAGENTA"";
-        	info.dcol6=BMAGENTA"";
-        	info.dcol7=BMAGENTA"";
-        	info.dcol8=BMAGENTA"";
-        	info.getpkg="ls /var/lib/eopkg/package/ | wc -l";
-        	break;
+    } else if (strncmp(dist, "Solus", 5) == 0) {
+        info.dcol1=BMAGENTA"";
+       	info.dcol2=BMAGENTA"";
+        info.dcol3=BMAGENTA"";
+        info.dcol4=BMAGENTA"";
+        info.dcol5=BMAGENTA"";
+        info.dcol6=BMAGENTA"";
+        info.dcol7=BMAGENTA"";
+        info.dcol8=BMAGENTA"";
+        info.getpkg="ls /var/lib/eopkg/package/ | wc -l";
+        break;
 	}
 #else
 	/* All operating systems that aren't Linux distros go under here. */
@@ -366,11 +368,11 @@ struct distinfo asciiart() {
 		info.getpkg="pkg_info | wc -l | tr -d ' '";
 		break;
 	} else if (strncmp(dist, "DragonFly", 9)==0) {
-       		info.dcol1=BCYAN"   ,"BBLUE"_"BCYAN",   \n";
-      		info.dcol2=BCYAN"('-_"BBLUE"|"BCYAN"_-')";
-      		info.dcol3=BCYAN" >--"BBLUE"|"BCYAN"--< ";
-      		info.dcol4=BCYAN"(_-'"BBLUE"|"BCYAN"'-_)";
-    		info.dcol5=BCYAN"    "BBLUE"|"BCYAN"    ";
+       	info.dcol1=BCYAN"   ,"BBLUE"_"BCYAN",   \n";
+      	info.dcol2=BCYAN"('-_"BBLUE"|"BCYAN"_-')";
+      	info.dcol3=BCYAN" >--"BBLUE"|"BCYAN"--< ";
+      	info.dcol4=BCYAN"(_-'"BBLUE"|"BCYAN"'-_)";
+    	info.dcol5=BCYAN"    "BBLUE"|"BCYAN"    ";
    		info.dcol6=BCYAN"    "BBLUE"|"BCYAN"    ";
    		info.dcol7=BCYAN"    "BBLUE"|"BCYAN"    ";
    		info.dcol8=BCYAN"";
@@ -389,11 +391,10 @@ struct distinfo asciiart() {
 		info.dcol8=BBLUE"    `.__.-.__.' "BYELLOW;
 
 		char *homebrewPath = pipeRead("which brew");
-		if (homebrewPath == NULL || *homebrewPath == '\0')
+		if (homebrewPath == NULL || *homebrewPath == '\0') 
 		    info.getpkg = "echo \"Warning: only Homebrew is supported.\"";
 		else
 		    info.getpkg = "ls /usr/local/Cellar/* | grep ':' | wc -l | xargs";
-
 		free(homebrewPath);
 		break;
     	}
@@ -446,27 +447,23 @@ int main(){
 	   CLOCK_BOOTTIME or CLOCK_UPTIME are usually defined. If neither
 	   are defined then the uptimealt() function reads from /proc/uptime
 	   to get it. */
-
-#ifdef __APPLE__
-    	clock_gettime(CLOCK_MONOTONIC_RAW, &si);
-#endif
-
+    
 #ifdef CLOCK_BOOTTIME
 	clock_gettime(CLOCK_BOOTTIME, &si);
 #elif CLOCK_UPTIME
 	clock_gettime(CLOCK_UPTIME, &si);
-
+#elif __APPLE__
+    	clock_gettime(CLOCK_MONOTONIC_RAW, &si);
 #else
 	long long uptime = uptimealt(); //  uptime/3600 for minutes, (uptime/60)-(uptime/3600*60) for hours
 #endif
 	struct distinfo ascii = asciiart();
 	char *os_string = os();
-	FILE *pkgs;
 	printf("%s", ascii.dcol1);
 	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
 	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
 	printf("%s %s %s%s\n",ascii.dcol4,KERNELTEXT, TEXTCOLOUR, ui.release);
-#if defined(CLOCK_BOOTTIME) || defined(CLOCK_UPTIME)
+#if defined(CLOCK_BOOTTIME) || defined(CLOCK_UPTIME) || defined(__APPLE__)
 	printf("%s %s %s%ldh %ldm\n", ascii.dcol5,lowercase(UPTIMETEXT), TEXTCOLOUR, si.tv_sec / 3600, (si.tv_sec / 60) - (si.tv_sec / 3600 * 60));
 #else
 	printf("%s %s %s%ldh %ldm\n", ascii.dcol5,lowercase(UPTIMETEXT), TEXTCOLOUR, uptime / 3600, (uptime / 60) - (uptime / 3600 * 60));
