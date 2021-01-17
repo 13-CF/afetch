@@ -153,7 +153,7 @@ struct distinfo asciiart() {
    		info.dcol6=BMAGENTA"  (     _-   ";
    		info.dcol7=BMAGENTA"  \\____-     ";
    		info.dcol8=BWHITE"\n";
-		info.getpkg = "ls -d /var/db/pkg/*/* | wc -l";
+		info.getpkg = "qlist -IRv | wc -l";
 		break;
 	} else if (strncmp(dist, "Arch Linux", 10)==0) {
        	info.dcol1=BCYAN"";
