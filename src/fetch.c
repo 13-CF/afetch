@@ -1,5 +1,5 @@
 #ifndef __APPLE__
-#define _POSIX_C_SOURCE 200809L
+   #define _POSIX_C_SOURCE 200809L
 #endif
 
 #include <stdio.h>
@@ -7,8 +7,9 @@
 #include <stdlib.h>
 #include <sys/utsname.h>
 #include <time.h>
+
 #ifdef __APPLE__
-#include <sys/sysctl.h>
+   #include <sys/sysctl.h>
 #endif
 
 #include "config.h"
@@ -23,11 +24,6 @@ char *pipeRead(const char *cmd){
 }
 
 long long uptimealt(){
-#ifdef __APPLE__
-    struct timespec uptime;
-    clock_gettime(CLOCK_MONOTONIC_RAW, &uptime);
-    return uptime.tv_sec;
-#else
 	/* function to read from /proc/uptime to get the uptime. 
 	   It is only called when CLOCK_UPTIME or CLOCK_BOOTTIME
 	   aren't defined and the OS isn't macOS. */
@@ -40,7 +36,6 @@ long long uptimealt(){
 	uptime = strtol(uptimebuf, NULL, 10);
 	free(uptimebuf);
 	return uptime;
-#endif
 }
 
 char * os()
@@ -169,6 +164,17 @@ struct distinfo asciiart() {
    		info.dcol8=BCYAN"/_-''    ''-_\\\n";
 		info.getpkg = "pacman -Qq | wc -l";
 		break;
+	} else if (strncmp(dist, "Arch bang Linux", 15)==0) {
+		info.dcol1=BCYAN"          ____\n";
+      		info.dcol2=BCYAN"      /\\ /   /";
+      		info.dcol3=BCYAN"     /  /   /   ";
+      		info.dcol4=BCYAN"    /   / /     ";
+    		info.dcol5=BCYAN"   /   /_/\\     ";
+   		info.dcol6=BCYAN"  /   __   \\   ";
+   		info.dcol7=BCYAN" /   /_/\\   \\ ";
+   		info.dcol8=BCYAN"/_-''    ''-_\\\n";
+		info.getpkg = "pacman -Qq | wc -l";
+		break;
 	} else if (strncmp(dist, "ArcoLinux", 9)==0) {
        		info.dcol1=BBLUE"";
       		info.dcol2=BBLUE"      /\\      ";
@@ -201,6 +207,17 @@ struct distinfo asciiart() {
    		info.dcol7=BCYAN" /   ,.'`.  \\ ";
    		info.dcol8=BCYAN"/.,'`     `'.\\\n";
 		info.getpkg = "pacman -Qq | wc -l";
+		break;
+	} else if (strncmp(dist, "elementary OS", 12)==0) {
+		info.dcol1=BCYAN"";
+		info.dcol2=BCYAN"  _______";
+   		info.dcol3=BCYAN" / ____  \\";
+   		info.dcol4=BCYAN"/  |  /  /\\";
+   		info.dcol5=BCYAN"|__\\ /  / |";
+   		info.dcol6=BCYAN"\\   /__/  /";
+   		info.dcol7=BCYAN" \\_______/";
+   		info.dcol8=BCYAN"";
+		info.getpkg="dpkg -l | tail -n+6 | wc -l";
 		break;
 	} else if (strncmp(dist, "EndeavourOS", 11)==0) {
 		info.dcol1=BCYAN"";
@@ -425,16 +442,20 @@ int main(){
 	struct utsname ui; 
 	uname(&ui);
 	struct timespec si;
-
 	/* There doesn't seem to be a standard way to get the time, but
 	   CLOCK_BOOTTIME or CLOCK_UPTIME are usually defined. If neither
 	   are defined then the uptimealt() function reads from /proc/uptime
 	   to get it. */
 
+#ifdef __APPLE__
+    	clock_gettime(CLOCK_MONOTONIC_RAW, &si);
+#endif
+
 #ifdef CLOCK_BOOTTIME
 	clock_gettime(CLOCK_BOOTTIME, &si);
 #elif CLOCK_UPTIME
 	clock_gettime(CLOCK_UPTIME, &si);
+
 #else
 	long long uptime = uptimealt(); //  uptime/3600 for minutes, (uptime/60)-(uptime/3600*60) for hours
 #endif
