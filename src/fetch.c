@@ -461,7 +461,6 @@ int main(){
 #endif
 	struct distinfo ascii = asciiart();
 	char *os_string = os();
-	FILE *pkgs;
 	printf("%s", ascii.dcol1);
 	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
 	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
