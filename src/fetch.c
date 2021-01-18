@@ -24,7 +24,7 @@ char *pipeRead(const char *cmd){
 }
 
 long long uptimealt(){
-	/* function to read from /proc/uptime to get the uptime. 
+	/* function to read from /proc/uptime to get the uptime.
 	   It is only called when CLOCK_UPTIME or CLOCK_BOOTTIME
 	   aren't defined and the OS isn't macOS. */
 	FILE *uptimefile;
@@ -47,10 +47,10 @@ char * os()
 	FILE *f = fopen("/etc/os-release", "rt");
 	if (f == NULL || osContents == NULL) return "Linux";
 	// look through each line of /etc/os-release until we're on the NAME= line
-	while (fgets(osContents, 512, f)) { 
+	while (fgets(osContents, 512, f)) {
 		snprintf(newContents, 512, "%.*s", 511, osContents+4);
 		if (strncmp(newContents, "=", 1)==0) break;
-		line++; } 
+		line++; }
 	fclose(f);
 	free(osContents);
 
@@ -69,10 +69,10 @@ char * os()
     strcpy(macVersion, "macOS ");
 
     char *productVersion = pipeRead("sw_vers -productVersion");
-    
+
     strcat(macVersion, productVersion);
     free(productVersion);
-    
+
     return macVersion;
 #else
 	/* If you aren't runnig a Linux distro or macOS then this is run.
@@ -318,7 +318,7 @@ struct distinfo asciiart() {
 		info.dcol6=BCYAN"    \\ \\    _     ";
 		info.dcol7=BCYAN"   __\\_\\__(_)_   ";
 		info.dcol8=BCYAN"  (___________)";
-		info.getpkg="dpkg -l | tail -n+6 | wc -l"; 
+		info.getpkg="dpkg -l | tail -n+6 | wc -l";
 		break;
 	} else if (strncmp(dist, "NixOS", 5) == 0) {
 		info.dcol1=BMAGENTA"            \n";
@@ -402,7 +402,7 @@ struct distinfo asciiart() {
 		info.dcol8=BBLUE"    `.__.-.__.' "BYELLOW;
 
 		char *homebrewPath = pipeRead("which brew");
-		if (homebrewPath == NULL || *homebrewPath == '\0') 
+		if (homebrewPath == NULL || *homebrewPath == '\0')
 		    info.getpkg = "echo \"Warning: only Homebrew is supported.\"";
 		else
 		    info.getpkg = "ls /usr/local/Cellar/* | grep ':' | wc -l | xargs";
@@ -447,18 +447,18 @@ char * shell() {
 	replace(shell, "/bin/", "\0");
 	replace(shell, "/usr", "\0");
 	replace(shell, "/local", "\0");
-	return shell; 
+	return shell;
 }
 
 int main(){
-	struct utsname ui; 
+	struct utsname ui;
 	uname(&ui);
 	struct timespec si;
 	/* There doesn't seem to be a standard way to get the time, but
 	   CLOCK_BOOTTIME or CLOCK_UPTIME are usually defined. If neither
 	   are defined then the uptimealt() function reads from /proc/uptime
 	   to get it. */
-    
+
 #ifdef CLOCK_BOOTTIME
 	clock_gettime(CLOCK_BOOTTIME, &si);
 #elif CLOCK_UPTIME
@@ -490,7 +490,7 @@ int main(){
 	printf("\n");
 	if (BLOCKS == 0) {
 		blockdraw();
-	} 
+	}
 	printf("%s", RESET); // Reset terminal's colors
 	free(os_string);
 	free(pkgString);
