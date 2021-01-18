@@ -133,27 +133,16 @@ struct distinfo asciiart() {
 	while (1) {
 #ifdef __linux__
 /* Linux distros go below here. Make sure they are not before the '#else' */
-	if (strncmp(dist, "void", 4) == 0) {
-		info.dcol1 = BGREEN"     _______\n";
-		info.dcol2 = BGREEN"  _ \\______ - ";
-		info.dcol3 = BGREEN" | \\  ___  \\ |";
-		info.dcol4 = BGREEN" | | /   \\ | |";
-		info.dcol5 = BGREEN" | | \\___/ | |";
-		info.dcol6 = BGREEN" | \\______ \\_|";
-		info.dcol7 = BGREEN "  -_______\\   ";
-		info.dcol8 = "";
-		info.getpkg = "xbps-query -l | wc -l";
-		break;
-	} else if (strncmp(dist, "Gentoo", 6) == 0) {
-		info.dcol1 = BMAGENTA"   _-----_ \n";
-		info.dcol2 = BMAGENTA"  (       \\  ";
-		info.dcol3 = BMAGENTA"  \\    0   \\ ";
-		info.dcol4 = BMAGENTA"   \\        )";
-		info.dcol5 = BMAGENTA"   /      _/ ";
-		info.dcol6 = BMAGENTA"  (     _-   ";
-		info.dcol7 = BMAGENTA"  \\____-     ";
-		info.dcol8 = BWHITE"\n";
-		info.getpkg = "qlist -IRv | wc -l";
+	if (strncmp(dist, "Alpine Linux", 12) == 0) {
+		info.dcol1 = BBLUE"\n";
+		info.dcol2 = BBLUE"    /\\ /\\    ";
+		info.dcol3 = BBLUE"   /  \\  \\   ";
+		info.dcol4 = BBLUE"  /    \\  \\  ";
+		info.dcol5 = BBLUE" /      \\  \\ ";
+		info.dcol6 = BBLUE"/        \\  \\";
+		info.dcol7 = BBLUE"          \\  ";
+		info.dcol8 = BBLUE"";
+		info.getpkg = "apk info | wc -l";
 		break;
 	} else if (strncmp(dist, "Arch Linux", 10) == 0) {
 		info.dcol1 = BCYAN"";
@@ -188,17 +177,6 @@ struct distinfo asciiart() {
 		info.dcol8 = BBLUE"/_/  `----.\\_\\\n";
 		info.getpkg = "pacman -Qq | wc -l";
 		break;
-	} else if (strncmp(dist, "Manjaro", 7) == 0) {
-		info.dcol1 = BGREEN" ________  __ \n";
-		info.dcol2 = BGREEN"|       | |  |";
-		info.dcol3 = BGREEN"|   ____| |  |";
-		info.dcol4 = BGREEN"|  |  __  |  |";
-		info.dcol5 = BGREEN"|  | |  | |  |";
-		info.dcol6 = BGREEN"|  | |  | |  |";
-		info.dcol7 = BGREEN"|  | |  | |  |";
-		info.dcol8 = BGREEN"|__| |__| |__|\n";
-		info.getpkg = "pacman -Qq | wc -l";
-		break;
 	} else if (strncmp(dist, "Artix Linux", 11) == 0) {
 		info.dcol1 = BCYAN"";
 		info.dcol2 = BCYAN"      /\\      ";
@@ -209,6 +187,17 @@ struct distinfo asciiart() {
 		info.dcol7 = BCYAN" /   ,.'`.  \\ ";
 		info.dcol8 = BCYAN"/.,'`     `'.\\\n";
 		info.getpkg = "pacman -Qq | wc -l";
+		break;
+	} else if (strncmp(dist, "Debian GNU/Linux", 16) == 0) {
+		info.dcol1 = BRED"  _____\n";
+		info.dcol2 = BRED" /  __ \\ ";
+		info.dcol3 = BRED"|  /    |";
+		info.dcol4 = BRED"|  \\___- ";
+		info.dcol5 = BRED"-_       ";
+		info.dcol6 = BRED"  --_    ";
+		info.dcol7 = BRED"         ";
+		info.dcol8 = BRED"";
+		info.getpkg = "dpkg -l | tail -n+6 | wc -l";
 		break;
 	} else if (strncmp(dist, "elementary OS", 12) == 0) {
 		info.dcol1 = BCYAN"";
@@ -243,49 +232,38 @@ struct distinfo asciiart() {
 		info.dcol8 = BBLUE" \\"BWHITE"(_____/"BBLUE;
 		info.getpkg = "[[ $(which sqlite3 2>/dev/null) && $? -ne 1 ]] && (sqlite3 /var/lib/rpm/rpmdb.sqlite \"select * from Name\"|wc -l) || rpm -qa | wc -l";
 		break;
-	} else if (strncmp(dist, "Debian GNU/Linux", 16) == 0) {
-		info.dcol1 = BRED"  _____\n";
-		info.dcol2 = BRED" /  __ \\ ";
-		info.dcol3 = BRED"|  /    |";
-		info.dcol4 = BRED"|  \\___- ";
-		info.dcol5 = BRED"-_       ";
-		info.dcol6 = BRED"  --_    ";
-		info.dcol7 = BRED"         ";
-		info.dcol8 = BRED"";
-		info.getpkg = "dpkg -l | tail -n+6 | wc -l";
+	} else if (strncmp(dist, "Gentoo", 6) == 0) {
+		info.dcol1 = BMAGENTA"   _-----_ \n";
+		info.dcol2 = BMAGENTA"  (       \\  ";
+		info.dcol3 = BMAGENTA"  \\    0   \\ ";
+		info.dcol4 = BMAGENTA"   \\        )";
+		info.dcol5 = BMAGENTA"   /      _/ ";
+		info.dcol6 = BMAGENTA"  (     _-   ";
+		info.dcol7 = BMAGENTA"  \\____-     ";
+		info.dcol8 = BWHITE"\n";
+		info.getpkg = "qlist -IRv | wc -l";
 		break;
-	} else if (strncmp(dist, "Ubuntu", 6) == 0) {
-		info.dcol1 = BRED"";
-		info.dcol2 = BRED"         _  ";
-		info.dcol3 = BRED"     ---(_) ";
-		info.dcol4 = BRED" _/  ---  \\ ";
-		info.dcol5 = BRED"(_) |   |   ";
-		info.dcol6 = BRED"  \\  --- _/ ";
-		info.dcol7 = BRED"     ---(_) ";
-		info.dcol8 = BRED"";
-		info.getpkg = "dpkg -l | tail -n+6 | wc -l";
+	} else if (strncmp(dist, "Manjaro", 7) == 0) {
+		info.dcol1 = BGREEN" ________  __ \n";
+		info.dcol2 = BGREEN"|       | |  |";
+		info.dcol3 = BGREEN"|   ____| |  |";
+		info.dcol4 = BGREEN"|  |  __  |  |";
+		info.dcol5 = BGREEN"|  | |  | |  |";
+		info.dcol6 = BGREEN"|  | |  | |  |";
+		info.dcol7 = BGREEN"|  | |  | |  |";
+		info.dcol8 = BGREEN"|__| |__| |__|\n";
+		info.getpkg = "pacman -Qq | wc -l";
 		break;
-	} else if (strncmp(dist, "Alpine Linux", 12) == 0) {
-		info.dcol1 = BBLUE"\n";
-		info.dcol2 = BBLUE"    /\\ /\\    ";
-		info.dcol3 = BBLUE"   /  \\  \\   ";
-		info.dcol4 = BBLUE"  /    \\  \\  ";
-		info.dcol5 = BBLUE" /      \\  \\ ";
-		info.dcol6 = BBLUE"/        \\  \\";
-		info.dcol7 = BBLUE"          \\  ";
-		info.dcol8 = BBLUE"";
-		info.getpkg = "apk info | wc -l";
-		break;
-	} else if (strncmp(dist, "Slackware", 10) == 0) {
-		info.dcol1 = BBLUE"   ________\n";
-		info.dcol2 = BBLUE"  /  ______| ";
-		info.dcol3 = BBLUE"  | |______  ";
-		info.dcol4 = BBLUE"  \\______  \\ ";
-		info.dcol5 = BBLUE"   ______| | ";
-		info.dcol6 = BBLUE"| |________/ ";
-		info.dcol7 = BBLUE"|____________";
-		info.dcol8 = BBLUE"";
-		info.getpkg = "ls /var/log/packages | wc -l";
+	} else if (strncmp(dist, "NixOS", 5) == 0) {
+		info.dcol1 = BMAGENTA"            \n";
+		info.dcol2 = BMAGENTA"  \\\\  \\\\ //     ";
+		info.dcol3 = BMAGENTA" ==\\\\__\\\\/ //   ";
+		info.dcol4 = BMAGENTA"   //   \\\\//    ";
+		info.dcol5 = BMAGENTA"==//     //==   ";
+		info.dcol6 = BMAGENTA" //\\\\___//      ";
+		info.dcol7 = BMAGENTA"// /\\\\  \\\\==    ";
+		info.dcol8 = BMAGENTA"  // \\\\  \\\\     ";
+		info.getpkg = "nix-store -q --requisites /run/current-system/sw | wc -l";
 		break;
 	} else if (strncmp(dist, "openSUSE Leap", 10) == 0 || strncmp(dist, "openSUSE Tumbleweed", 19) == 0) {
 		info.dcol1 = BGREEN"  _______\n";
@@ -309,16 +287,16 @@ struct distinfo asciiart() {
 		info.dcol8 = BCYAN"  (___________)";
 		info.getpkg = "dpkg -l | tail -n+6 | wc -l";
 		break;
-	} else if (strncmp(dist, "NixOS", 5) == 0) {
-		info.dcol1 = BMAGENTA"            \n";
-		info.dcol2 = BMAGENTA"  \\\\  \\\\ //     ";
-		info.dcol3 = BMAGENTA" ==\\\\__\\\\/ //   ";
-		info.dcol4 = BMAGENTA"   //   \\\\//    ";
-		info.dcol5 = BMAGENTA"==//     //==   ";
-		info.dcol6 = BMAGENTA" //\\\\___//      ";
-		info.dcol7 = BMAGENTA"// /\\\\  \\\\==    ";
-		info.dcol8 = BMAGENTA"  // \\\\  \\\\     ";
-		info.getpkg = "nix-store -q --requisites /run/current-system/sw | wc -l";
+	} else if (strncmp(dist, "Slackware", 10) == 0) {
+		info.dcol1 = BBLUE"   ________\n";
+		info.dcol2 = BBLUE"  /  ______| ";
+		info.dcol3 = BBLUE"  | |______  ";
+		info.dcol4 = BBLUE"  \\______  \\ ";
+		info.dcol5 = BBLUE"   ______| | ";
+		info.dcol6 = BBLUE"| |________/ ";
+		info.dcol7 = BBLUE"|____________";
+		info.dcol8 = BBLUE"";
+		info.getpkg = "ls /var/log/packages | wc -l";
 		break;
 	} else if (strncmp(dist, "Solus", 5) == 0) {
 		info.dcol1 = BMAGENTA"";
@@ -331,19 +309,41 @@ struct distinfo asciiart() {
 		info.dcol8 = BMAGENTA"";
 		info.getpkg = "ls /var/lib/eopkg/package/ | wc -l";
 		break;
+	} else if (strncmp(dist, "Ubuntu", 6) == 0) {
+		info.dcol1 = BRED"";
+		info.dcol2 = BRED"         _  ";
+		info.dcol3 = BRED"     ---(_) ";
+		info.dcol4 = BRED" _/  ---  \\ ";
+		info.dcol5 = BRED"(_) |   |   ";
+		info.dcol6 = BRED"  \\  --- _/ ";
+		info.dcol7 = BRED"     ---(_) ";
+		info.dcol8 = BRED"";
+		info.getpkg = "dpkg -l | tail -n+6 | wc -l";
+		break;
+	} else if (strncmp(dist, "void", 4) == 0) {
+		info.dcol1 = BGREEN"     _______\n";
+		info.dcol2 = BGREEN"  _ \\______ - ";
+		info.dcol3 = BGREEN" | \\  ___  \\ |";
+		info.dcol4 = BGREEN" | | /   \\ | |";
+		info.dcol5 = BGREEN" | | \\___/ | |";
+		info.dcol6 = BGREEN" | \\______ \\_|";
+		info.dcol7 = BGREEN "  -_______\\   ";
+		info.dcol8 = "";
+		info.getpkg = "xbps-query -l | wc -l";
+		break;
 	}
 #else
 	/* All operating systems that aren't Linux distros go under here. */
-	if (strncmp(dist, "OpenBSD", 7) == 0) {
-		info.dcol1 = BYELLOW"      _____    \n";
-		info.dcol2 = BYELLOW"    \\-     -/  ";
-		info.dcol3 = BYELLOW" \\_/         \\ ";
-		info.dcol4 = BYELLOW" |        "BWHITE"O O"BYELLOW" |";
-		info.dcol5 = BYELLOW" |_  <   )  3 )";
-		info.dcol6 = BYELLOW" / \\         / ";
-		info.dcol7 = BYELLOW"    /-_____-\\  ";
-		info.dcol8 = BYELLOW"";
-		info.getpkg = "pkg_info | wc -l | tr -d ' '";
+	if (strncmp(dist, "DragonFly", 9) == 0) {
+		info.dcol1 = BCYAN"   ,"BBLUE"_"BCYAN",   \n";
+		info.dcol2 = BCYAN"('-_"BBLUE"|"BCYAN"_-')";
+		info.dcol3 = BCYAN" >--"BBLUE"|"BCYAN"--< ";
+		info.dcol4 = BCYAN"(_-'"BBLUE"|"BCYAN"'-_)";
+		info.dcol5 = BCYAN"    "BBLUE"|"BCYAN"    ";
+		info.dcol6 = BCYAN"    "BBLUE"|"BCYAN"    ";
+		info.dcol7 = BCYAN"    "BBLUE"|"BCYAN"    ";
+		info.dcol8 = BCYAN"";
+		info.getpkg = "pkg info | wc -l | tr -d ' '";
 		break;
 	} else if (strncmp(dist, "FreeBSD", 7) == 0) {
 		info.dcol1 = BRED"";
@@ -367,17 +367,18 @@ struct distinfo asciiart() {
 		info.dcol8 = BWHITE"";
 		info.getpkg = "pkg_info | wc -l | tr -d ' '";
 		break;
-	} else if (strncmp(dist, "DragonFly", 9) == 0) {
-		info.dcol1 = BCYAN"   ,"BBLUE"_"BCYAN",   \n";
-		info.dcol2 = BCYAN"('-_"BBLUE"|"BCYAN"_-')";
-		info.dcol3 = BCYAN" >--"BBLUE"|"BCYAN"--< ";
-		info.dcol4 = BCYAN"(_-'"BBLUE"|"BCYAN"'-_)";
-		info.dcol5 = BCYAN"    "BBLUE"|"BCYAN"    ";
-		info.dcol6 = BCYAN"    "BBLUE"|"BCYAN"    ";
-		info.dcol7 = BCYAN"    "BBLUE"|"BCYAN"    ";
-		info.dcol8 = BCYAN"";
-		info.getpkg = "pkg info | wc -l | tr -d ' '";
+	} else if (strncmp(dist, "OpenBSD", 7) == 0) {
+		info.dcol1 = BYELLOW"      _____    \n";
+		info.dcol2 = BYELLOW"    \\-     -/  ";
+		info.dcol3 = BYELLOW" \\_/         \\ ";
+		info.dcol4 = BYELLOW" |        "BWHITE"O O"BYELLOW" |";
+		info.dcol5 = BYELLOW" |_  <   )  3 )";
+		info.dcol6 = BYELLOW" / \\         / ";
+		info.dcol7 = BYELLOW"    /-_____-\\  ";
+		info.dcol8 = BYELLOW"";
+		info.getpkg = "pkg_info | wc -l | tr -d ' '";
 		break;
+	}
 #ifdef __APPLE__
 	} else if (strncmp(dist, "macOS", 5) == 0) {
 		/* ascii art author: jgs */

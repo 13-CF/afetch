@@ -67,7 +67,6 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 
 **To do**
 *  Optimise
-*  Put distros in alphabetical order in `os()` function.
 
 **Thanks**
 *  All the people who contribute <3
