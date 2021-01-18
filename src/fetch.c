@@ -190,13 +190,24 @@ struct distinfo asciiart() {
 		break;
 	} else if (strncmp(dist, "Manjaro Linux", 13)==0) {
    		info.dcol1=BGREEN" ________  __ \n";
-       	info.dcol2=BGREEN"|       | |  |";
-      	info.dcol3=BGREEN"|   ____| |  |";
-      	info.dcol4=BGREEN"|  |  __  |  |";
-      	info.dcol5=BGREEN"|  | |  | |  |";
-    	info.dcol6=BGREEN"|  | |  | |  |";
-   		info.dcol7=BGREEN"|  | |  | |  |";
-   		info.dcol8=BGREEN"|__| |__| |__|\n";
+		info.dcol2=BGREEN"|       | |  |";
+		info.dcol3=BGREEN"|   ____| |  |";
+		info.dcol4=BGREEN"|  |  __  |  |";
+		info.dcol5=BGREEN"|  | |  | |  |";
+		info.dcol6=BGREEN"|  | |  | |  |";
+		info.dcol7=BGREEN"|  | |  | |  |";
+		info.dcol8=BGREEN"|__| |__| |__|\n";
+		info.getpkg = "pacman -Qq | wc -l";
+		break;
+	} else if (strncmp(dist, "Manjaro-ARM", 11)==0) {
+   		info.dcol1=BGREEN" ________  __ \n";
+		info.dcol2=BGREEN"|       | |  |";
+		info.dcol3=BGREEN"|   ____| |  |";
+		info.dcol4=BGREEN"|  |  __  |  |";
+		info.dcol5=BGREEN"|  | |  | |  |";
+		info.dcol6=BGREEN"|  | |  | | A|";
+		info.dcol7=BGREEN"|  | |  | | R|";
+		info.dcol8=BGREEN"|__| |__| |_M|\n";
 		info.getpkg = "pacman -Qq | wc -l";
 		break;
 	} else if (strncmp(dist, "Artix Linux", 11)==0) {

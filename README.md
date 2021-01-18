@@ -27,13 +27,14 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Debian
 *  Ubuntu
 *  Manjaro
+*  Manjaro-ARM
 *  Alpine
 *  Solus
 *  Slackware
 *  Pop!_OS
 *  NixOS
-*  FreeBSD 
-*  OpenBSD 
+*  FreeBSD
+*  OpenBSD
 *  NetBSD
 *  DragonflyBSD
 *  macOS (Homebrew)
@@ -43,7 +44,7 @@ If your OS isn't in the list above, you'll still be able to build the program as
 
 **Please request your distro if you want it added**
 
-If on Linux, please show me the contents of the `/etc/os-release` file. 
+If on Linux, please show me the contents of the `/etc/os-release` file.
 
 
 ![gif](img/preview.gif)
@@ -57,7 +58,7 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 *  Support for one custom shell command (replaces the package count)
 *  Custom colours
 *  Custom artwork
-*  Edit headings for info rows 
+*  Edit headings for info rows
 *  Force lowercase text (unstable)
 *  Show path to shell
 *  Select text colour
