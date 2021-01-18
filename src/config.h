@@ -1,12 +1,12 @@
 #define CUSTOMCMD 1
 #define PKGCMD "ps aux | tail -n+1 | wc -l | tr -d ' '"
 //---------------------------------------------------------------------------------------------
-#define LOWERCASE 1 
+#define LOWERCASE 1
 //---------------------------------------------------------------------------------------------
-#define SHELLPATH 1 
+#define SHELLPATH 1
 //---------------------------------------------------------------------------------------------
 #define BLOCKS 1
-#define BLOCKCHAR " ██" 
+#define BLOCKCHAR " ██"
 	/*
 Block characters are shown inside this comment. If you can't see them, then your current font doesn't support them
 
@@ -25,12 +25,12 @@ Block characters are shown inside this comment. If you can't see them, then your
 #define TEXTCOLOUR WHITE
 //---------------------------------------------------------------------------------------------
 
-//#define OVERRIDECOLOUR 
+//#define OVERRIDECOLOUR
 #define CUSTOMCOLOUR "\033[1;33m"
 
 //---------------------------------------------------------------------------------------------
 
-#define CUSTOMART 1 
+#define CUSTOMART 1
 
 #define COL1 BRED     "\033[1;36m     ___   \n"
 #define COL2 BRED     "\033[1;31m ___\033[1;36m/   \\\033[1;31m___ " //info starts on column 2
@@ -106,3 +106,4 @@ struct distinfo {
 	char * dcol8;
 	char * getpkg;
 };
+
