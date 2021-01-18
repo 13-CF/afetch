@@ -13,29 +13,29 @@ afetch is a command line tool to display basic system information. The goal is t
 
 **Package count supported**
 
-*  Void
-*  Gentoo
+*  Alpine
 *  Arch
 *  ArchBang
-*  Artix
 *  Arco
+*  Artix
+*  Debian
+*  DragonflyBSD
 *  Elementary OS
 *  EndeavourOS
 *  Fedora (slow due to package manager)
+*  FreeBSD
+*  Gentoo
+*  Manjaro
+*  NetBSD
+*  NixOS
+*  OpenBSD
 *  OpenSUSE Leap (slow due to package manager)
 *  OpenSUSE Tumbleweed (slow due to package manager)
-*  Debian
-*  Ubuntu
-*  Manjaro
-*  Alpine
-*  Solus
-*  Slackware
 *  Pop!_OS
-*  NixOS
-*  FreeBSD
-*  OpenBSD
-*  NetBSD
-*  DragonflyBSD
+*  Slackware
+*  Solus
+*  Ubuntu
+*  Void
 *  macOS (Homebrew)
 
 If your OS isn't in the list above, you'll still be able to build the program as long as you're either using Linux, or another UNIX based operating system with the necessary header files.
@@ -67,9 +67,11 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 
 **To do**
 *  Optimise
-*  Put distros in alphabetical order in README.md and `os()` function.
+*  Put distros in alphabetical order in `os()` function.
 
 **Thanks**
+*  All the people who contribute <3
+
 *  [neofetch](https://github.com/dylanaraps/neofetch)
 *  [ufetch](https://github.com/jschx/ufetch)
 *  [nerdfetch](https://github.com/ThatOneCalculator/NerdFetch)
