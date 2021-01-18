@@ -12,11 +12,10 @@ clean:
 	rm -f afetch
 
 install:
-	install -o root -g root -d ${DESTDIR}${PREFIX}/bin
-	install -o root -g root -d ${DESTDIR}${PREFIX}/share/man/man1
-	install -o root -g root -m 711 ./afetch ${DESTDIR}${PREFIX}/bin/afetch
-	install -o root -g root -m 644 ./src/afetch.1 ${DESTDIR}${PREFIX}/share/man/man1/afetch.1
-
+	chmod 711 ./afetch
+	cp ./afetch ${DESTDIR}${PREFIX}/bin
+	chmod 644 ./src/afetch.1
+	cp src/afetch.1 ${DESTDIR}${PREFIX}/share/man/man1 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/afetch ${DESTDIR}${PREFIX}/man/man1/afetch.1
 

@@ -66,7 +66,6 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 
 
 **To do**
-*  Instead of using `install` command in Makefile, use `mv` and `chmod`. The version that comes with the GNU Coreutils isn't compatible with other operating systems. OpenBSD might not even have the command
 *  Optimise
 
 **Thanks**
