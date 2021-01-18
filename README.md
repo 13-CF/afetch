@@ -27,7 +27,6 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Debian
 *  Ubuntu
 *  Manjaro
-*  Manjaro-ARM
 *  Alpine
 *  Solus
 *  Slackware
