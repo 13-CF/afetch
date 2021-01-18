@@ -380,7 +380,7 @@ struct distinfo asciiart() {
 		break;
 	}
 #ifdef __APPLE__
-	} else if (strncmp(dist, "macOS", 5) == 0) {
+	 else if (strncmp(dist, "macOS", 5) == 0) {
 		/* ascii art author: jgs */
 		info.dcol1 = ""BYELLOW;
 		info.dcol2 = BGREEN   "          .:'   "BYELLOW;
