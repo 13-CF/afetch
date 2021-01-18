@@ -6,8 +6,8 @@
 <p align=center>Fast and simple system info (for UNIX based operating systems) written in POSIX compliant C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. It uses the C Preprocessor to implement config options at compile time. <br> <br>
 afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with no dependencies apart from the POSIX header files. </p>
 
-**Requirments**
-*  A `/etc/os-release` file 
+**Requirements**
+*  A `/etc/os-release` file
 *  A C compiler
 *  A <a href="https://en.wikipedia.org/wiki/C_POSIX_library">compatible C standard library</a> implementation
 
@@ -79,3 +79,4 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 **A Disclaimer**
 
 I'm not very good at using git, and this is my first project using the git CLI, so there'll be a stupid amount of commits, and other commits with very minor changes to one or two files.
+
