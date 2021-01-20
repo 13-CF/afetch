@@ -111,21 +111,6 @@ void blockdraw() {
 	printf("\033[0m");
 }
 
-
-
-void replace(char * source, char * sub, char * with) { //stolen off of a youtube video, thank you stranger
-	char * substring_source = strstr(source, sub);
-	if (substring_source == NULL) {
-		return;
-	}
-
-	memmove(substring_source + strlen(with),
-		substring_source + strlen(sub),
-		strlen(substring_source) - strlen(sub) +1 );
-	memcpy(substring_source, with, strlen(with));
-}
-
-
 /* Logos created by neofetch and ufetch developers */
 struct distinfo asciiart() {
 	char* dist = os();
@@ -436,9 +421,12 @@ char * shell() {
 
 	char * shell = getenv("SHELL");
 
-	replace(shell, "/bin/", "\0");
-	replace(shell, "/usr", "\0");
-	replace(shell, "/local", "\0");
+	/* get basename of shell by looking for last '/' */
+	char * slash = strrchr(shell, '/');
+	if (slash) {
+		shell = slash + 1;
+	}
+
 	return shell;
 }
 
