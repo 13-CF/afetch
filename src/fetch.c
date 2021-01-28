@@ -316,6 +316,17 @@ struct distinfo asciiart() {
 		info.dcol8 = "";
 		info.getpkg = "xbps-query -l | wc -l";
 		break;
+	} else if (strncmp(dist, "KDE neon", 8) == 0) {
+		info.dcol1 = BRED"";
+		info.dcol2 = BRED"            ";
+		info.dcol3 = BRED"     --- _  ";
+		info.dcol4 = BRED"  /  ---  \\ ";
+		info.dcol5 = BRED" |  |   |   ";
+		info.dcol6 = BRED"  \\  --- _/ ";
+		info.dcol7 = BRED"     ---    ";
+		info.dcol8 = BRED"";
+		info.getpkg = "dpkg -l | tail -n+6 | wc -l";
+		break;
 	}
 #else
 	/* All operating systems that aren't Linux distros go under here. */
