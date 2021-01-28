@@ -441,6 +441,16 @@ char * shell() {
 	return shell;
 }
 
+char systemmodel[255];
+void getmodel() {
+	FILE *modelname = fopen("/sys/devices/virtual/dmi/id/product_name", "r");
+	if (0 != modelname) {
+		fscanf(modelname, "%49[^\n]", systemmodel);
+		fclose(modelname);
+	} else
+		strncpy(systemmodel,"unavailable\0",12);
+}
+
 int main(){
 	struct utsname ui;
 	uname(&ui);
@@ -461,10 +471,12 @@ int main(){
 #endif
 	struct distinfo ascii = asciiart();
 	char *os_string = os();
+	getmodel();
 	printf("%s", ascii.dcol1);
 	printf("%s %s %s%s\n",ascii.dcol2,USERTEXT, TEXTCOLOUR, lowercase(getenv("USER")));
 	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
 	printf("%s %s %s%s\n",ascii.dcol4,KERNELTEXT, TEXTCOLOUR, ui.release);
+	printf("%s %s %s%s\n",ascii.dcol5,MODELTEXT, TEXTCOLOUR, systemmodel);
 #if defined(CLOCK_BOOTTIME) || defined(CLOCK_UPTIME) || defined(__APPLE__)
 	printf("%s %s %s%ldh %ldm\n", ascii.dcol5,lowercase(UPTIMETEXT), TEXTCOLOUR, si.tv_sec / 3600, (si.tv_sec / 60) - (si.tv_sec / 3600 * 60));
 #else
