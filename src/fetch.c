@@ -321,7 +321,7 @@ struct distinfo asciiart() {
 		info.dcol2 = BGREEN"            ";
 		info.dcol3 = BGREEN"     --- _  ";
 		info.dcol4 = BGREEN"  /  ---  \\ ";
-		info.dcol5 = BGREEN" |  |   |   ";
+		info.dcol5 = BGREEN" |  |   |  |";
 		info.dcol6 = BGREEN"  \\  --- _/ ";
 		info.dcol7 = BGREEN"     ---    ";
 		info.dcol8 = BGREEN"";
