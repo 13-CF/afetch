@@ -317,14 +317,14 @@ struct distinfo asciiart() {
 		info.getpkg = "xbps-query -l | wc -l";
 		break;
 	} else if (strncmp(dist, "KDE neon", 8) == 0) {
-		info.dcol1 = BRED"";
-		info.dcol2 = BRED"            ";
-		info.dcol3 = BRED"     --- _  ";
-		info.dcol4 = BRED"  /  ---  \\ ";
-		info.dcol5 = BRED" |  |   |   ";
-		info.dcol6 = BRED"  \\  --- _/ ";
-		info.dcol7 = BRED"     ---    ";
-		info.dcol8 = BRED"";
+		info.dcol1 = BGREEN"";
+		info.dcol2 = BGREEN"            ";
+		info.dcol3 = BGREEN"     --- _  ";
+		info.dcol4 = BGREEN"  /  ---  \\ ";
+		info.dcol5 = BGREEN" |  |   |   ";
+		info.dcol6 = BGREEN"  \\  --- _/ ";
+		info.dcol7 = BGREEN"     ---    ";
+		info.dcol8 = BGREEN"";
 		info.getpkg = "dpkg -l | tail -n+6 | wc -l";
 		break;
 	}
