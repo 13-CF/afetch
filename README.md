@@ -25,6 +25,7 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Fedora (slow due to package manager)
 *  FreeBSD
 *  Gentoo
+*  Parabola
 *  Manjaro
 *  NetBSD
 *  NixOS
@@ -38,7 +39,7 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Void
 *  macOS (Homebrew)
 
-If your OS isn't in the list above, you'll still be able to build the program as long as you're either using Linux, or another UNIX based operating system with the necessary header files.
+If your OS isn't in the list above, you'll still be able to build and run the program as long as you're either using Linux, or another UNIX based operating system with the necessary header files.
 
 
 **Please request your distro if you want it added**
@@ -67,9 +68,11 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 
 **To do**
 *  Optimise
+*  Add support for more distros
+*  Improve some logos by changing artwork and making it multicoloured
 
 **Thanks**
-*  All the people who contribute <3
+*  All the [contributors](https://github.com/13-CF/afetch/graphs/contributors) <3
 
 *  [neofetch](https://github.com/dylanaraps/neofetch)
 *  [ufetch](https://github.com/jschx/ufetch)

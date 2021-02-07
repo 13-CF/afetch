@@ -1,3 +1,4 @@
+
 #ifndef __APPLE__
    #define _POSIX_C_SOURCE 200809L
 #endif
@@ -228,6 +229,17 @@ struct distinfo asciiart() {
 		info.dcol8 = BWHITE"\n";
 		info.getpkg = "qlist -IRv | wc -l";
 		break;
+	} else if (strncmp(dist, "KDE neon", 8) == 0) {
+		info.dcol1 = BGREEN"";
+		info.dcol2 = BGREEN"            ";
+		info.dcol3 = BGREEN"     --- _  ";
+		info.dcol4 = BGREEN"  /  ---  \\ ";
+		info.dcol5 = BGREEN" |  |   |  |";
+		info.dcol6 = BGREEN"  \\  --- _/ ";
+		info.dcol7 = BGREEN"     ---    ";
+		info.dcol8 = BGREEN"";
+		info.getpkg = "dpkg -l | tail -n+6 | wc -l";
+		break;
 	} else if (strncmp(dist, "Manjaro", 7) == 0) {
 		info.dcol1 = BGREEN" ________  __ \n";
 		info.dcol2 = BGREEN"|       | |  |";
@@ -261,6 +273,17 @@ struct distinfo asciiart() {
 		info.dcol8 = BGREEN"";
 		info.getpkg = "rpm -qa | wc -l";
 		break;
+	} else if (strncmp(dist, "Parabola", 8) == 0) {
+		info.dcol1 = BMAGENTA"";
+		info.dcol2 = BMAGENTA"  __ __ __  _";
+		info.dcol3 = BMAGENTA".`_//_//_/ / `.";
+		info.dcol4 = BMAGENTA"          /  .`";
+		info.dcol5 = BMAGENTA"         / .`";
+		info.dcol6 = BMAGENTA"        /.`";
+		info.dcol7 = BMAGENTA"       /`";
+		info.dcol8 = BMAGENTA"";
+		info.getpkg = "pacman -Qq | wc -l";
+		break;
 	} else if (strncmp(dist, "Pop!_OS", 7) == 0) {
 		info.dcol1 = BCYAN"______\n";
 		info.dcol2 = BCYAN"\\   _ \\        __";
@@ -284,14 +307,14 @@ struct distinfo asciiart() {
 		info.getpkg = "ls /var/log/packages | wc -l";
 		break;
 	} else if (strncmp(dist, "Solus", 5) == 0) {
-		info.dcol1 = BMAGENTA"";
-		info.dcol2 = BMAGENTA"";
-		info.dcol3 = BMAGENTA"";
-		info.dcol4 = BMAGENTA"";
-		info.dcol5 = BMAGENTA"";
-		info.dcol6 = BMAGENTA"";
-		info.dcol7 = BMAGENTA"";
-		info.dcol8 = BMAGENTA"";
+		info.dcol1 = BMAGENTA"    __________\n";
+		info.dcol2 = BMAGENTA"   /          \\";
+		info.dcol3 = BMAGENTA"  /   /\\ \\     \\";
+		info.dcol4 = BMAGENTA" /   /  \\ \\     \\";
+		info.dcol5 = BMAGENTA"|   /    \\ \\     |";
+		info.dcol6 = BMAGENTA" \\--------------/";
+		info.dcol7 = BMAGENTA"  \\------------/";
+		info.dcol8 = BMAGENTA"   \\----------/";
 		info.getpkg = "ls /var/lib/eopkg/package/ | wc -l";
 		break;
 	} else if (strncmp(dist, "Ubuntu", 6) == 0) {
@@ -316,17 +339,7 @@ struct distinfo asciiart() {
 		info.dcol8 = "";
 		info.getpkg = "xbps-query -l | wc -l";
 		break;
-	} else if (strncmp(dist, "KDE neon", 8) == 0) {
-		info.dcol1 = BGREEN"";
-		info.dcol2 = BGREEN"            ";
-		info.dcol3 = BGREEN"     --- _  ";
-		info.dcol4 = BGREEN"  /  ---  \\ ";
-		info.dcol5 = BGREEN" |  |   |  |";
-		info.dcol6 = BGREEN"  \\  --- _/ ";
-		info.dcol7 = BGREEN"     ---    ";
-		info.dcol8 = BGREEN"";
-		info.getpkg = "dpkg -l | tail -n+6 | wc -l";
-		break;
+
 	}
 #else
 	/* All operating systems that aren't Linux distros go under here. */
