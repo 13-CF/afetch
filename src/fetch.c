@@ -275,12 +275,12 @@ struct distinfo asciiart() {
 		break;
 	} else if (strncmp(dist, "Parabola", 8) == 0) {
 		info.dcol1 = BMAGENTA"";
-		info.dcol2 = BMAGENTA"  __ __ __  _";
+		info.dcol2 = BMAGENTA"  __ __ __  _  ";
 		info.dcol3 = BMAGENTA".`_//_//_/ / `.";
 		info.dcol4 = BMAGENTA"          /  .`";
-		info.dcol5 = BMAGENTA"         / .`";
-		info.dcol6 = BMAGENTA"        /.`";
-		info.dcol7 = BMAGENTA"       /`";
+		info.dcol5 = BMAGENTA"         / .`  ";
+		info.dcol6 = BMAGENTA"        /.`    ";
+		info.dcol7 = BMAGENTA"       /`      ";
 		info.dcol8 = BMAGENTA"";
 		info.getpkg = "pacman -Qq | wc -l";
 		break;
