@@ -142,20 +142,20 @@ struct distinfo asciiart() {
 		info.getpkg = "pacman -Qq | wc -l";
 		break;
 	} else if (strncmp(dist, "Arch bang Linux", 15) == 0) {
-		info.dcol1 = BCYAN"          ____   \n";
-		info.dcol2 = BCYAN"      /\\ /   /  ";
-		info.dcol3 = BCYAN"     /  /   /    ";
-		info.dcol4 = BCYAN"    /   / /      ";
-		info.dcol5 = BCYAN"   /   /_/\\     ";
-		info.dcol6 = BCYAN"  /   __   \\    ";
-		info.dcol7 = BCYAN" /   /_/\\   \\  ";
+		info.dcol1 = BCYAN"          ____\n";
+		info.dcol2 = BCYAN"      /\\ /   /";
+		info.dcol3 = BCYAN"     /  /   / ";
+		info.dcol4 = BCYAN"    /   / /   ";
+		info.dcol5 = BCYAN"   /   /_/\\   ";
+		info.dcol6 = BCYAN"  /   __   \\  ";
+		info.dcol7 = BCYAN" /   /_/\\   \\ ";
 		info.dcol8 = BCYAN"/_-''    ''-_\\\n";
 		info.getpkg = "pacman -Qq | wc -l";
 		break;
 	} else if (strncmp(dist, "ArcoLinux", 9) == 0) {
 		info.dcol1 = BBLUE"";
-		info.dcol2 = BBLUE"      /\\       ";
-		info.dcol3 = BBLUE"     /  \\      ";
+		info.dcol2 = BBLUE"      /\\      ";
+		info.dcol3 = BBLUE"     /  \\     ";
 		info.dcol4 = BBLUE"    / /\\ \\    ";
 		info.dcol5 = BBLUE"   / /  \\ \\   ";
 		info.dcol6 = BBLUE"  / /    \\ \\  ";
@@ -187,12 +187,12 @@ struct distinfo asciiart() {
 		break;
 	} else if (strncmp(dist, "elementary OS", 12) == 0) {
 		info.dcol1 = BCYAN"";
-		info.dcol2 = BCYAN"  _______";
-		info.dcol3 = BCYAN" / ____  \\";
+		info.dcol2 = BCYAN"  _______  ";
+		info.dcol3 = BCYAN" / ____  \\ ";
 		info.dcol4 = BCYAN"/  |  /  /\\";
 		info.dcol5 = BCYAN"|__\\ /  / |";
 		info.dcol6 = BCYAN"\\   /__/  /";
-		info.dcol7 = BCYAN" \\_______/";
+		info.dcol7 = BCYAN" \\_______/ ";
 		info.dcol8 = BCYAN"";
 		info.getpkg = "dpkg -l | tail -n+6 | wc -l";
 		break;
@@ -308,12 +308,12 @@ struct distinfo asciiart() {
 		break;
 	} else if (strncmp(dist, "Solus", 5) == 0) {
 		info.dcol1 = BMAGENTA"    __________\n";
-		info.dcol2 = BMAGENTA"   /          \\";
-		info.dcol3 = BMAGENTA"  /   /\\ \\     \\";
-		info.dcol4 = BMAGENTA" /   /  \\ \\     \\";
+		info.dcol2 = BMAGENTA"   /          \\   ";
+		info.dcol3 = BMAGENTA"  /   /\\ \\     \\  ";
+		info.dcol4 = BMAGENTA" /   /  \\ \\     \\ ";
 		info.dcol5 = BMAGENTA"|   /    \\ \\     |";
-		info.dcol6 = BMAGENTA" \\--------------/";
-		info.dcol7 = BMAGENTA"  \\------------/";
+		info.dcol6 = BMAGENTA" \\--------------/ ";
+		info.dcol7 = BMAGENTA"  \\------------/  ";
 		info.dcol8 = BMAGENTA"   \\----------/";
 		info.getpkg = "ls /var/lib/eopkg/package/ | wc -l";
 		break;
