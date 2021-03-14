@@ -15,7 +15,8 @@ install:
 	chmod 711 ./afetch
 	cp ./afetch ${DESTDIR}${PREFIX}/bin
 	chmod 644 ./src/afetch.1
-	cp src/afetch.1 ${DESTDIR}${PREFIX}/share/man/man1 
+	mkdir -p ${DESTDIR}${PREFIX}/share/man/man1/
+	cp src/afetch.1 ${DESTDIR}${PREFIX}/share/man/man1/
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/afetch ${DESTDIR}${PREFIX}/man/man1/afetch.1
 
