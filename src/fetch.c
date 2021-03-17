@@ -385,7 +385,7 @@ struct distinfo asciiart() {
 		info.dcol6 = BYELLOW" / \\         / ";
 		info.dcol7 = BYELLOW"    /-_____-\\  ";
 		info.dcol8 = BYELLOW"";
-		info.getpkg = "pkg_info | wc -l | tr -d ' '";
+		info.getpkg = "/bin/ls -1 /var/db/pkg/ | wc -l | tr -d ' '";
 		break;
 	}
 #ifdef __APPLE__
@@ -479,7 +479,7 @@ int main(){
 	printf("%s %s %s%s\n",ascii.dcol3,DISROTEXT, TEXTCOLOUR, lowercase(os_string));
 	printf("%s %s %s%s\n",ascii.dcol4,KERNELTEXT, TEXTCOLOUR, ui.release);
 #if defined(CLOCK_BOOTTIME) || defined(CLOCK_UPTIME) || defined(__APPLE__)
-	printf("%s %s %s%ldh %ldm\n", ascii.dcol5,lowercase(UPTIMETEXT), TEXTCOLOUR, si.tv_sec / 3600, (si.tv_sec / 60) - (si.tv_sec / 3600 * 60));
+	printf("%s %s %s%lldh %lldm\n", ascii.dcol5,lowercase(UPTIMETEXT), TEXTCOLOUR, si.tv_sec / 3600, (si.tv_sec / 60) - (si.tv_sec / 3600 * 60));
 #else
 	printf("%s %s %s%ldh %ldm\n", ascii.dcol5,lowercase(UPTIMETEXT), TEXTCOLOUR, uptime / 3600, (uptime / 60) - (uptime / 3600 * 60));
 #endif
