@@ -4,12 +4,14 @@
 
 
 <p align=center>Fast and simple system info (for UNIX based operating systems) written in POSIX compliant C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. It uses the C Preprocessor to implement config options at compile time. <br> <br>
-afetch is a command line tool to display basic system information. The goal is to be highly configurable, extremely fast and work with no dependencies apart from the POSIX header files. </p>
+
+`afetch` is a command line tool that is made to be compiled and run anywhere, as long as you have the POSIX header files and pthreads/ </p>
 
 **Requirements**
-*  A `/etc/os-release` file
+*  `/etc/os-release` file for package count on Linux
 *  A C compiler
-*  A <a href="https://en.wikipedia.org/wiki/C_POSIX_library">compatible C standard library</a> implementation
+*  A <a href="https://en.wikipedia.org/wiki/C_POSIX_library">compatible C standard library</a>implementation
+*  pthreads
 
 **Package count supported**
 
@@ -19,7 +21,7 @@ afetch is a command line tool to display basic system information. The goal is t
 *  Arco
 *  Artix
 *  Debian
-*  DragonflyBSD
+*  Deepin
 *  Elementary OS
 *  EndeavourOS
 *  Fedora (slow due to package manager)
@@ -47,29 +49,17 @@ If your OS isn't in the list above, you'll still be able to build and run the pr
 If on Linux, please show me the contents of the `/etc/os-release` file.
 
 
-![gif](img/preview.gif)
-
-**Manual**
-
-I have provided a manual for configuration in the [afetch.1](src/afetch.1) file. You can view it by running `mandoc src/afetch.1 | less`, or `man afetch` if you've already ran `make install`.
-
 
 **Configuration options**
-*  Support for one custom shell command (replaces the package count)
-*  Custom colours
-*  Custom artwork
-*  Edit headings for info rows
-*  Force lowercase text (unstable)
-*  Show path to shell
-*  Select text colour
-*  Colour blocks
+*  Custom text for each seperate row of info
+*  More to be implemented soon
 
 
 
 **To do**
-*  Optimise
-*  Add support for more distros
-*  Improve some logos by changing artwork and making it multicoloured
+*  Find more efficient ways to do certain things, like the `/etc/os-release` part on Linux.
+*  Implement more config options
+* Make sure it actually works on every Linux distro
 
 **Thanks**
 *  All the [contributors](https://github.com/13-CF/afetch/graphs/contributors) <3
@@ -79,7 +69,4 @@ I have provided a manual for configuration in the [afetch.1](src/afetch.1) file.
 *  [nerdfetch](https://github.com/ThatOneCalculator/NerdFetch)
 *  [bitfetch](https://gitlab.com/bit9tream/bitfetch)
 
-**A Disclaimer**
-
-I'm not very good at using git, and this is my first project using the git CLI, so there'll be a stupid amount of commits, and other commits with very minor changes to one or two files.
 
