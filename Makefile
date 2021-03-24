@@ -7,16 +7,21 @@ PREFIX ?= /usr/local
 
 all: afetch
 
-afetch: 
+afetch: ${SRC} src/config.h src/colour.h
 	${CC} ${CFLAGS} ${SRC} ${LDFLAGS} -o afetch
+
 debug:
 	${CC} ${CFLAGS} ${DEBUGFLAGS} ${SRC} ${LDFLAGS} -o afetch-debug
+
 clean:
 	rm -rf afetch afetch.dSYM
-install:
-	chmod 711 ./afetch
-	cp ./afetch ${DESTDIR}${PREFIX}/bin
-uninstall:
-	rm -f ${DESTDIR}${PREFIX}/bin/afetch 
-.PHONY: clean all install
 
+install:
+	mkdir -p ${DESTDIR}${PREFIX}/bin
+	cp afetch ${DESTDIR}${PREFIX}/bin
+	chmod 711 ${DESTDIR}${PREFIX}/bin/afetch
+
+uninstall:
+	rm -f ${DESTDIR}${PREFIX}/bin/afetch
+
+.PHONY: all clean debug install uninstall
