@@ -1,5 +1,5 @@
 SRC = src/fetch.c
-CC = cc
+CC ?= cc
 CFLAGS = -O2 -std=c99 -Wall -Wextra
 LDFLAGS = -lpthread
 DEBUGFLAGS = -g
