@@ -59,7 +59,8 @@ If on Linux, please show me the contents of the `/etc/os-release` file.
 **To do**
 *  Find more efficient ways to do certain things, like the `/etc/os-release` part on Linux.
 *  Implement more config options
-* Make sure it actually works on every Linux distro
+*  Make sure it actually works on every Linux distro
+*  Create CONFIG.md file with in depth guide to customisation
 
 **Thanks**
 *  All the [contributors](https://github.com/13-CF/afetch/graphs/contributors) <3

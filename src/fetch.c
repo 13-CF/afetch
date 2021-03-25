@@ -414,6 +414,7 @@ void *colourDraw(){
 		printf("\033[1;%dm %s", i, ColourCharacter); }
 
 	printf("\n");
+	return NULL;
 }
 
 
