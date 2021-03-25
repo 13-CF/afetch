@@ -26,7 +26,11 @@ char *pipeRead(const char *exec){
 	FILE *pipe = popen(exec, "r");
 	if (pipe == NULL) return NULL;
 	char *returnVal = malloc(256);
-	fscanf(pipe, "%[^\n]s", returnVal);
+	const int scanf_return = fscanf(pipe, "%[^\n]s", returnVal);
+	if (scanf_return == EOF) {
+		fprintf(stderr, "ERROR: scanf failed!\n");
+		exit(EXIT_FAILURE);
+	}
 	pclose(pipe);
 	return returnVal;
 }
@@ -84,20 +88,24 @@ void *os(){
 		if (f == NULL || osContents == NULL) return "Linux";
 		// look through each line of /etc/os-release until we're on the NAME= line
 		while (fgets(osContents, 512, f)) {
-				snprintf(newContents, 512, "%.*s", 511, osContents+4);
-				if (strncmp(newContents, "=", 1) == 0) break;
-				line++; }
-			fclose(f);
-		free(osContents); 
-		if (strncmp(newContents, "=", 1) == 0) {
-				int len = strlen(newContents);
-				for (int i = 0; i<len; i++){
-						if (newContents[i] == '\"' || newContents[i] == '=') {
-								for (int ii = 0; ii<len; ii++) newContents[ii] = newContents[ii+1];
-									newContents[strlen(newContents)-1] = '\0'; }
-						}
+			snprintf(newContents, 512, "%.*s", 511, osContents+4);
+			if (strncmp(newContents, "=", 1) == 0) break;
+			line++;
 		}
-		osname = newContents;
+		fclose(f);
+		free(osContents);
+		if (strncmp(newContents, "=", 1) == 0) {
+			int len = strlen(newContents);
+			for (int i = 0; i<len; i++){
+				if (newContents[i] == '\"' || newContents[i] == '=') {
+					for (int ii = 0; ii<len; ii++) newContents[ii] = newContents[ii+1];
+					newContents[strlen(newContents)-1] = '\0';
+				}
+			}
+		}
+		if (osname == NULL)
+    			osname = malloc(512);
+		strcpy(osname, newContents);
 		free(newContents);
 
 		while (1){
@@ -390,22 +398,22 @@ void *os(){
         info.getPkgCount = "echo unsupported";
 	}
 	pkgCount = pipeRead(info.getPkgCount);
+
 	return NULL;
 }
 
-void  *colourDraw(){
-	if (PrintColours == false)  {
-		return NULL; }
-	
+void *colourDraw(){
+	if (PrintColours == false)
+		return NULL;
+
 	printf("    ");
 	for (int i = 30; i<38; i++){
 		printf("\033[0;%dm %s", i, ColourCharacter); } //print regular term colours
 	printf("\n    ");
 	for (int i = 30; i<38; i++){
 		printf("\033[1;%dm %s", i, ColourCharacter); }
-	
+
 	printf("\n");
-	return NULL;
 }
 
 
@@ -434,7 +442,7 @@ int main(){
 	printf("%s    %s%s%s\n", info.col6,ShellText,WHITE, shellname);
 	printf("%s    %s%s%s\n", info.col7,PackageText ,WHITE, pkgCount);
 	printf("%s\n", info.col8);
-	
+
 	pthread_create(&threads[5], NULL, colourDraw, NULL);
 	pthread_join(threads[5], NULL);
 	printf("%s", RESET);
