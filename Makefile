@@ -2,7 +2,7 @@ SRC = src/fetch.c
 CC ?= cc
 CFLAGS = -O2 -std=c99 -Wall -Wextra
 LDFLAGS = -lpthread
-DEBUGFLAGS = -g
+DEBUGFLAGS = -g -Og -std=c99 -Wall -Wextra
 PREFIX ?= /usr/local
 
 all: afetch
@@ -11,10 +11,10 @@ afetch: ${SRC} src/config.h src/colour.h
 	${CC} ${CFLAGS} ${SRC} ${LDFLAGS} -o afetch
 
 debug:
-	${CC} ${CFLAGS} ${DEBUGFLAGS} ${SRC} ${LDFLAGS} -o afetch-debug
+	${CC}  ${DEBUGFLAGS} ${SRC} ${LDFLAGS} -o afetch-debug
 
 clean:
-	rm -rf afetch afetch.dSYM
+	rm -rf afetch afetch.dSYM afetch-debug afetch-debug.dSYM
 
 install:
 	mkdir -p ${DESTDIR}${PREFIX}/bin

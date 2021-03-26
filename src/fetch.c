@@ -20,6 +20,15 @@ char *username, *osname, *shellname, *pkgCount;
 char *krnlver;
 long uptimeH, uptimeM;
 
+char *lowerCase(char *str) {
+	if (ForceLowerCase == false) return str;
+	int len = strlen(str);
+	for (int i=0; i<len;i++){
+		if (str[i] >= 'A' && str[i] <= 'Z') {
+			str[i] += 32; }
+	}
+	return str;
+}
 
 
 char *pipeRead(const char *exec){
@@ -63,6 +72,12 @@ void *uptime(){
 
 void *user(){
 	username = getenv("USER");
+	
+	/* I'm not sure if lower case usernames
+	   are allowed in UNIX-like operating 
+	   systems. I'll have to look into it */
+	//username = lowerCase(username);
+	
 	return NULL;
 }
 
@@ -79,7 +94,9 @@ void *shell(){
 void *os(){
 	static struct utsname sysInfo;
 	uname(&sysInfo);
-
+	//start
+		/* This whole section could probably be rewritten - it seems 
+		   like a bit of a mess right now */
 	if (strncmp(sysInfo.sysname, "Linux", 5)==0) {
 		char *osContents = malloc(512);
 		char *newContents = malloc(512);
@@ -107,7 +124,7 @@ void *os(){
     			osname = malloc(512);
 		strcpy(osname, newContents);
 		free(newContents);
-
+	//end
 		while (1){
 			if (strncmp(osname, "Alpine Linux", 12) == 0) {
 				info.col1 = BBLUE"\n";
@@ -399,6 +416,7 @@ void *os(){
 	}
 	pkgCount = pipeRead(info.getPkgCount);
 
+	osname = lowerCase(osname);
 	return NULL;
 }
 
@@ -434,7 +452,7 @@ int main(){
 	pthread_join(threads[1], NULL); //os function must be run to get info.col1
 	printf("%s", info.col1);
 	printf("%s    %s%s%s\n", info.col2, UserText ,WHITE, username);
-	printf("%s    %s%s%s\n", info.col3,OsText, WHITE, osname);
+	printf("%s    %s%s%s\n", info.col3, OsText , WHITE, osname);
 	pthread_join(threads[2], NULL);
 	printf("%s    %s%s%s\n", info.col4,KernelText,WHITE, krnlver);
 	pthread_join(threads[3], NULL);
@@ -447,6 +465,5 @@ int main(){
 	pthread_create(&threads[5], NULL, colourDraw, NULL);
 	pthread_join(threads[5], NULL);
 	printf("%s", RESET);
-
 	return 0;
 }

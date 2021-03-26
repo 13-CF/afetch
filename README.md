@@ -5,7 +5,8 @@
 
 <p align=center>Fast and simple system info (for UNIX based operating systems) written in POSIX compliant C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. It uses the C Preprocessor to implement config options at compile time. <br> <br>
 
-`afetch` is a command line tool that is made to be compiled and run anywhere, as long as you have the POSIX header files and pthreads/ </p>
+<h3 align="center"> Why use afetch? </h3>
+<p align="center"> afetch is written in C99, meaning that it should be able to be compiled with almost all C compilers. As well as being written in a very fast language, it's multithreaded. This makes it even faster, as well as distinguishing it from similar programs written is POSIX sh. The only limitations it has is the speed of your distros package manager! </p>
 
 **Requirements**
 *  `/etc/os-release` file for package count on Linux
@@ -52,6 +53,8 @@ If on Linux, please show me the contents of the `/etc/os-release` file.
 
 **Configuration options**
 *  Custom text for each seperate row of info
+*  Force lowercase text for OS name
+*  Option to print colour blocks or not
 *  More to be implemented soon
 
 
