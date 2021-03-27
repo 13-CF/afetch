@@ -20,14 +20,20 @@ char *username, *osname, *shellname, *pkgCount;
 char *krnlver;
 long uptimeH, uptimeM;
 
-char *lowerCase(char *str) {
-	if (ForceLowerCase == false) return str;
-	int len = strlen(str);
-	for (int i=0; i<len;i++){
-		if (str[i] >= 'A' && str[i] <= 'Z') {
-			str[i] += 32; }
-	}
-	return str;
+void lowerCase(char *str) {
+	const int len = strlen(str);
+	int i;
+	for (i = 0; i < len; i += 1)
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			str[i] += 'a' - 'A';
+}
+
+void upperCase(char *str) {
+	const int len = strlen(str);
+	int i;
+	for (i = 0; i < len; i += 1)
+		if (str[i] >= 'a' && str[i] <= 'z')
+			str[i] += 'A' - 'a';
 }
 
 
@@ -416,7 +422,8 @@ void *os(){
 	}
 	pkgCount = pipeRead(info.getPkgCount);
 
-	osname = lowerCase(osname);
+	if (ForceLowerCase) lowerCase(osname);
+	if (ForceUpperCase) upperCase(osname);
 	return NULL;
 }
 

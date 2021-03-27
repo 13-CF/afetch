@@ -5,14 +5,17 @@
 #define ShellText   "  SHELL "  //
 #define PackageText "   PKGS "  //
 
-#define ForceLowerCase false     //must be either 'true' or 'false'
+/* Those two options are mutually exclusive.
+ * Either set one to 'true' or both to 'false'. */
+#define ForceLowerCase false
+#define ForceUpperCase false
 
 #define PrintColours false      //must be either 'true' or 'false'
 #define ColourCharacter "● "
 
 /* Some examples of things you may want to use for your ColourCharacter
- 
+
           ▀ ▁ ▂ ▃ ▄ ▅ ▆ ▇ █ ▉ ▊ ▋ ▌ ▍ ▎ ▏
- 
+
           █ ▄ ▀ ●
  */
