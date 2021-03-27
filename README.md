@@ -1,12 +1,11 @@
 <h2 align="center"> afetch </h2>
 <h4 align="center"> Simple system info </h4>
+
 <p align="center">
-[![Packaging status](https://repology.org/badge/vertical-allrepos/afetch.svg)](https://repology.org/project/afetch/versions)
+<a href="https://repology.org/project/afetch/versions"> <img src="https://repology.org/badge/vertical-allrepos/afetch.svg" height="85px"> </a>
 </p>
 
-<h3 align="right"> <img src="img/logo.png" height="240px"> </h3>
-
-
+<img align="right" src="img/logo.png" height="250px">
 Fast and simple system info (for UNIX based operating systems) written in POSIX compliant C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. It uses the C Preprocessor to implement config options at compile time. <br> <br>
 
 <h3> Why use afetch? </h3>
@@ -16,7 +15,7 @@ afetch is written in C99, meaning that it should be able to be compiled with alm
 **Requirements**
 *  `/etc/os-release` file for package count on Linux
 *  A C compiler
-*  A <a href="https://en.wikipedia.org/wiki/C_POSIX_library">compatible C standard library</a>implementation
+*  A <a href="https://en.wikipedia.org/wiki/C_POSIX_library">compatible C standard library</a> implementation
 *  pthreads
 
 **Package count supported**
