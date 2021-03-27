@@ -1,12 +1,17 @@
 <h2 align="center"> afetch </h2>
+<h4 align="center"> Simple system info </h4>
+<p align="center">
+[![Packaging status](https://repology.org/badge/vertical-allrepos/afetch.svg)](https://repology.org/project/afetch/versions)
+</p>
 
-<h3 align="center"> <img src="img/logo.png"> </h3>
+<h3 align="right"> <img src="img/logo.png" height="240px"> </h3>
 
 
-<p align=center>Fast and simple system info (for UNIX based operating systems) written in POSIX compliant C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. It uses the C Preprocessor to implement config options at compile time. <br> <br>
+Fast and simple system info (for UNIX based operating systems) written in POSIX compliant C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. It uses the C Preprocessor to implement config options at compile time. <br> <br>
 
-<h3 align="center"> Why use afetch? </h3>
-<p align="center"> afetch is written in C99, meaning that it should be able to be compiled with almost all C compilers. As well as being written in a very fast language, it's multithreaded. This makes it even faster, as well as distinguishing it from similar programs written is POSIX sh. The only limitations it has is the speed of your distros package manager! </p>
+<h3> Why use afetch? </h3>
+afetch is written in C99, meaning that it should be able to be compiled with almost all C compilers. As well as being written in a very fast language, it's multithreaded. This makes it even faster, as well as distinguishing it from similar programs written is POSIX sh. The only limitations it has is the speed of your distros package manager! </p>
+
 
 **Requirements**
 *  `/etc/os-release` file for package count on Linux
@@ -42,13 +47,7 @@
 *  Void
 *  macOS (Homebrew)
 
-If your OS isn't in the list above, you'll still be able to build and run the program as long as you're either using Linux, or another UNIX based operating system with the necessary header files.
-
-
-**Please request your distro if you want it added**
-
-If on Linux, please show me the contents of the `/etc/os-release` file.
-
+afetch is made to be run anywhere, but if your operating system isn't in the list above then open an issue! If on Linux please show the output of `cat /etc/os-release`, or if you're using something else then `uname -s`. 
 
 
 **Configuration options**
