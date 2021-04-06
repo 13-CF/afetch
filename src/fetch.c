@@ -155,7 +155,8 @@ void *os()
 				info.col6 = BBLUE "/        \\  \\";
 				info.col7 = BBLUE "          \\  ";
 				info.col8 = BBLUE "";
-				info.getPkgCount = "apk info | wc -l";
+				info.getPkgCount =
+				    "grep 'P:' /lib/apk/db/installed | wc -l";
 				break;
 			} else if (strncmp(osname, "Arch Linux", 10) == 0) {
 				info.col1 = BCYAN "";
