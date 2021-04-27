@@ -33,6 +33,7 @@ afetch is written in C99, meaning that it should be able to be compiled with alm
 *  FreeBSD
 *  Gentoo
 *  Parabola
+*  postmarketOS
 *  Manjaro
 *  NetBSD
 *  NixOS
