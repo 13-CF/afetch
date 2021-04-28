@@ -349,6 +349,17 @@ void *os()
 			info.col8 = BCYAN "  (___________)";
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
+		} else if (strncmp(osname, "postmarketOS", 13) == 0) {
+			info.col1 = BGREEN "       /\\       \n";
+			info.col2 = BGREEN "      /  \\      ";
+			info.col3 = BGREEN "     /    \\     ";
+			info.col4 = BGREEN "    /\\__   \\    ";
+			info.col5 = BGREEN "   /   /\\  _\\   ";
+			info.col6 = BGREEN "  /   ___\\/  \\  ";
+			info.col7 = BGREEN " /    \\       \\ ";
+			info.col8 = BGREEN "/_____/________\\";
+			info.getPkgCount =
+				"grep 'P:' /lib/apk/db/installed | wc -l";
 		} else if (strncmp(osname, "Slackware", 10) == 0) {
 			info.col1 = BBLUE "   ________\n";
 			info.col2 = BBLUE "  /  ______| ";
