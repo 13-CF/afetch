@@ -415,7 +415,13 @@ void *os()
 		info.col7 = BMAGENTA "   :_________`-;" BYELLOW;
 		info.col8 = BBLUE "    `.__.-.__.' " BYELLOW;
 		info.getPkgCount =
-		    "ls /usr/local/Cellar/* | grep ':' | wc -l | xargs";
+			"ls $HOMEBREW_CELLAR/* | grep ':' | wc -l | xargs";
+		if (!getenv("HOMEBREW_CELLAR")) {
+			fprintf(stderr, "HOMEBREW_CELLAR not set. Consider put\n\t"
+						 "HOMEBREW_PREFIX=<install_dir>\n\t"
+						 "eval $(${HOMEBREW_PREFIX}/bin/brew shellenv)\ninto your shell rc file.\n\n");
+			info.getPkgCount = "echo unsupported";
+		} 
 
 		char *macVer = malloc(64);
 		strcpy(macVer, "macOS ");
