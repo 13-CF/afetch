@@ -1,5 +1,6 @@
 /* BOLD COLOURS */
 #define BBLACK   "\033[1;30m"
+#define BGRAY    "\033[1;90m"
 #define BRED     "\033[1;31m"
 #define BGREEN   "\033[1;32m"
 #define BYELLOW  "\033[1;33m"
@@ -18,3 +19,4 @@
 #define WHITE   "\033[0;37m"
 /* OTHER */
 #define RESET "\033[0;m"
+#define BITAL  "\033[1;3m" 
