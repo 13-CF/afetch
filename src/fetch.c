@@ -394,14 +394,14 @@ void *os()
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
 		} else if (strncmp(osname, "void", 4) == 0) {
-			info.col1 = BGREEN "     _______\n";
-			info.col2 = BGREEN "  _ \\______ - ";
-			info.col3 = BGREEN " | \\  ___  \\ |";
-			info.col4 = BGREEN " | | /   \\ | |";
-			info.col5 = BGREEN " | | \\___/ | |";
-			info.col6 = BGREEN " | \\______ \\_|";
-			info.col7 = BGREEN "  -_______\\   ";
-			info.col8 = "";
+			info.col1 = BGREEN "      _____\n";
+			info.col2 = BGREEN "   _  \\____ -";
+			info.col3 = BGREEN "  / / ____ \\ \\";
+			info.col4 = BGREEN " / / /    \\ \\ \\";
+			info.col5 = BGREEN " | |  " BGRAY BITAL "VOID  " BGREEN "| |";
+			info.col6 = BGREEN " \\ \\ \\____/ / /";
+			info.col7 = BGREEN "  \\ \\____  /_/";
+			info.col8 = BGREEN "   -_____\\\n";
 			info.getPkgCount = "xbps-query -l | wc -l";
 		}
 
