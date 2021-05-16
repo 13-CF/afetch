@@ -18,3 +18,4 @@
 #define WHITE   "\033[0;37m"
 /* OTHER */
 #define RESET "\033[0;m"
+#define BITAL  "\033[1;3m" 
