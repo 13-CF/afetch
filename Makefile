@@ -16,7 +16,7 @@ debug:
 clean:
 	rm -rf afetch afetch.dSYM afetch-debug afetch-debug.dSYM
 
-install:
+install: afetch
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp afetch ${DESTDIR}${PREFIX}/bin
 	chmod 711 ${DESTDIR}${PREFIX}/bin/afetch
