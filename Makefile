@@ -3,7 +3,7 @@ CC ?= cc
 CFLAGS = -O2 -std=c99 -Wall -Wextra
 LDFLAGS = -lpthread
 DEBUGFLAGS = -g -Og -std=c99 -Wall -Wextra
-PREFIX ?= /usr/local
+PREFIX ?= ${HOME}/.local
 
 all: afetch
 
