@@ -413,17 +413,31 @@ void *os()
 		info.col6 = BRED "  :_________:   " BYELLOW;
 		info.col7 = BMAGENTA "   :_________`-;" BYELLOW;
 		info.col8 = BBLUE "    `.__.-.__.' " BYELLOW;
-		info.getPkgCount =
-		    "ls /usr/local/Cellar/* | grep ':' | wc -l | xargs";
+		if ((strncmp(sysInfo.machine, "iPhone", 6) == 0) || (strncmp(sysInfo.machine, "iPad", 4) == 0) || (strncmp(sysInfo.machine, "iPod", 4) == 0)) {
+			info.getPkgCount =
+		    "dpkg -l | tail -n+6 | wc -l";
 
-		char *macVer = malloc(64);
-		strcpy(macVer, "macOS ");
-		char *productVer = pipeRead("sw_vers -productVersion");
+			char *iosVer = malloc(1024);
+			strcpy(iosVer, "iOS ");
+			char *productVer = pipeRead("sw_vers -productVersion");
 
-		strcat(macVer, productVer);
-		free(productVer);
-		osname = macVer;
-		free(macVer);
+			strcat(iosVer, productVer);
+			free(productVer);
+			osname = iosVer;
+			free(iosVer);
+		} else {
+			info.getPkgCount =
+			    "ls /usr/local/Cellar/* | grep ':' | wc -l | xargs";
+
+			char *macVer = malloc(64);
+			strcpy(macVer, "macOS ");
+			char *productVer = pipeRead("sw_vers -productVersion");
+
+			strcat(macVer, productVer);
+			free(productVer);
+			osname = macVer;
+			free(macVer);
+		}
 	} else if (strncmp(sysInfo.sysname, "FreeBSD", 7) == 0) {
 		info.col1 = BRED "";
 		info.col2 = BRED "/\\,-'''''-,/\\";
