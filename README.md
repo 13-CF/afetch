@@ -32,15 +32,16 @@ afetch is written in C99, meaning that it should be able to be compiled with alm
 *  Fedora (slow due to package manager)
 *  FreeBSD
 *  Gentoo
-*  Parabola
-*  postmarketOS
 *  Manjaro
+*  Mint
 *  NetBSD
 *  NixOS
 *  OpenBSD
 *  OpenSUSE Leap (slow due to package manager)
 *  OpenSUSE Tumbleweed (slow due to package manager)
+*  Parabola
 *  Pop!_OS
+*  postmarketOS
 *  Slackware
 *  Solus
 *  Ubuntu

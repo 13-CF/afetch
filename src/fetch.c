@@ -294,6 +294,16 @@ void *os()
 			info.col8 = BGREEN "";
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
+		} else if (strncmp(osname, "Linux Mint", 10) == 0) {
+			info.col1 = BGREEN "   _____________   \n";
+			info.col2 = BGREEN "  |_            \\  ";
+			info.col3 = BGREEN "   |  | _____  |   ";
+			info.col4 = BGREEN "   |  | | | |  |   ";
+			info.col5 = BGREEN "   |  | | | |  |   ";
+			info.col6 = BGREEN "   |  \\_____/  |   ";
+			info.col7 = BGREEN "   \\___________/   ";
+			info.col8 = BGREEN "\n";
+			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 		} else if (strncmp(osname, "Manjaro", 7) == 0) {
 			info.col1 = BGREEN " ________  __ \n";
 			info.col2 = BGREEN "|       | |  |";
