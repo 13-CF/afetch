@@ -32,6 +32,7 @@ afetch is written in C99, meaning that it should be able to be compiled with alm
 *  Fedora (slow due to package manager)
 *  FreeBSD
 *  Gentoo
+*  MacOS (homebrew)
 *  Manjaro
 *  Mint
 *  NetBSD
@@ -40,13 +41,13 @@ afetch is written in C99, meaning that it should be able to be compiled with alm
 *  OpenSUSE Leap (slow due to package manager)
 *  OpenSUSE Tumbleweed (slow due to package manager)
 *  Parabola
-*  Pop!_OS
+*  Pop!\_OS
 *  postmarketOS
 *  Slackware
 *  Solus
 *  Ubuntu
 *  Void
-*  macOS (Homebrew)
+*  Zorin
 
 afetch is made to be run anywhere, but if your operating system isn't in the list above then open an issue! If on Linux please show the output of `cat /etc/os-release`, or if you're using something else then `uname -s`. 
 

@@ -413,6 +413,16 @@ void *os()
 			info.col7 = BGREEN "  \\ \\____  /_/ ";
 			info.col8 = BGREEN "   -_____\\\n";
 			info.getPkgCount = "xbps-query -l | wc -l";
+		} else if (strncmp(osname, "Zorin OS", 8) == 0) {
+			info.col1 = BBLUE "   ______   \n";
+			info.col2 = BBLUE "  /______\\  ";
+			info.col3 = BBLUE " /      / \\ ";
+			info.col4 = BBLUE "/      /   \\";
+			info.col5 = BBLUE "\\     /    /";
+			info.col6 = BBLUE " \\   /___ / ";
+			info.col7 = BBLUE "  \\______/  ";
+			info.col8 = BBLUE "";
+			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 		}
 	} else if (strncmp(sysInfo.sysname, "Darwin", 6) == 0) {
 		info.col1 = "" BYELLOW;
@@ -517,16 +527,16 @@ int main()
 	/* os function must be run to get info.col1 */
 	pthread_join(threads[1], NULL);
 	printf("%s", info.col1);
-	printf("%s    %s%s%s\n", info.col2, UserText, WHITE, username);
-	printf("%s    %s%s%s\n", info.col3, OsText, WHITE, osname);
+	printf("%s    %s%s%s\n", info.col2, UserText, TextColour, username);
+	printf("%s    %s%s%s\n", info.col3, OsText, TextColour, osname);
 	pthread_join(threads[2], NULL);
-	printf("%s    %s%s%s\n", info.col4, KernelText, WHITE, krnlver);
+	printf("%s    %s%s%s\n", info.col4, KernelText, TextColour, krnlver);
 	pthread_join(threads[3], NULL);
-	printf("%s    %s%s%ldh %ldm\n", info.col5, UptimeText, WHITE, uptimeH,
+	printf("%s    %s%s%ldh %ldm\n", info.col5, UptimeText, TextColour, uptimeH,
 	       uptimeM);
 	pthread_join(threads[4], NULL);
-	printf("%s    %s%s%s\n", info.col6, ShellText, WHITE, shellname);
-	printf("%s    %s%s%s\n", info.col7, PackageText, WHITE, pkgCount);
+	printf("%s    %s%s%s\n", info.col6, ShellText, TextColour, shellname);
+	printf("%s    %s%s%s\n", info.col7, PackageText, TextColour, pkgCount);
 	printf("%s\n", info.col8);
 
 	pthread_create(&threads[5], NULL, colourDraw, NULL);
