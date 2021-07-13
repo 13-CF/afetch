@@ -22,9 +22,11 @@ afetch is written in C99, meaning that it should be able to be compiled with alm
 
 *  Alpine
 *  Arch
+*  Arch7
 *  ArchBang
 *  Arco
 *  Artix
+*  CelOS
 *  Debian
 *  Deepin
 *  Elementary OS
@@ -54,16 +56,16 @@ afetch is made to be run anywhere, but if your operating system isn't in the lis
 
 **Configuration options**
 *  Custom text for each seperate row of info
-*  Force lowercase text for OS name
-*  Option to print colour blocks or not
+*  Force upper/lowercase text
+*  Option to print colour blocks, and choose a character for the block
 *  More to be implemented soon
 
 
 
 **To do**
+*  Make README.md more dynamic (adapt to different screen sizes)
+*  Add links to information about distros in README.md
 *  Find more efficient ways to do certain things, like the `/etc/os-release` part on Linux.
-*  Implement more config options
-*  Make sure it actually works on every Linux distro
 *  Create CONFIG.md file with in depth guide to customisation
 
 **Thanks**
