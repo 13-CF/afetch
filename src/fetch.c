@@ -207,6 +207,18 @@ void *os()
 			info.col7 = BCYAN " /   ,.'`.  \\ ";
 			info.col8 = BCYAN "/.,'`     `'.\\\n";
 			info.getPkgCount = "pacman -Qq | wc -l";
+		} else if (strncmp(osname, "CelOS", 5) == 0) {
+			info.col1 = BMAGENTA "\n";
+			info.col2 = BMAGENTA "     ______     ";
+			info.col3 = BMAGENTA "    / _____\\__  ";
+			info.col4 = BMAGENTA "   /        \\   ";
+			info.col5 = BMAGENTA "__|_____     |  ";
+			info.col6 = BMAGENTA "  |          |  ";
+			info.col7 = BMAGENTA "   \\  ______/_  ";
+			info.col8 = BMAGENTA "    \\______/    \n";
+			// have to add support for flatpak too
+			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
+		/* TO DO: CREATE DEEPIN LOGO */
 		} else if (strncmp(osname, "Deepin", 6) == 0) {
 			info.col1 = BRED "\n";
 			info.col2 = BRED "";
@@ -216,8 +228,7 @@ void *os()
 			info.col6 = BRED "";
 			info.col7 = BRED "";
 			info.col8 = BRED "";
-			info.getPkgCount =
-				"dpkg -l | tail -n+6 | wc -l";
+			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 		} else if (strncmp(osname, "Debian GNU/Linux", 16) ==
 				0) {
 			info.col1 = BRED "  _____\n";
