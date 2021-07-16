@@ -210,12 +210,12 @@ void *os()
 		} else if (strncmp(osname, "CelOS", 5) == 0) {
 			info.col1 = BMAGENTA "\n";
 			info.col2 = BMAGENTA "     ______     ";
-			info.col3 = BMAGENTA "    / _____\\__  ";
-			info.col4 = BMAGENTA "   /        \\   ";
-			info.col5 = BMAGENTA "__|_____     |  ";
+			info.col3 = BMAGENTA "   _-"BWHITE" _____"BMAGENTA"\\"BWHITE"__  "BMAGENTA;
+			info.col4 = BMAGENTA "  -         -   ";
+			info.col5 = BWHITE "__"BMAGENTA"|"BWHITE"_____"BMAGENTA"     |  ";
 			info.col6 = BMAGENTA "  |          |  ";
-			info.col7 = BMAGENTA "   \\  ______/_  ";
-			info.col8 = BMAGENTA "    \\______/    \n";
+			info.col7 = BMAGENTA "  -_"BWHITE"  ______"BMAGENTA"/"BWHITE"_  "BMAGENTA;
+			info.col8 = BMAGENTA "    -______/    \n";
 			// have to add support for flatpak too
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 		/* TO DO: CREATE DEEPIN LOGO */
