@@ -54,12 +54,12 @@ char *pipeRead(const char *exec)
 	if (pipe == NULL)
 		return NULL;
 	char *returnVal = malloc(256);
-	const int scanf_return = fscanf(pipe, "%[^\n]s", returnVal);
+	const int scanf_return = fscanf(pipe, "%[^\n]256s", returnVal);
+	pclose(pipe);
 	if (scanf_return == EOF) {
 		fprintf(stderr, "ERROR: scanf failed!\n");
 		exit(EXIT_FAILURE);
 	}
-	pclose(pipe);
 	return returnVal;
 }
 
