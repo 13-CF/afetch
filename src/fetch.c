@@ -1,6 +1,5 @@
 #define _POSIX_C_SOURCE 200809L
 
-#include <pthread.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,15 +62,14 @@ char *pipeRead(const char *exec)
 	return returnVal;
 }
 
-void *kernel()
+void kernel()
 {
 	static struct utsname kernelData;
 	uname(&kernelData);
 	krnlver = kernelData.release;
-	return NULL;
 }
 
-void *uptime()
+void uptime()
 {
 	struct timespec time;
 #if defined(CLOCK_BOOTTIME)
@@ -87,10 +85,9 @@ void *uptime()
 	uptimeH = time.tv_sec / 3600;
 	uptimeM = (time.tv_sec / 60) - (time.tv_sec / 3600 * 60);
 #endif
-	return NULL;
 }
 
-void *user()
+void user()
 {
 	username = getenv("USER");
 
@@ -98,11 +95,9 @@ void *user()
 	   are allowed in UNIX-like operating
 	   systems. I'll have to look into it */
 	/* username = lowerCase(username); */
-
-	return NULL;
 }
 
-void *shell()
+void shell()
 {
 	char *shell = getenv("SHELL");
 	char *slash = strrchr(shell, '/');
@@ -110,10 +105,9 @@ void *shell()
 		shell = slash + 1;
 	}
 	shellname = shell;
-	return NULL;
 }
 
-void *os()
+void os()
 {
 	static struct utsname sysInfo;
 	uname(&sysInfo);
@@ -126,7 +120,7 @@ void *os()
 		int line = 0;
 		FILE *f = fopen("/etc/os-release", "rt");
 		if (f == NULL || osContents == NULL)
-			return "Linux";
+			return;
 		/* look through each line of /etc/os-release until we're on the
 		 * NAME= line */
 		while (fgets(osContents, 512, f)) {
@@ -511,13 +505,12 @@ void *os()
 		lowerCase(osname);
 	if (ForceUpperCase)
 		upperCase(osname);
-	return NULL;
 }
 
-void *colourDraw()
+void colourDraw()
 {
 	if (PrintColours == false)
-		return NULL;
+		return;
 
 	printf("    ");
 	for (int i = 30; i < 38; i++) {
@@ -529,39 +522,30 @@ void *colourDraw()
 	}
 
 	printf("\n");
-	return NULL;
 }
 
 int main()
 {
 	struct utsname sysInfo;
 	uname(&sysInfo);
-	pthread_t threads[6];
 
-	pthread_create(&threads[0], NULL, user, NULL);
-	pthread_create(&threads[1], NULL, os, NULL);
-	pthread_create(&threads[2], NULL, kernel, NULL);
-	pthread_create(&threads[3], NULL, uptime, NULL);
-	pthread_create(&threads[4], NULL, shell, NULL);
-
-	pthread_join(threads[0], NULL);
+	user();
+	kernel();
+	uptime();
+	shell();
+	os();
 	/* os function must be run to get info.col1 */
-	pthread_join(threads[1], NULL);
 	printf("%s", info.col1);
 	printf("%s    %s%s%s\n", info.col2, UserText, TextColour, username);
 	printf("%s    %s%s%s\n", info.col3, OsText, TextColour, osname);
-	pthread_join(threads[2], NULL);
 	printf("%s    %s%s%s\n", info.col4, KernelText, TextColour, krnlver);
-	pthread_join(threads[3], NULL);
 	printf("%s    %s%s%ldh %ldm\n", info.col5, UptimeText, TextColour, uptimeH,
 	       uptimeM);
-	pthread_join(threads[4], NULL);
 	printf("%s    %s%s%s\n", info.col6, ShellText, TextColour, shellname);
 	printf("%s    %s%s%s\n", info.col7, PackageText, TextColour, pkgCount);
 	printf("%s\n", info.col8);
 
-	pthread_create(&threads[5], NULL, colourDraw, NULL);
-	pthread_join(threads[5], NULL);
+	colourDraw();
 	printf("%s", RESET);
 	return 0;
 }

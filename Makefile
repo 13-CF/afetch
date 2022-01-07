@@ -1,7 +1,6 @@
 SRC = src/fetch.c
-CC ?= cc
 CFLAGS = -O2 -std=c99 -Wall -Wextra
-LDFLAGS = -lpthread
+LDFLAGS =
 DEBUGFLAGS = -g -Og -std=c99 -Wall -Wextra
 PREFIX ?= /usr/local
 
