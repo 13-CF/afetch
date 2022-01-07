@@ -11,6 +11,8 @@
 #include "colour.h"
 #include "config.h"
 
+#define strcmpr(s1, s2) strncmp((s1), (s2), sizeof((s2))-1)
+
 struct dist {
 	char *col1, *col2, *col3, *col4, *col5, *col6, *col7, *col8;
 	char *getPkgCount;
@@ -120,7 +122,7 @@ void *os()
 	/* start */
 	/* This whole section could probably be rewritten - it seems
 	   like a bit of a mess right now */
-	if (strncmp(sysInfo.sysname, "Linux", 5) == 0) {
+	if (strcmpr(sysInfo.sysname, "Linux") == 0) {
 		char *osContents = malloc(512);
 		char *newContents = malloc(512);
 		int line = 0;
@@ -131,13 +133,13 @@ void *os()
 		 * NAME= line */
 		while (fgets(osContents, 512, f)) {
 			snprintf(newContents, 512, "%.*s", 511, osContents + 4);
-			if (strncmp(newContents, "=", 1) == 0)
+			if (*newContents == '=')
 				break;
 			line++;
 		}
 		fclose(f);
 		free(osContents);
-		if (strncmp(newContents, "=", 1) == 0) {
+		if (*newContents == '=') {
 			int len = strlen(newContents);
 			for (int i = 0; i < len; i++) {
 				if (newContents[i] == '\"' ||
@@ -155,7 +157,7 @@ void *os()
 		strcpy(osname, newContents);
 		free(newContents);
 		/* end */
-		if (strncmp(osname, "Alpine Linux", 12) == 0) {
+		if (strcmpr(osname, "Alpine Linux") == 0) {
 			info.col1 = BBLUE "\n";
 			info.col2 = BBLUE "    /\\ /\\    ";
 			info.col3 = BBLUE "   /  \\  \\   ";
@@ -166,7 +168,7 @@ void *os()
 			info.col8 = BBLUE "";
 			info.getPkgCount =
 				"grep 'P:' /lib/apk/db/installed | wc -l";
-		} else if (strncmp(osname, "Arch Linux", 10) == 0) {
+		} else if (strcmpr(osname, "Arch Linux") == 0) {
 			info.col1 = BCYAN "";
 			info.col2 = BCYAN "      /\\      ";
 			info.col3 = BCYAN "     /  \\     ";
@@ -176,7 +178,7 @@ void *os()
 			info.col7 = BCYAN " /   |  |  -\\ ";
 			info.col8 = BCYAN "/_-''    ''-_\\\n";
 			info.getPkgCount = "pacman -Qq | wc -l";
-		} else if (strncmp(osname, "Arch bang Linux", 15) ==
+		} else if (strcmpr(osname, "Arch bang Linux") ==
 				0) {
 			info.col1 = BCYAN "          ____\n";
 			info.col2 = BCYAN "      /\\ /   /";
@@ -187,7 +189,7 @@ void *os()
 			info.col7 = BCYAN " /   /_/\\   \\ ";
 			info.col8 = BCYAN "/_-''    ''-_\\\n";
 			info.getPkgCount = "pacman -Qq | wc -l";
-		} else if (strncmp(osname, "ArcoLinux", 9) == 0) {
+		} else if (strcmpr(osname, "ArcoLinux") == 0) {
 			info.col1 = BBLUE "";
 			info.col2 = BBLUE "      /\\      ";
 			info.col3 = BBLUE "     /  \\     ";
@@ -197,7 +199,7 @@ void *os()
 			info.col7 = BBLUE " / / _____\\ \\ ";
 			info.col8 = BBLUE "/_/  `----.\\_\\\n";
 			info.getPkgCount = "pacman -Qq | wc -l";
-		} else if (strncmp(osname, "Artix Linux", 11) == 0) {
+		} else if (strcmpr(osname, "Artix Linux") == 0) {
 			info.col1 = BCYAN "";
 			info.col2 = BCYAN "      /\\      ";
 			info.col3 = BCYAN "     /  \\     ";
@@ -207,7 +209,7 @@ void *os()
 			info.col7 = BCYAN " /   ,.'`.  \\ ";
 			info.col8 = BCYAN "/.,'`     `'.\\\n";
 			info.getPkgCount = "pacman -Qq | wc -l";
-		} else if (strncmp(osname, "CelOS", 5) == 0) {
+		} else if (strcmpr(osname, "CelOS") == 0) {
 			info.col1 = BMAGENTA "\n";
 			info.col2 = BMAGENTA "     ______     ";
 			info.col3 = BMAGENTA "   _-"BWHITE" _____"BMAGENTA"\\"BWHITE"__  "BMAGENTA;
@@ -219,7 +221,7 @@ void *os()
 			// have to add support for flatpak too
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 		/* TO DO: CREATE DEEPIN LOGO */
-		} else if (strncmp(osname, "Deepin", 6) == 0) {
+		} else if (strcmpr(osname, "Deepin") == 0) {
 			info.col1 = BRED "\n";
 			info.col2 = BRED "";
 			info.col3 = BRED "";
@@ -229,7 +231,7 @@ void *os()
 			info.col7 = BRED "";
 			info.col8 = BRED "";
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
-		} else if (strncmp(osname, "Debian GNU/Linux", 16) ==
+		} else if (strcmpr(osname, "Debian GNU/Linux") ==
 				0) {
 			info.col1 = BRED "  _____\n";
 			info.col2 = BRED " /  __ \\ ";
@@ -241,7 +243,7 @@ void *os()
 			info.col8 = BRED "";
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
-		} else if (strncmp(osname, "Arch7", 10 ) == 0){
+		} else if (strcmpr(osname, "Arch7") == 0){
 			info.col1 = BCYAN "";
 			info.col2 = BCYAN " _______      ";
 			info.col3 = BCYAN "|____   \\     ";
@@ -251,7 +253,7 @@ void *os()
 			info.col7 = BCYAN " /_/      \\_\\ ";
 			info.col8 = BCYAN "";
 			info.getPkgCount = "pacman -Qq | wc -l";
-		} else if (strncmp(osname, "elementary OS", 12) == 0) {
+		} else if (strcmpr(osname, "elementary OS") == 0) {
 			info.col1 = BCYAN "";
 			info.col2 = BCYAN "  _______  ";
 			info.col3 = BCYAN " / ____  \\ ";
@@ -262,7 +264,7 @@ void *os()
 			info.col8 = BCYAN "";
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
-		} else if (strncmp(osname, "EndeavourOS", 11) == 0) {
+		} else if (strcmpr(osname, "EndeavourOS") == 0) {
 			info.col1 = BCYAN "";
 			info.col2 =
 				BRED "      /" BBLUE "\\     " BCYAN;
@@ -277,7 +279,7 @@ void *os()
 			info.col7 = BCYAN " /____--     " BCYAN;
 			info.col8 = BCYAN "";
 			info.getPkgCount = "pacman -Qq | wc -l";
-		} else if (strncmp(osname, "Fedora", 6) == 0) {
+		} else if (strcmpr(osname, "Fedora") == 0) {
 			info.col1 = BWHITE "      _____\n" BBLUE;
 			info.col2 = BWHITE "     /   __)" BBLUE "\\ ";
 			info.col3 = BWHITE "     |  /  " BBLUE "\\ \\";
@@ -294,7 +296,7 @@ void *os()
 				"1 ]] && (sqlite3 "
 				"/var/lib/rpm/rpmdb.sqlite \"select * from "
 				"Name\"|wc -l) || rpm -qa | wc -l";
-		} else if (strncmp(osname, "Gentoo", 6) == 0) {
+		} else if (strcmpr(osname, "Gentoo") == 0) {
 			info.col1 = BMAGENTA "   _-----_ \n";
 			info.col2 = BMAGENTA "  (       \\  ";
 			info.col3 = BMAGENTA "  \\    0   \\ ";
@@ -304,7 +306,7 @@ void *os()
 			info.col7 = BMAGENTA "  \\____-     ";
 			info.col8 = BWHITE "\n";
 			info.getPkgCount = "qlist -IRv | wc -l";
-		} else if (strncmp(osname, "KDE neon", 8) == 0) {
+		} else if (strcmpr(osname, "KDE neon") == 0) {
 			info.col1 = BGREEN "";
 			info.col2 = BGREEN "            ";
 			info.col3 = BGREEN "     --- _  ";
@@ -315,7 +317,7 @@ void *os()
 			info.col8 = BGREEN "";
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
-		} else if (strncmp(osname, "Linux Mint", 10) == 0) {
+		} else if (strcmpr(osname, "Linux Mint") == 0) {
 			info.col1 = BGREEN "   _____________   \n";
 			info.col2 = BGREEN "  |_            \\  ";
 			info.col3 = BGREEN "   |  | _____  |   ";
@@ -325,7 +327,7 @@ void *os()
 			info.col7 = BGREEN "   \\___________/   ";
 			info.col8 = BGREEN "\n";
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
-		} else if (strncmp(osname, "Manjaro", 7) == 0) {
+		} else if (strcmpr(osname, "Manjaro") == 0) {
 			info.col1 = BGREEN " ________  __ \n";
 			info.col2 = BGREEN "|       | |  |";
 			info.col3 = BGREEN "|   ____| |  |";
@@ -335,7 +337,7 @@ void *os()
 			info.col7 = BGREEN "|  | |  | |  |";
 			info.col8 = BGREEN "|__| |__| |__|\n";
 			info.getPkgCount = "pacman -Qq | wc -l";
-		} else if (strncmp(osname, "NixOS", 5) == 0) {
+		} else if (strcmpr(osname, "NixOS") == 0) {
 			info.col1 = BMAGENTA "            \n";
 			info.col2 = BMAGENTA "  \\\\  \\\\ //     ";
 			info.col3 = BMAGENTA " ==\\\\__\\\\/ //   ";
@@ -347,8 +349,8 @@ void *os()
 			info.getPkgCount =
 				"nix-store -q --requisites "
 				"/run/current-system/sw | wc -l";
-		} else if (strncmp(osname, "openSUSE Leap", 10) == 0 ||
-				strncmp(osname, "openSUSE Tumbleweed", 19) ==
+		} else if (strcmpr(osname, "openSUSE Leap") == 0 ||
+				strcmpr(osname, "openSUSE Tumbleweed") ==
 				0) {
 			info.col1 = BGREEN "  _______\n";
 			info.col2 = BGREEN "__|   __ \\ ";
@@ -359,7 +361,7 @@ void *os()
 			info.col7 = BGREEN "__________/";
 			info.col8 = BGREEN "";
 			info.getPkgCount = "rpm -qa | wc -l";
-		} else if (strncmp(osname, "Parabola", 8) == 0) {
+		} else if (strcmpr(osname, "Parabola") == 0) {
 			info.col1 = BMAGENTA "";
 			info.col2 = BMAGENTA "  __ __ __  _  ";
 			info.col3 = BMAGENTA ".`_//_//_/ / `.";
@@ -369,7 +371,7 @@ void *os()
 			info.col7 = BMAGENTA "       /`      ";
 			info.col8 = BMAGENTA "";
 			info.getPkgCount = "pacman -Qq | wc -l";
-		} else if (strncmp(osname, "Pop!_OS", 7) == 0) {
+		} else if (strcmpr(osname, "Pop!_OS") == 0) {
 			info.col1 = BCYAN "______\n";
 			info.col2 = BCYAN "\\   _ \\        __";
 			info.col3 = BCYAN " \\ \\ \\ \\      / /";
@@ -380,7 +382,7 @@ void *os()
 			info.col8 = BCYAN "  (___________)";
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
-		} else if (strncmp(osname, "postmarketOS", 13) == 0) {
+		} else if (strcmpr(osname, "postmarketOS") == 0) {
 			info.col1 = BGREEN "       /\\       \n";
 			info.col2 = BGREEN "      /  \\      ";
 			info.col3 = BGREEN "     /    \\     ";
@@ -391,7 +393,7 @@ void *os()
 			info.col8 = BGREEN "/_____/________\\";
 			info.getPkgCount =
 				"grep 'P:' /lib/apk/db/installed | wc -l";
-		} else if (strncmp(osname, "Slackware", 10) == 0) {
+		} else if (strcmpr(osname, "Slackware") == 0) {
 			info.col1 = BBLUE "   ________\n";
 			info.col2 = BBLUE "  /  ______| ";
 			info.col3 = BBLUE "  | |______  ";
@@ -402,7 +404,7 @@ void *os()
 			info.col8 = BBLUE "";
 			info.getPkgCount =
 				"ls /var/log/packages | wc -l";
-		} else if (strncmp(osname, "Solus", 5) == 0) {
+		} else if (strcmpr(osname, "Solus") == 0) {
 			info.col1 = BMAGENTA "    __________\n";
 			info.col2 = BMAGENTA "   /          \\   ";
 			info.col3 = BMAGENTA "  /   /\\ \\     \\  ";
@@ -413,7 +415,7 @@ void *os()
 			info.col8 = BMAGENTA "   \\----------/";
 			info.getPkgCount =
 				"ls /var/lib/eopkg/package/ | wc -l";
-		} else if (strncmp(osname, "Ubuntu", 6) == 0) {
+		} else if (strcmpr(osname, "Ubuntu") == 0) {
 			info.col1 = BRED "";
 			info.col2 = BRED "         _  ";
 			info.col3 = BRED "     ---(_) ";
@@ -424,7 +426,7 @@ void *os()
 			info.col8 = BRED "";
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
-		} else if (strncmp(osname, "void", 4) == 0) {
+		} else if (strcmpr(osname, "void") == 0) {
 			info.col1 = BGREEN "      _____\n";
 			info.col2 = BGREEN "   _  \\____ -  ";
 			info.col3 = BGREEN "  / / ____ \\ \\ ";
@@ -434,7 +436,7 @@ void *os()
 			info.col7 = BGREEN "  \\ \\____  /_/ ";
 			info.col8 = BGREEN "   -_____\\\n";
 			info.getPkgCount = "xbps-query -l | wc -l";
-		} else if (strncmp(osname, "Zorin OS", 8) == 0) {
+		} else if (strcmpr(osname, "Zorin OS") == 0) {
 			info.col1 = BBLUE "   ______   \n";
 			info.col2 = BBLUE "  /______\\  ";
 			info.col3 = BBLUE " /      / \\ ";
@@ -445,7 +447,7 @@ void *os()
 			info.col8 = BBLUE "";
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 		}
-	} else if (strncmp(sysInfo.sysname, "Darwin", 6) == 0) {
+	} else if (strcmpr(sysInfo.sysname, "Darwin") == 0) {
 		info.col1 = "" BYELLOW;
 		info.col2 = BGREEN "          .:'   " BYELLOW;
 		info.col3 = BGREEN "      __ :'__   " BYELLOW;
@@ -454,7 +456,7 @@ void *os()
 		info.col6 = BRED "  :_________:   " BYELLOW;
 		info.col7 = BMAGENTA "   :_________`-;" BYELLOW;
 		info.col8 = BBLUE "    `.__.-.__.' " BYELLOW;
-		if ((strncmp(sysInfo.machine, "iPhone", 6) == 0) || (strncmp(sysInfo.machine, "iPad", 4) == 0) || (strncmp(sysInfo.machine, "iPod", 4) == 0)) {
+		if ((strcmpr(sysInfo.machine, "iPhone") == 0) || (strcmpr(sysInfo.machine, "iPad") == 0) || (strcmpr(sysInfo.machine, "iPod") == 0)) {
 			info.getPkgCount =
 		    "dpkg -l | tail -n+6 | wc -l";
 
@@ -479,7 +481,7 @@ void *os()
 			osname = macVer;
 			free(macVer);
 		}
-	} else if (strncmp(sysInfo.sysname, "FreeBSD", 7) == 0) {
+	} else if (strcmpr(sysInfo.sysname, "FreeBSD") == 0) {
 		info.col1 = BRED "";
 		info.col2 = BRED "/\\,-'''''-,/\\";
 		info.col3 = BRED "\\_)       (_/";
@@ -490,7 +492,7 @@ void *os()
 		info.col8 = BRED "";
 		info.getPkgCount = "pkg info | wc -l | tr -d ' '";
 		osname = sysInfo.sysname;
-	} else if (strncmp(sysInfo.sysname, "OpenBSD", 7) == 0) {
+	} else if (strcmpr(sysInfo.sysname, "OpenBSD") == 0) {
 		info.col1 = BYELLOW "      _____    \n";
 		info.col2 = BYELLOW "    \\-     -/  ";
 		info.col3 = BYELLOW " \\_/         \\ ";
@@ -502,7 +504,7 @@ void *os()
 		info.getPkgCount =
 		    "/bin/ls -1 /var/db/pkg/ | wc -l | tr -d ' '";
 		osname = sysInfo.sysname;
-	} else if (strncmp(sysInfo.sysname, "NetBSD", 6) == 0) {
+	} else if (strcmpr(sysInfo.sysname, "NetBSD") == 0) {
 
 	}
 	pkgCount = pipeRead(info.getPkgCount);
