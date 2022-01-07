@@ -26,7 +26,8 @@ struct dist info = {
 	.col8 = BWHITE "",
 	.getPkgCount = "echo unsupported",
 };
-char *username, *osname, *shellname, *pkgCount;
+char *username, *shellname, *pkgCount;
+char osname[512];
 char *krnlver;
 long uptimeH, uptimeM;
 
@@ -150,8 +151,6 @@ void *os()
 				}
 			}
 		}
-		if (osname == NULL)
-			osname = malloc(512);
 		strcpy(osname, newContents);
 		free(newContents);
 		/* end */
@@ -464,7 +463,7 @@ void *os()
 
 			strcat(iosVer, productVer);
 			free(productVer);
-			osname = iosVer;
+			strncpy(osname, iosVer, sizeof(osname) - 1);
 			free(iosVer);
 		} else {
 			info.getPkgCount =
@@ -476,7 +475,7 @@ void *os()
 
 			strcat(macVer, productVer);
 			free(productVer);
-			osname = macVer;
+			strncpy(osname, macVer, sizeof(osname) - 1);
 			free(macVer);
 		}
 	} else if (strncmp(sysInfo.sysname, "FreeBSD", 7) == 0) {
@@ -489,7 +488,7 @@ void *os()
 		info.col7 = BRED "  '-_____-'  ";
 		info.col8 = BRED "";
 		info.getPkgCount = "pkg info | wc -l | tr -d ' '";
-		osname = sysInfo.sysname;
+		strncpy(osname, sysInfo.sysname, sizeof(osname));
 	} else if (strncmp(sysInfo.sysname, "OpenBSD", 7) == 0) {
 		info.col1 = BYELLOW "      _____    \n";
 		info.col2 = BYELLOW "    \\-     -/  ";
@@ -501,7 +500,7 @@ void *os()
 		info.col8 = BYELLOW "";
 		info.getPkgCount =
 		    "/bin/ls -1 /var/db/pkg/ | wc -l | tr -d ' '";
-		osname = sysInfo.sysname;
+		strncpy(osname, sysInfo.sysname, sizeof(osname));
 	} else if (strncmp(sysInfo.sysname, "NetBSD", 6) == 0) {
 
 	}
