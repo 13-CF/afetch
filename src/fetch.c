@@ -218,16 +218,15 @@ void *os()
 			info.col8 = BMAGENTA "    -______/    \n";
 			// have to add support for flatpak too
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
-		/* TO DO: CREATE DEEPIN LOGO */
 		} else if (strncmp(osname, "Deepin", 6) == 0) {
-			info.col1 = BRED "\n";
-			info.col2 = BRED "";
-			info.col3 = BRED "";
-			info.col4 = BRED "";
-			info.col5 = BRED "";
-			info.col6 = BRED "";
-			info.col7 = BRED "";
-			info.col8 = BRED "";
+			info.col1 = BRED "   .=*##%##%#*=.    ";
+			info.col2 = BRED " .*%%#**+#%@%###*.  ";
+			info.col3 = BRED "-@#%@#+*%@%%%%###@- ";
+			info.col4 = BRED "@#%@@@*#@##%%%@@%#@ ";
+			info.col5 = BRED "@##%@@@%%%%%##@@%#@ ";
+			info.col6 = BRED "-@#+**#######@@%#@- ";
+			info.col7 = BRED " .*%#***##%@@%%%*.  ";
+			info.col8 = BRED "   .=*#%%@%%#+=.    \n";
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 		} else if (strncmp(osname, "Debian GNU/Linux", 16) ==
 				0) {
