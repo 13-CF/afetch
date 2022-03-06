@@ -1,7 +1,6 @@
 #define _POSIX_C_SOURCE 200809L
 
 #include <limits.h>
-#include <pthread.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,15 +56,14 @@ char *pipeRead(const char *exec)
     return returnVal;
 }
 
-void *kernel()
+void kernel()
 {
     static struct utsname kernelData;
     uname(&kernelData);
     krnlver = kernelData.release;
-    return NULL;
 }
 
-void *uptime()
+void uptime()
 {
     struct timespec time;
 #if defined(CLOCK_BOOTTIME)
@@ -81,24 +79,10 @@ void *uptime()
     uptimeH = time.tv_sec / 3600;
     uptimeM = (time.tv_sec / 60) - (time.tv_sec / 3600 * 60);
 #endif
-    return NULL;
 }
 
-void *user()
-{
-    username = getenv("USER");
 
-    return NULL;
-}
-
-void *host()
-{
-    gethostname(hostname, HOST_NAME_MAX + 1);
-
-    return NULL;
-}
-
-void *shell()
+void shell()
 {
     char *shell = getenv("SHELL");
     char *slash = strrchr(shell, '/');
@@ -106,10 +90,9 @@ void *shell()
         shell = slash + 1;
     }
     shellname = shell;
-    return NULL;
 }
 
-void *os()
+void os()
 {
     static struct utsname sysInfo;
     uname(&sysInfo);
@@ -122,7 +105,7 @@ void *os()
         int   line        = 0;
         FILE *f           = fopen("/etc/os-release", "rt");
         if (f == NULL || osContents == NULL)
-            return "Linux";
+            return;
         /* look through each line of /etc/os-release until we're on the
          * NAME= line */
         while (fgets(osContents, 512, f)) {
@@ -479,8 +462,6 @@ void *os()
     } else if (strncmp(sysInfo.sysname, "NetBSD", 6) == 0) {
     }
     pkgCount = pipeRead(info.getPkgCount);
-
-    return NULL;
 }
 
 void colourDraw()
@@ -504,31 +485,23 @@ int main()
 {
     struct utsname sysInfo;
     uname(&sysInfo);
-    pthread_t threads[6];
 
-    pthread_create(&threads[0], NULL, user, NULL);
-    pthread_create(&threads[1], NULL, host, NULL);
-    pthread_create(&threads[2], NULL, os, NULL);
-    pthread_create(&threads[3], NULL, kernel, NULL);
-    pthread_create(&threads[4], NULL, uptime, NULL);
-    pthread_create(&threads[5], NULL, shell, NULL);
+    username = getenv("USER");
+    gethostname(hostname, HOST_NAME_MAX + 1);
+    os();
+    kernel();
+    uptime();
+    shell();
 
-    pthread_join(threads[0], NULL);
-    pthread_join(threads[1], NULL);
-    /* os function must be run to get info.col1 */
-    pthread_join(threads[2], NULL);
     printf("%s", info.col1);
     printf("%s  " BYELLOW "%s" BRED "@" BBLUE "%s\n", info.col2, username,
            hostname);
     printf("%s  %s%s%s%s\n", info.col3, VariableColour, OsText, TextColour,
            osname);
-    pthread_join(threads[3], NULL);
     printf("%s  %s%s%s%s\n", info.col4, VariableColour, KernelText, TextColour,
            krnlver);
-    pthread_join(threads[4], NULL);
     printf("%s  %s%s%s%ldh %ldm\n", info.col5, VariableColour, UptimeText,
            TextColour, uptimeH, uptimeM);
-    pthread_join(threads[5], NULL);
     printf("%s  %s%s%s%s\n", info.col6, VariableColour, ShellText, TextColour,
            shellname);
     printf("%s  %s%s%s%s\n", info.col7, VariableColour, PackageText, TextColour,
