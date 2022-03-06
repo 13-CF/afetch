@@ -10,6 +10,7 @@
 #define BWHITE   "\033[1;37m"
 /* NORMAL COLOURS */
 #define BLACK   "\033[0;30m"
+#define GRAY    "\033[0;90m"
 #define RED     "\033[0;31m"
 #define GREEN   "\033[0;32m"
 #define YELLOW  "\033[0;33m"
@@ -19,4 +20,4 @@
 #define WHITE   "\033[0;37m"
 /* OTHER */
 #define RESET "\033[0;m"
-#define BITAL "\033[1;3m" 
+#define BITAL "\033[1;3m"
