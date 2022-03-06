@@ -1,9 +1,9 @@
-#define UserText    "  " //"   USER "
-#define OsText      "  " //"     OS "
-#define KernelText  "  " //" KERNEL "
-#define UptimeText  "  " //" UPTIME "
-#define ShellText   "  " //"  SHELL "
-#define PackageText "  " //"   PKGS "
+#define UserText    "  " // "   USER "
+#define OsText      "  " // "     OS "
+#define KernelText  "  " // " KERNEL "
+#define UptimeText  "  " // " UPTIME "
+#define ShellText   "  " // "  SHELL "
+#define PackageText "  " // "   PKGS "
 #define ColourText  "  "
 
 /* See options in colour.h file */
@@ -18,4 +18,4 @@
           ▀ ▁ ▂ ▃ ▄ ▅ ▆ ▇ █ ▉ ▊ ▋ ▌ ▍ ▎ ▏
 
           █ ▄ ▀ ●
- */
+*/

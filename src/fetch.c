@@ -35,7 +35,6 @@ struct dist info = {
     .col6 = GRAY "   ( " WHITE "|  | " GRAY "/| ",
     .col7 = YELLOW "  _" GRAY "/\\ " WHITE "__)" GRAY "/" YELLOW "_" GRAY ") ",
     .col8 = YELLOW "  \\/" GRAY "-____" YELLOW "\\/  ",
-
     .getPkgCount = "echo unsupported",
 };
 
@@ -484,29 +483,28 @@ void *os()
     return NULL;
 }
 
-void *colourDraw()
+void colourDraw()
 {
     if (PrintColours == false)
-        return NULL;
+        return;
 
     printf("%s%s", VariableColour, ColourText);
     for (int i = 31; i < 37; i++) {
         printf("\033[0;%dm%s", i, ColourCharacter);
     } // print regular term colours
-    // printf("\n    ");
-    //  for (int i = 31; i < 37; i++) {
-    //      printf("\033[1;%dm %s", i, ColourCharacter);
-    //  }
+    // printf("\n                  ");
+    // for (int i = 31; i < 37; i++) {
+    //     printf("\033[1;%dm%s", i, ColourCharacter);
+    // }
 
     printf("\n");
-    return NULL;
 }
 
 int main()
 {
     struct utsname sysInfo;
     uname(&sysInfo);
-    pthread_t threads[7];
+    pthread_t threads[6];
 
     pthread_create(&threads[0], NULL, user, NULL);
     pthread_create(&threads[1], NULL, host, NULL);
@@ -537,8 +535,7 @@ int main()
            pkgCount);
     printf("%s  ", info.col8);
 
-    pthread_create(&threads[6], NULL, colourDraw, NULL);
-    pthread_join(threads[6], NULL);
+    colourDraw();
     printf("\n%s", RESET);
 
     return 0;
