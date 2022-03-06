@@ -9,14 +9,13 @@
 Fast and simple system info (for UNIX based operating systems) written in POSIX compliant C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. It uses the C Preprocessor to implement config options at compile time. <br> <br>
 
 <h3> Why use afetch? </h3>
-afetch is written in C99, meaning that it should be able to be compiled with almost all C compilers. As well as being written in a very fast language, it's multithreaded. This makes it even faster, as well as distinguishing it from similar programs written is POSIX sh. The only limitations it has is the speed of your distros package manager! </p>
+afetch is written in C99, meaning that it should be able to be compiled with almost all C compilers. As well as being written in a very fast language. The only bottleneck it has is the speed of your distros package manager! </p>
 
 
 **Requirements**
 *  `/etc/os-release` file for package count on Linux
 *  A C compiler
 *  A <a href="https://en.wikipedia.org/wiki/C_POSIX_library">compatible C standard library</a> implementation
-*  pthreads
 
 **Package count supported**
 

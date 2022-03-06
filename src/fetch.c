@@ -32,13 +32,6 @@ char *pipeRead(const char *exec)
     return returnVal;
 }
 
-char *kernel()
-{
-    static struct utsname kernelData;
-    uname(&kernelData);
-    return kernelData.release;
-}
-
 void uptime(long *uptimeH, long *uptimeM)
 {
     struct timespec time;
@@ -449,8 +442,6 @@ void colourDraw()
     // for (int i = 31; i < 37; i++) {
     //     printf("\033[1;%dm%s", i, ColourCharacter);
     // }
-
-    printf("\n");
 }
 
 int main()
@@ -478,35 +469,30 @@ int main()
     };
     struct utsname sysInfo;
     uname(&sysInfo);
-    char *username, hostname[HOST_NAME_MAX + 1], *osname = NULL, *shellname,
-                                                 *pkgCount, *krnlver;
+    char hostname[HOST_NAME_MAX + 1], *osname;
     long uptimeH, uptimeM;
 
-    username = getenv("USER");
     gethostname(hostname, HOST_NAME_MAX + 1);
-    osname  = os(&sysInfo, &info);
-    krnlver = kernel();
+    osname = os(&sysInfo, &info);
     uptime(&uptimeH, &uptimeM);
-    shellname = shell();
-    pkgCount  = pipeRead(info.getPkgCount);
 
     printf("%s", info.col1);
-    printf("%s  " BYELLOW "%s" BRED "@" BBLUE "%s\n", info.col2, username,
-           hostname);
+    printf("%s  " BYELLOW "%s" BRED "@" BBLUE "%s\n", info.col2, getenv("USER"),
+           hostname); // user@host
     printf("%s  %s%s%s%s\n", info.col3, VariableColour, OsText, TextColour,
-           osname);
+           osname); // osname
     printf("%s  %s%s%s%s\n", info.col4, VariableColour, KernelText, TextColour,
-           krnlver);
+           sysInfo.release); // kernel version
     printf("%s  %s%s%s%ldh %ldm\n", info.col5, VariableColour, UptimeText,
-           TextColour, uptimeH, uptimeM);
+           TextColour, uptimeH, uptimeM); // uptime
     printf("%s  %s%s%s%s\n", info.col6, VariableColour, ShellText, TextColour,
-           shellname);
+           shell()); // shell
     printf("%s  %s%s%s%s\n", info.col7, VariableColour, PackageText, TextColour,
-           pkgCount);
+           pipeRead(info.getPkgCount)); // package count
     printf("%s  ", info.col8);
 
     colourDraw();
-    printf("\n%s", RESET);
+    printf("%s\n\n", RESET);
 
     free(osname);
     return 0;
