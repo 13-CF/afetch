@@ -64,7 +64,7 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
 {
     if (strncmp(sysInfo->sysname, "Linux", 5) == 0) {
         char  osContents[512];
-        FILE *fp    = fopen("/etc/os-release", "rt");
+        FILE *fp = fopen("/etc/os-release", "rt");
         if (!fp) {
             strncpy(osn, "Linux", 6);
             inf->col1 = BWHITE "";
@@ -75,7 +75,7 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col6 = GRAY "   ( " WHITE "|  | " GRAY "/|";
             inf->col7 = YELLOW "  _" GRAY "/\\ " WHITE "__)" GRAY "/" YELLOW
                                "_" GRAY ")";
-            inf->col8        = YELLOW "  \\/" GRAY "-____" YELLOW "\\/ ";
+            inf->col8 = YELLOW "  \\/" GRAY "-____" YELLOW "\\/ ";
             return;
         }
         fread(osContents, 1, 512, fp);
@@ -157,14 +157,14 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
             /* TO DO: CREATE DEEPIN LOGO */
         } else if (strncmp(osn, "Deepin", 6) == 0) {
-            inf->col1        = BRED "\n";
-            inf->col2        = BRED "";
-            inf->col3        = BRED "";
-            inf->col4        = BRED "";
-            inf->col5        = BRED "";
-            inf->col6        = BRED "";
-            inf->col7        = BRED "";
-            inf->col8        = BRED "";
+            // inf->col1        = BRED "";
+            // inf->col2        = BRED "";
+            // inf->col3        = BRED "";
+            // inf->col4        = BRED "";
+            // inf->col5        = BRED "";
+            // inf->col6        = BRED "";
+            // inf->col7        = BRED "";
+            // inf->col8        = BRED "";
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
         } else if (strncmp(osn, "Debian GNU/Linux", 16) == 0) {
             inf->col1        = BRED "";
@@ -467,7 +467,8 @@ int main()
            TextColour, uptimeH, uptimeM); // uptime
     printf("%s   %s%s%s%s\n", info.col6, VariableColour, ShellText, TextColour,
            shell()); // shell
-    printf("%s   %s%s%s%s\n", info.col7, VariableColour, PackageText, TextColour,
+    printf("%s   %s%s%s%s\n", info.col7, VariableColour, PackageText,
+           TextColour,
            pipeRead(info.getPkgCount)); // package count
     printf("%s   ", info.col8);
 
