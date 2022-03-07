@@ -457,7 +457,7 @@ int main()
     uptime(&uptimeH, &uptimeM);
 
     printf("%s", info.col1);
-    printf("%s   " BYELLOW "%s" BRED "@" BBLUE "%s\n", info.col2, getenv("USER"),
+    printf("%s   " BYELLOW "%s" BRED "@" BBLUE "%s\n", info.col2, getlogin(),
            hostname); // user@host
     printf("%s   %s%s%s%s\n", info.col3, VariableColour, OsText, TextColour,
            osname); // osname
