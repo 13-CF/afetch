@@ -2,10 +2,10 @@
 <h4 align="center"> Simple system info </h4>
 
 <p align="center">
-<a img src="https://repology.org/badge/vertical-allrepos/afetch.svg" width="300px"> </a>
+<a img src="https://repology.org/badge/vertical-allrepos/afetch.svg" height="85px"> </a>
 </p>
 
-<img align="right" src="img/logo.png" height="250px">
+<img align="right" src="img/logo.png" width="300px">
 Fast and simple system info (for UNIX based operating systems) written in POSIX compliant C99, that can be configured at compile time by editing the <a href="src/config.h">config.h</a> file. It uses the C Preprocessor to implement config options at compile time. <br> <br>
 
 <h3> Why use afetch? </h3>
