@@ -6,7 +6,7 @@ PREFIX ?= /usr/local
 
 all: afetch
 
-afetch: ${SRC} src/config.h src/color.h
+afetch: ${SRC} src/config.h src/color.h src/distros.h
 	${CC} ${CFLAGS} ${SRC} -o afetch
 
 debug:

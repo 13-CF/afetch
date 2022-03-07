@@ -16,6 +16,17 @@ typedef struct dist {
     char *get_pkg_count;
 } dist;
 
+unsigned int hash(char *str)
+{
+    unsigned int hash = 5381;
+    int          c;
+
+    while ((c = *str++))
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+    return hash;
+}
+
 char *pipe_read(const char *exec)
 {
     FILE *pipe = popen(exec, "r");
@@ -78,6 +89,7 @@ void os(struct utsname *sys_info, struct dist *inf, char *os_name)
             return;
         }
         fread(os_contents, 1, 512, fp);
+        fclose(fp);
         char *name = strstr(os_contents, "NAME=");
         name += 5;
         if (*name == '"') {
@@ -88,279 +100,11 @@ void os(struct utsname *sys_info, struct dist *inf, char *os_name)
             os_name[i] = name[i];
         }
         os_name[i] = '\0';
-        fclose(fp);
 
-        if (strncmp(os_name, "Alpine Linux", 12) == 0) {
-            inf->col1          = BBLUE "\n";
-            inf->col2          = BBLUE "     /\\ /\\    ";
-            inf->col3          = BBLUE "    /  \\  \\   ";
-            inf->col4          = BBLUE "   /    \\  \\  ";
-            inf->col5          = BBLUE "  /      \\  \\ ";
-            inf->col6          = BBLUE " /        \\  \\";
-            inf->col7          = BBLUE "           \\  ";
-            inf->col8          = BBLUE "              ";
-            inf->get_pkg_count = "grep 'P:' /lib/apk/db/installed | wc -l";
-        } else if (strncmp(os_name, "Arch Linux", 10) == 0) {
-            inf->col1          = BCYAN "";
-            inf->col2          = BCYAN "       /\\      ";
-            inf->col3          = BCYAN "      /  \\     ";
-            inf->col4          = BCYAN "     /\\   \\    ";
-            inf->col5          = BBLUE "    /      \\   ";
-            inf->col6          = BBLUE "   /   ,,   \\  ";
-            inf->col7          = BBLUE "  /   |  |  -\\ ";
-            inf->col8          = BBLUE " /_-''    ''-_\\";
-            inf->get_pkg_count = "pacman -Qq | wc -l";
-        } else if (strncmp(os_name, "Arch bang Linux", 15) == 0) {
-            inf->col1          = BCYAN "           ____\n";
-            inf->col2          = BCYAN "       /\\ /   /";
-            inf->col3          = BCYAN "      /  /   / ";
-            inf->col4          = BCYAN "     /   / /   ";
-            inf->col5          = BCYAN "    /   /_/\\   ";
-            inf->col6          = BCYAN "   /   __   \\  ";
-            inf->col7          = BCYAN "  /   /_/\\   \\ ";
-            inf->col8          = BCYAN " /_-''    ''-_\\";
-            inf->get_pkg_count = "pacman -Qq | wc -l";
-        } else if (strncmp(os_name, "ArcoLinux", 9) == 0) {
-            inf->col1          = BBLUE "";
-            inf->col2          = BBLUE "       /\\      ";
-            inf->col3          = BBLUE "      /  \\     ";
-            inf->col4          = BBLUE "     / /\\ \\    ";
-            inf->col5          = BBLUE "    / /  \\ \\   ";
-            inf->col6          = BBLUE "   / /    \\ \\  ";
-            inf->col7          = BBLUE "  / / _____\\ \\ ";
-            inf->col8          = BBLUE " /_/  `----.\\_\\";
-            inf->get_pkg_count = "pacman -Qq | wc -l";
-        } else if (strncmp(os_name, "Artix Linux", 11) == 0) {
-            inf->col1          = BCYAN "";
-            inf->col2          = BCYAN "       /\\      ";
-            inf->col3          = BCYAN "      /  \\     ";
-            inf->col4          = BCYAN "     /`'.,\\    ";
-            inf->col5          = BCYAN "    /     ',   ";
-            inf->col6          = BCYAN "   /      ,`\\  ";
-            inf->col7          = BCYAN "  /   ,.'`.  \\ ";
-            inf->col8          = BCYAN " /.,'`     `'.\\";
-            inf->get_pkg_count = "pacman -Qq | wc -l";
-        } else if (strncmp(os_name, "CelOS", 5) == 0) {
-            inf->col1 = BMAGENTA "";
-            inf->col2 = BMAGENTA "      ______     ";
-            inf->col3 = BMAGENTA "    _-" BWHITE " _____" BMAGENTA "\\" BWHITE
-                                 " __ " BMAGENTA;
-            inf->col4 = BMAGENTA "   -         -   ";
-            inf->col5 =
-                BWHITE " __" BMAGENTA "|" BWHITE "_____" BMAGENTA "     |  ";
-            inf->col6 = BMAGENTA "   |          |  ";
-            inf->col7 = BMAGENTA "   -_" BWHITE "  ______" BMAGENTA "/" BWHITE
-                                 "_  " BMAGENTA;
-            inf->col8 = BMAGENTA "     -______/    ";
-            // have to add support for flatpak too
-            inf->get_pkg_count = "dpkg -l | tail -n+6 | wc -l";
-            /* TO DO: CREATE DEEPIN LOGO */
-        } else if (strncmp(os_name, "Deepin", 6) == 0) {
-            // inf->col1        = BRED "";
-            // inf->col2        = BRED "";
-            // inf->col3        = BRED "";
-            // inf->col4        = BRED "";
-            // inf->col5        = BRED "";
-            // inf->col6        = BRED "";
-            // inf->col7        = BRED "";
-            // inf->col8        = BRED "";
-            inf->get_pkg_count = "dpkg -l | tail -n+6 | wc -l";
-        } else if (strncmp(os_name, "Debian GNU/Linux", 16) == 0) {
-            inf->col1          = BRED "";
-            inf->col2          = BRED "   _____  ";
-            inf->col3          = BRED "  /  __ \\ ";
-            inf->col4          = BRED " |  /    |";
-            inf->col5          = BRED " |  \\___- ";
-            inf->col6          = BRED " -_       ";
-            inf->col7          = BRED "   --_    ";
-            inf->col8          = BRED "          ";
-            inf->get_pkg_count = "dpkg -l | tail -n+6 | wc -l";
-        } else if (strncmp(os_name, "Arch7", 10) == 0) {
-            inf->col1          = BCYAN "";
-            inf->col2          = BCYAN "  _______      ";
-            inf->col3          = BCYAN " |____   \\     ";
-            inf->col4          = BCYAN "     / /\\ \\    ";
-            inf->col5          = BCYAN "    / /__\\ \\   ";
-            inf->col6          = BCYAN "   / /____\\ \\  ";
-            inf->col7          = BCYAN "  /_/      \\_\\ ";
-            inf->col8          = BCYAN "               ";
-            inf->get_pkg_count = "pacman -Qq | wc -l";
-        } else if (strncmp(os_name, "elementary OS", 12) == 0) {
-            inf->col1          = BCYAN "";
-            inf->col2          = BCYAN "   _______  ";
-            inf->col3          = BCYAN "  / ____  \\ ";
-            inf->col4          = BCYAN " /  |  /  /\\";
-            inf->col5          = BCYAN " |__\\ /  / |";
-            inf->col6          = BCYAN " \\   /__/  /";
-            inf->col7          = BCYAN "  \\_______/ ";
-            inf->col8          = BCYAN "            ";
-            inf->get_pkg_count = "dpkg -l | tail -n+6 | wc -l";
-        } else if (strncmp(os_name, "EndeavourOS", 11) == 0) {
-            inf->col1 = BCYAN "";
-            inf->col2 = BRED "       /" BBLUE "\\     " BCYAN;
-            inf->col3 = BRED "     /" BBLUE "/  \\" BCYAN "\\   " BCYAN;
-            inf->col4 = BRED "    /" BBLUE "/    \\ " BCYAN "\\ " BCYAN;
-            inf->col5 = BRED "  / " BBLUE "/     _) " BCYAN ")" BCYAN;
-            inf->col6 = BRED " /_" BBLUE "/___-- " BCYAN "__- " BCYAN;
-            inf->col7 = BCYAN "  /____--     " BCYAN;
-            inf->col8 = BCYAN "              ";
-            inf->get_pkg_count = "pacman -Qq | wc -l";
-        } else if (strncmp(os_name, "Fedora", 6) == 0) {
-            inf->col1          = BWHITE "       _____\n" BBLUE;
-            inf->col2          = BWHITE "      /   __)" BBLUE "\\ ";
-            inf->col3          = BWHITE "      |  /  " BBLUE "\\ \\";
-            inf->col4          = BWHITE "   ___|  |" BBLUE "__/ /";
-            inf->col5          = BBLUE "  / " BWHITE "(_    _)" BBLUE "_/ ";
-            inf->col6          = BBLUE " / /  " BWHITE "|  |     " BBLUE;
-            inf->col7          = BBLUE " \\ \\" BWHITE "__/  |     " BBLUE;
-            inf->col8          = BBLUE "  \\" BWHITE "(_____/     " BBLUE;
-            inf->get_pkg_count = "[[ $(which sqlite3 2>/dev/null) && $? -ne "
-                                 "1 ]] && (sqlite3 "
-                                 "/var/lib/rpm/rpmdb.sqlite \"select * from "
-                                 "Name\"|wc -l) || rpm -qa | wc -l";
-        } else if (strncmp(os_name, "Gentoo", 6) == 0) {
-            inf->col1          = BWHITE "";
-            inf->col2          = BMAGENTA "   _-----_   ";
-            inf->col3          = BMAGENTA "  (       \\  ";
-            inf->col4          = BMAGENTA "  \\    0   \\ ";
-            inf->col5          = BMAGENTA "   \\        )";
-            inf->col6          = BMAGENTA "   /      _/ ";
-            inf->col7          = BMAGENTA "  (     _-   ";
-            inf->col8          = BMAGENTA "  \\____-     ";
-            inf->get_pkg_count = "qlist -IRv | wc -l";
-        } else if (strncmp(os_name, "KDE neon", 8) == 0) {
-            inf->col1          = BGREEN "";
-            inf->col2          = BGREEN "            ";
-            inf->col3          = BGREEN "     --- _  ";
-            inf->col4          = BGREEN "  /  ---  \\ ";
-            inf->col5          = BGREEN " |  |   |  |";
-            inf->col6          = BGREEN "  \\  --- _/ ";
-            inf->col7          = BGREEN "     ---    ";
-            inf->col8          = BGREEN "            ";
-            inf->get_pkg_count = "dpkg -l | tail -n+6 | wc -l";
-        } else if (strncmp(os_name, "Linux Mint", 10) == 0) {
-            inf->col1          = BGREEN "";
-            inf->col2          = BGREEN "   _____________   ";
-            inf->col3          = BGREEN "  |_            \\  ";
-            inf->col4          = BGREEN "   |  | _____  |   ";
-            inf->col5          = BGREEN "   |  | | | |  |   ";
-            inf->col6          = BGREEN "   |  | | | |  |   ";
-            inf->col7          = BGREEN "   |  \\_____/  |   ";
-            inf->col8          = BGREEN "   \\___________/   ";
-            inf->get_pkg_count = "dpkg -l | tail -n+6 | wc -l";
-        } else if (strncmp(os_name, "Manjaro", 7) == 0) {
-            inf->col1          = BGREEN "  ________  __ \n";
-            inf->col2          = BGREEN " |       | |  |";
-            inf->col3          = BGREEN " |   ____| |  |";
-            inf->col4          = BGREEN " |  |  __  |  |";
-            inf->col5          = BGREEN " |  | |  | |  |";
-            inf->col6          = BGREEN " |  | |  | |  |";
-            inf->col7          = BGREEN " |  | |  | |  |";
-            inf->col8          = BGREEN " |__| |__| |__|";
-            inf->get_pkg_count = "pacman -Qq | wc -l";
-        } else if (strncmp(os_name, "NixOS", 5) == 0) {
-            inf->col1          = BMAGENTA "";
-            inf->col2          = BMAGENTA "   \\\\  \\\\ //  ";
-            inf->col3          = BMAGENTA "  ==\\\\__\\\\/ //";
-            inf->col4          = BMAGENTA "    //   \\\\// ";
-            inf->col5          = BMAGENTA " ==//     //==";
-            inf->col6          = BMAGENTA "  //\\\\___//   ";
-            inf->col7          = BMAGENTA " // /\\\\  \\\\== ";
-            inf->col8          = BMAGENTA "   // \\\\  \\\\  ";
-            inf->get_pkg_count = "nix-store -q --requisites "
-                                 "/run/current-system/sw | wc -l";
-        } else if (strncmp(os_name, "openSUSE Leap", 10) == 0 ||
-                   strncmp(os_name, "openSUSE Tumbleweed", 19) == 0) {
-            inf->col1          = BGREEN "";
-            inf->col2          = BGREEN "   _______  ";
-            inf->col3          = BGREEN " __|   __ \\ ";
-            inf->col4          = BGREEN "      / .\\ \\";
-            inf->col5          = BGREEN "      \\__/ |";
-            inf->col6          = BGREEN "    _______|";
-            inf->col7          = BGREEN "    \\_______";
-            inf->col8          = BGREEN " __________/";
-            inf->get_pkg_count = "rpm -qa | wc -l";
-        } else if (strncmp(os_name, "Parabola", 8) == 0) {
-            inf->col1          = BMAGENTA "";
-            inf->col2          = BMAGENTA "   __ __ __  _  ";
-            inf->col3          = BMAGENTA " .`_//_//_/ / `.";
-            inf->col4          = BMAGENTA "           /  .`";
-            inf->col5          = BMAGENTA "          / .`  ";
-            inf->col6          = BMAGENTA "         /.`    ";
-            inf->col7          = BMAGENTA "        /`      ";
-            inf->col8          = BMAGENTA "                ";
-            inf->get_pkg_count = "pacman -Qq | wc -l";
-        } else if (strncmp(os_name, "Pop!_OS", 7) == 0) {
-            inf->col1          = BCYAN " ______\n";
-            inf->col2          = BCYAN " \\   _ \\        __";
-            inf->col3          = BCYAN "  \\ \\ \\ \\      / /";
-            inf->col4          = BCYAN "   \\ \\_\\ \\    / / ";
-            inf->col5          = BCYAN "    \\  ___\\  /_/  ";
-            inf->col6          = BCYAN "     \\ \\    _     ";
-            inf->col7          = BCYAN "    __\\_\\__(_)_   ";
-            inf->col8          = BCYAN "   (___________)  ";
-            inf->get_pkg_count = "dpkg -l | tail -n+6 | wc -l";
-        } else if (strncmp(os_name, "postmarketOS", 13) == 0) {
-            inf->col1          = BGREEN "        /\\       \n";
-            inf->col2          = BGREEN "       /  \\      ";
-            inf->col3          = BGREEN "      /    \\     ";
-            inf->col4          = BGREEN "     /\\__   \\    ";
-            inf->col5          = BGREEN "    /   /\\  _\\   ";
-            inf->col6          = BGREEN "   /   ___\\/  \\  ";
-            inf->col7          = BGREEN "  /    \\       \\ ";
-            inf->col8          = BGREEN " /_____/________\\";
-            inf->get_pkg_count = "grep 'P:' /lib/apk/db/installed | wc -l";
-        } else if (strncmp(os_name, "Slackware", 10) == 0) {
-            inf->col1          = BBLUE "";
-            inf->col2          = BBLUE "    ________  ";
-            inf->col3          = BBLUE "   /  ______| ";
-            inf->col4          = BBLUE "   | |______  ";
-            inf->col5          = BBLUE "   \\______  \\ ";
-            inf->col6          = BBLUE "    ______| | ";
-            inf->col7          = BBLUE " | |________/ ";
-            inf->col8          = BBLUE " |____________";
-            inf->get_pkg_count = "ls /var/log/packages | wc -l";
-        } else if (strncmp(os_name, "Solus", 5) == 0) {
-            inf->col1          = BMAGENTA "     __________\n";
-            inf->col2          = BMAGENTA "    /          \\   ";
-            inf->col3          = BMAGENTA "   /   /\\ \\     \\  ";
-            inf->col4          = BMAGENTA "  /   /  \\ \\     \\ ";
-            inf->col5          = BMAGENTA " |   /    \\ \\     |";
-            inf->col6          = BMAGENTA "  \\--------------/ ";
-            inf->col7          = BMAGENTA "   \\------------/  ";
-            inf->col8          = BMAGENTA "    \\----------/   ";
-            inf->get_pkg_count = "ls /var/lib/eopkg/package/ | wc -l";
-        } else if (strncmp(os_name, "Ubuntu", 6) == 0) {
-            inf->col1          = BRED "";
-            inf->col2          = BRED "          _  ";
-            inf->col3          = BRED "      ---(_) ";
-            inf->col4          = BRED "  _/  ---  \\ ";
-            inf->col5          = BRED " (_) |   |   ";
-            inf->col6          = BRED "   \\  --- _/ ";
-            inf->col7          = BRED "      ---(_) ";
-            inf->col8          = BRED "             ";
-            inf->get_pkg_count = "dpkg -l | tail -n+6 | wc -l";
-        } else if (strncmp(os_name, "void", 4) == 0) {
-            inf->col1 = BGREEN "      _____\n";
-            inf->col2 = BGREEN "   _  \\____ -  ";
-            inf->col3 = BGREEN "  / / ____ \\ \\ ";
-            inf->col4 = BGREEN " / / /    \\ \\ \\";
-            inf->col5 = BGREEN " | |  " BGRAY BITAL "VOID  " BGREEN "| |";
-            inf->col6 = BGREEN " \\ \\ \\____/ / /";
-            inf->col7 = BGREEN "  \\ \\____  /_/ ";
-            inf->col8 = BGREEN "   -_____\\     ";
-            inf->get_pkg_count = "xbps-query -l | wc -l";
-        } else if (strncmp(os_name, "Zorin OS", 8) == 0) {
-            inf->col1          = BBLUE "";
-            inf->col2          = BBLUE "    ______    ";
-            inf->col3          = BBLUE "   /______\\  ";
-            inf->col4          = BBLUE "  /      / \\ ";
-            inf->col5          = BBLUE " /      /   \\";
-            inf->col6          = BBLUE " \\     /    /";
-            inf->col7          = BBLUE "  \\   /___ / ";
-            inf->col8          = BBLUE "   \\______/  ";
-            inf->get_pkg_count = "dpkg -l | tail -n+6 | wc -l";
+        switch (hash(os_name)) {
+#include "distros.h"
         }
+
     } else if (strncmp(sys_info->sysname, "Darwin", 6) == 0) {
         inf->col1         = "" BYELLOW;
         inf->col2         = BGREEN "          .:'   " BYELLOW;
