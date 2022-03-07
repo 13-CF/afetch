@@ -63,7 +63,7 @@ afetch is made to be run anywhere, but if your operating system isn't in the lis
 **To do**
 *  Make README.md more dynamic (adapt to different screen sizes)
 *  Add links to information about distros in README.md
-*  Find more efficient ways to do certain things, like the `/etc/os-release` part on Linux.
+*  Find more efficient ways to do certain things.
 *  Create CONFIG.md file with in depth guide to customisation
 
 **Thanks**
