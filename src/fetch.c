@@ -60,19 +60,29 @@ char *shell()
     return shell;
 }
 
-char *os(struct utsname *sysInfo, struct dist *inf)
+void os(struct utsname *sysInfo, struct dist *inf, char *osn)
 {
     /* start */
     /* This whole section could probably be rewritten - it seems
        like a bit of a mess right now */
-    char *osn = malloc(512);
     if (strncmp(sysInfo->sysname, "Linux", 5) == 0) {
-        char *osContents  = malloc(512);
-        char *newContents = malloc(512);
-        int   line        = 0;
-        FILE *f           = fopen("/etc/os-release", "rt");
-        if (f == NULL || osContents == NULL)
-            return "Linux";
+        char  osContents[512];
+        char  newContents[512];
+        int   line = 0;
+        FILE *f    = fopen("/etc/os-release", "rt");
+        if (!f) {
+            strncpy(osn, "Linux", 6);
+            inf->col1 = BWHITE "";
+            inf->col2 = GRAY "      ___   ";
+            inf->col3 = GRAY "     (" BWHITE ".." GRAY " \\  ";
+            inf->col4 = GRAY "     (" YELLOW "<>" GRAY " |  ";
+            inf->col5 = GRAY "    /" WHITE "/  \\" GRAY " \\ ";
+            inf->col6 = GRAY "   ( " WHITE "|  | " GRAY "/|";
+            inf->col7 = YELLOW "  _" GRAY "/\\ " WHITE "__)" GRAY "/" YELLOW
+                               "_" GRAY ")";
+            inf->col8        = YELLOW "  \\/" GRAY "-____" YELLOW "\\/ ";
+            return;
+        }
         /* look through each line of /etc/os-release until we're on the
          * NAME= line */
         while (fgets(osContents, 512, f)) {
@@ -82,7 +92,6 @@ char *os(struct utsname *sysInfo, struct dist *inf)
             line++;
         }
         fclose(f);
-        free(osContents);
         if (strncmp(newContents, "=", 1) == 0) {
             int len = strlen(newContents);
             for (int i = 0; i < len; i++) {
@@ -94,7 +103,6 @@ char *os(struct utsname *sysInfo, struct dist *inf)
             }
         }
         strcpy(osn, newContents);
-        free(newContents);
         /* end */
         if (strncmp(osn, "Alpine Linux", 12) == 0) {
             inf->col1        = BBLUE "\n";
@@ -368,40 +376,36 @@ char *os(struct utsname *sysInfo, struct dist *inf)
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
         }
     } else if (strncmp(sysInfo->sysname, "Darwin", 6) == 0) {
-        inf->col1 = "" BYELLOW;
-        inf->col2 = BGREEN "          .:'   " BYELLOW;
-        inf->col3 = BGREEN "      __ :'__   " BYELLOW;
-        inf->col4 = BYELLOW "   .'`__`-'__``." BYELLOW;
-        inf->col5 = BRED "  :__________.-'" BYELLOW;
-        inf->col6 = BRED "  :_________:   " BYELLOW;
-        inf->col7 = BMAGENTA "   :_________`-;" BYELLOW;
-        inf->col8 = BBLUE "    `.__.-.__.' " BYELLOW;
+        inf->col1        = "" BYELLOW;
+        inf->col2        = BGREEN "          .:'   " BYELLOW;
+        inf->col3        = BGREEN "      __ :'__   " BYELLOW;
+        inf->col4        = BYELLOW "   .'`__`-'__``." BYELLOW;
+        inf->col5        = BRED "  :__________.-'" BYELLOW;
+        inf->col6        = BRED "  :_________:   " BYELLOW;
+        inf->col7        = BMAGENTA "   :_________`-;" BYELLOW;
+        inf->col8        = BBLUE "    `.__.-.__.' " BYELLOW;
+        char *productVer = pipeRead("sw_vers -productVersion");
         if ((strncmp(sysInfo->machine, "iPhone", 6) == 0) ||
             (strncmp(sysInfo->machine, "iPad", 4) == 0) ||
             (strncmp(sysInfo->machine, "iPod", 4) == 0)) {
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 
-            char *iosVer = malloc(1024);
+            char iosVer[1024];
             strcpy(iosVer, "iOS ");
-            char *productVer = pipeRead("sw_vers -productVersion");
 
             strcat(iosVer, productVer);
-            free(productVer);
-            osn = iosVer;
-            free(iosVer);
+            strncpy(osn, iosVer, 1024);
         } else {
             inf->getPkgCount =
                 "ls /usr/local/Cellar/* | grep ':' | wc -l | xargs";
 
-            char *macVer = malloc(64);
+            char macVer[64];
             strcpy(macVer, "macOS ");
-            char *productVer = pipeRead("sw_vers -productVersion");
 
             strcat(macVer, productVer);
-            free(productVer);
-            osn = macVer;
-            free(macVer);
+            strncpy(osn, macVer, 64);
         }
+        free(productVer);
     } else if (strncmp(sysInfo->sysname, "FreeBSD", 7) == 0) {
         inf->col1        = BRED "";
         inf->col2        = BRED " /\\,-'''''-,/\\";
@@ -426,7 +430,6 @@ char *os(struct utsname *sysInfo, struct dist *inf)
         osn              = sysInfo->sysname;
     } else if (strncmp(sysInfo->sysname, "NetBSD", 6) == 0) {
     }
-    return osn;
 }
 
 void colourDraw()
@@ -447,53 +450,42 @@ void colourDraw()
 int main()
 {
     struct dist info = {
-        // .col1        = BWHITE "      ___   \n",
-        // .col2        = BWHITE "  ___/   \\___ ",
-        // .col3        = BWHITE " /   '---'   \\",
-        // .col4        = BWHITE " '--_______--'",
-        // .col5        = BWHITE "      / \\     ",
-        // .col6        = BWHITE "     /   \\    ",
-        // .col7        = BWHITE "    /     \\   ",
-        // .col8        = BWHITE "              ",
-
-        .col1 = BWHITE "",
-        .col2 = GRAY "      ___    ",
-        .col3 = GRAY "     (" BWHITE ".." GRAY " \\   ",
-        .col4 = GRAY "     (" YELLOW "<>" GRAY " |   ",
-        .col5 = GRAY "    /" WHITE "/  \\" GRAY " \\  ",
-        .col6 = GRAY "   ( " WHITE "|  | " GRAY "/| ",
-        .col7 =
-            YELLOW "  _" GRAY "/\\ " WHITE "__)" GRAY "/" YELLOW "_" GRAY ") ",
-        .col8        = YELLOW "  \\/" GRAY "-____" YELLOW "\\/  ",
+        .col1        = BGREEN "      ___   \n",
+        .col2        = BGREEN "  ___/   \\___ ",
+        .col3        = BGREEN " /   '---'   \\",
+        .col4        = BGREEN " '--_______--'",
+        .col5        = BWHITE "      / \\     ",
+        .col6        = BWHITE "     /   \\    ",
+        .col7        = BWHITE "    /     \\   ",
+        .col8        = BWHITE "              ",
         .getPkgCount = "echo unsupported",
     };
     struct utsname sysInfo;
     uname(&sysInfo);
-    char hostname[HOST_NAME_MAX + 1], *osname;
+    char hostname[HOST_NAME_MAX + 1], osname[512];
     long uptimeH, uptimeM;
 
     gethostname(hostname, HOST_NAME_MAX + 1);
-    osname = os(&sysInfo, &info);
+    os(&sysInfo, &info, osname);
     uptime(&uptimeH, &uptimeM);
 
     printf("%s", info.col1);
-    printf("%s  " BYELLOW "%s" BRED "@" BBLUE "%s\n", info.col2, getenv("USER"),
+    printf("%s   " BYELLOW "%s" BRED "@" BBLUE "%s\n", info.col2, getenv("USER"),
            hostname); // user@host
-    printf("%s  %s%s%s%s\n", info.col3, VariableColour, OsText, TextColour,
+    printf("%s   %s%s%s%s\n", info.col3, VariableColour, OsText, TextColour,
            osname); // osname
-    printf("%s  %s%s%s%s\n", info.col4, VariableColour, KernelText, TextColour,
+    printf("%s   %s%s%s%s\n", info.col4, VariableColour, KernelText, TextColour,
            sysInfo.release); // kernel version
-    printf("%s  %s%s%s%ldh %ldm\n", info.col5, VariableColour, UptimeText,
+    printf("%s   %s%s%s%ldh %ldm\n", info.col5, VariableColour, UptimeText,
            TextColour, uptimeH, uptimeM); // uptime
-    printf("%s  %s%s%s%s\n", info.col6, VariableColour, ShellText, TextColour,
+    printf("%s   %s%s%s%s\n", info.col6, VariableColour, ShellText, TextColour,
            shell()); // shell
-    printf("%s  %s%s%s%s\n", info.col7, VariableColour, PackageText, TextColour,
+    printf("%s   %s%s%s%s\n", info.col7, VariableColour, PackageText, TextColour,
            pipeRead(info.getPkgCount)); // package count
-    printf("%s  ", info.col8);
+    printf("%s   ", info.col8);
 
     colourDraw();
     printf("%s\n\n", RESET);
 
-    free(osname);
     return 0;
 }
