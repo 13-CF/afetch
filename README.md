@@ -2,7 +2,7 @@
 <h4 align="center"> Simple system info </h4>
 
 <p align="center">
-<a href="https://repology.org/project/afetch/versions"> <img src="https://repology.org/badge/vertical-allrepos/afetch.svg" height="85px"> </a>
+<a img src="https://repology.org/badge/vertical-allrepos/afetch.svg" height="85px"> </a>
 </p>
 
 <img align="right" src="img/logo.png" height="250px">
@@ -55,7 +55,6 @@ afetch is made to be run anywhere, but if your operating system isn't in the lis
 
 **Configuration options**
 *  Custom text for each seperate row of info
-*  Force upper/lowercase text
 *  Option to print colour blocks, and choose a character for the block
 *  More to be implemented soon
 
