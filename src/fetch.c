@@ -62,15 +62,10 @@ char *shell()
 
 void os(struct utsname *sysInfo, struct dist *inf, char *osn)
 {
-    /* start */
-    /* This whole section could probably be rewritten - it seems
-       like a bit of a mess right now */
     if (strncmp(sysInfo->sysname, "Linux", 5) == 0) {
         char  osContents[512];
-        char  newContents[512];
-        int   line = 0;
-        FILE *f    = fopen("/etc/os-release", "rt");
-        if (!f) {
+        FILE *fp    = fopen("/etc/os-release", "rt");
+        if (!fp) {
             strncpy(osn, "Linux", 6);
             inf->col1 = BWHITE "";
             inf->col2 = GRAY "      ___   ";
@@ -83,27 +78,19 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col8        = YELLOW "  \\/" GRAY "-____" YELLOW "\\/ ";
             return;
         }
-        /* look through each line of /etc/os-release until we're on the
-         * NAME= line */
-        while (fgets(osContents, 512, f)) {
-            snprintf(newContents, 512, "%.*s", 511, osContents + 4);
-            if (strncmp(newContents, "=", 1) == 0)
-                break;
-            line++;
+        fread(osContents, 1, 512, fp);
+        char *name = strstr(osContents, "NAME=");
+        name += 5;
+        if (*name == '"') {
+            name++;
         }
-        fclose(f);
-        if (strncmp(newContents, "=", 1) == 0) {
-            int len = strlen(newContents);
-            for (int i = 0; i < len; i++) {
-                if (newContents[i] == '\"' || newContents[i] == '=') {
-                    for (int ii = 0; ii < len; ii++)
-                        newContents[ii] = newContents[ii + 1];
-                    newContents[strlen(newContents) - 1] = '\0';
-                }
-            }
+        int i;
+        for (i = 0; name[i] != '"' && name[i] != '\n'; i++) {
+            osn[i] = name[i];
         }
-        strcpy(osn, newContents);
-        /* end */
+        osn[i] = '\0';
+        fclose(fp);
+
         if (strncmp(osn, "Alpine Linux", 12) == 0) {
             inf->col1        = BBLUE "\n";
             inf->col2        = BBLUE "     /\\ /\\    ";
@@ -112,7 +99,7 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col5        = BBLUE "  /      \\  \\ ";
             inf->col6        = BBLUE " /        \\  \\";
             inf->col7        = BBLUE "           \\  ";
-            inf->col8        = BBLUE "";
+            inf->col8        = BBLUE "              ";
             inf->getPkgCount = "grep 'P:' /lib/apk/db/installed | wc -l";
         } else if (strncmp(osn, "Arch Linux", 10) == 0) {
             inf->col1        = BCYAN "";
@@ -155,17 +142,17 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col8        = BCYAN " /.,'`     `'.\\";
             inf->getPkgCount = "pacman -Qq | wc -l";
         } else if (strncmp(osn, "CelOS", 5) == 0) {
-            inf->col1 = BMAGENTA "\n";
-            inf->col2 = BMAGENTA "     ______     ";
-            inf->col3 = BMAGENTA "   _-" BWHITE " _____" BMAGENTA "\\" BWHITE
-                                 "__  " BMAGENTA;
-            inf->col4 = BMAGENTA "  -         -   ";
+            inf->col1 = BMAGENTA "";
+            inf->col2 = BMAGENTA "      ______     ";
+            inf->col3 = BMAGENTA "    _-" BWHITE " _____" BMAGENTA "\\" BWHITE
+                                 " __ " BMAGENTA;
+            inf->col4 = BMAGENTA "   -         -   ";
             inf->col5 =
-                BWHITE "__" BMAGENTA "|" BWHITE "_____" BMAGENTA "     |  ";
-            inf->col6 = BMAGENTA "  |          |  ";
-            inf->col7 = BMAGENTA "  -_" BWHITE "  ______" BMAGENTA "/" BWHITE
+                BWHITE " __" BMAGENTA "|" BWHITE "_____" BMAGENTA "     |  ";
+            inf->col6 = BMAGENTA "   |          |  ";
+            inf->col7 = BMAGENTA "   -_" BWHITE "  ______" BMAGENTA "/" BWHITE
                                  "_  " BMAGENTA;
-            inf->col8 = BMAGENTA "    -______/    ";
+            inf->col8 = BMAGENTA "     -______/    ";
             // have to add support for flatpak too
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
             /* TO DO: CREATE DEEPIN LOGO */
@@ -180,14 +167,14 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col8        = BRED "";
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
         } else if (strncmp(osn, "Debian GNU/Linux", 16) == 0) {
-            inf->col1        = BRED "   _____\n";
-            inf->col2        = BRED "  /  __ \\ ";
-            inf->col3        = BRED " |  /    |";
-            inf->col4        = BRED " |  \\___- ";
-            inf->col5        = BRED " -_       ";
-            inf->col6        = BRED "   --_    ";
-            inf->col7        = BRED "          ";
-            inf->col8        = BRED "";
+            inf->col1        = BRED "";
+            inf->col2        = BRED "   _____  ";
+            inf->col3        = BRED "  /  __ \\ ";
+            inf->col4        = BRED " |  /    |";
+            inf->col5        = BRED " |  \\___- ";
+            inf->col6        = BRED " -_       ";
+            inf->col7        = BRED "   --_    ";
+            inf->col8        = BRED "          ";
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
         } else if (strncmp(osn, "Arch7", 10) == 0) {
             inf->col1        = BCYAN "";
@@ -197,7 +184,7 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col5        = BCYAN "    / /__\\ \\   ";
             inf->col6        = BCYAN "   / /____\\ \\  ";
             inf->col7        = BCYAN "  /_/      \\_\\ ";
-            inf->col8        = BCYAN "";
+            inf->col8        = BCYAN "               ";
             inf->getPkgCount = "pacman -Qq | wc -l";
         } else if (strncmp(osn, "elementary OS", 12) == 0) {
             inf->col1        = BCYAN "";
@@ -207,40 +194,40 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col5        = BCYAN " |__\\ /  / |";
             inf->col6        = BCYAN " \\   /__/  /";
             inf->col7        = BCYAN "  \\_______/ ";
-            inf->col8        = BCYAN "";
+            inf->col8        = BCYAN "            ";
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
         } else if (strncmp(osn, "EndeavourOS", 11) == 0) {
             inf->col1        = BCYAN "";
-            inf->col2        = BRED "      /" BBLUE "\\     " BCYAN;
-            inf->col3        = BRED "    /" BBLUE "/  \\" BCYAN "\\   " BCYAN;
-            inf->col4        = BRED "   /" BBLUE "/    \\ " BCYAN "\\ " BCYAN;
-            inf->col5        = BRED " / " BBLUE "/     _) " BCYAN ")" BCYAN;
-            inf->col6        = BRED "/_" BBLUE "/___-- " BCYAN "__- " BCYAN;
-            inf->col7        = BCYAN " /____--     " BCYAN;
-            inf->col8        = BCYAN "";
+            inf->col2        = BRED "       /" BBLUE "\\     " BCYAN;
+            inf->col3        = BRED "     /" BBLUE "/  \\" BCYAN "\\   " BCYAN;
+            inf->col4        = BRED "    /" BBLUE "/    \\ " BCYAN "\\ " BCYAN;
+            inf->col5        = BRED "  / " BBLUE "/     _) " BCYAN ")" BCYAN;
+            inf->col6        = BRED " /_" BBLUE "/___-- " BCYAN "__- " BCYAN;
+            inf->col7        = BCYAN "  /____--     " BCYAN;
+            inf->col8        = BCYAN "              ";
             inf->getPkgCount = "pacman -Qq | wc -l";
         } else if (strncmp(osn, "Fedora", 6) == 0) {
-            inf->col1        = BWHITE "      _____\n" BBLUE;
-            inf->col2        = BWHITE "     /   __)" BBLUE "\\ ";
-            inf->col3        = BWHITE "     |  /  " BBLUE "\\ \\";
-            inf->col4        = BWHITE "  ___|  |" BBLUE "__/ /";
-            inf->col5        = BBLUE " / " BWHITE "(_    _)" BBLUE "_/ ";
-            inf->col6        = BBLUE "/ /  " BWHITE "|  |     " BBLUE;
-            inf->col7        = BBLUE "\\ \\" BWHITE "__/  |     " BBLUE;
-            inf->col8        = BBLUE " \\" BWHITE "(_____/" BBLUE;
+            inf->col1        = BWHITE "       _____\n" BBLUE;
+            inf->col2        = BWHITE "      /   __)" BBLUE "\\ ";
+            inf->col3        = BWHITE "      |  /  " BBLUE "\\ \\";
+            inf->col4        = BWHITE "   ___|  |" BBLUE "__/ /";
+            inf->col5        = BBLUE "  / " BWHITE "(_    _)" BBLUE "_/ ";
+            inf->col6        = BBLUE " / /  " BWHITE "|  |     " BBLUE;
+            inf->col7        = BBLUE " \\ \\" BWHITE "__/  |     " BBLUE;
+            inf->col8        = BBLUE "  \\" BWHITE "(_____/     " BBLUE;
             inf->getPkgCount = "[[ $(which sqlite3 2>/dev/null) && $? -ne "
                                "1 ]] && (sqlite3 "
                                "/var/lib/rpm/rpmdb.sqlite \"select * from "
                                "Name\"|wc -l) || rpm -qa | wc -l";
         } else if (strncmp(osn, "Gentoo", 6) == 0) {
-            inf->col1        = BMAGENTA "   _-----_ \n";
-            inf->col2        = BMAGENTA "  (       \\  ";
-            inf->col3        = BMAGENTA "  \\    0   \\ ";
-            inf->col4        = BMAGENTA "   \\        )";
-            inf->col5        = BMAGENTA "   /      _/ ";
-            inf->col6        = BMAGENTA "  (     _-   ";
-            inf->col7        = BMAGENTA "  \\____-     ";
-            inf->col8        = BWHITE "\n";
+            inf->col1        = BWHITE "";
+            inf->col2        = BMAGENTA "   _-----_   ";
+            inf->col3        = BMAGENTA "  (       \\  ";
+            inf->col4        = BMAGENTA "  \\    0   \\ ";
+            inf->col5        = BMAGENTA "   \\        )";
+            inf->col6        = BMAGENTA "   /      _/ ";
+            inf->col7        = BMAGENTA "  (     _-   ";
+            inf->col8        = BMAGENTA "  \\____-     ";
             inf->getPkgCount = "qlist -IRv | wc -l";
         } else if (strncmp(osn, "KDE neon", 8) == 0) {
             inf->col1        = BGREEN "";
@@ -250,17 +237,17 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col5        = BGREEN " |  |   |  |";
             inf->col6        = BGREEN "  \\  --- _/ ";
             inf->col7        = BGREEN "     ---    ";
-            inf->col8        = BGREEN "";
+            inf->col8        = BGREEN "            ";
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
         } else if (strncmp(osn, "Linux Mint", 10) == 0) {
-            inf->col1        = BGREEN "   _____________   \n";
-            inf->col2        = BGREEN "  |_            \\  ";
-            inf->col3        = BGREEN "   |  | _____  |   ";
-            inf->col4        = BGREEN "   |  | | | |  |   ";
+            inf->col1        = BGREEN "";
+            inf->col2        = BGREEN "   _____________   ";
+            inf->col3        = BGREEN "  |_            \\  ";
+            inf->col4        = BGREEN "   |  | _____  |   ";
             inf->col5        = BGREEN "   |  | | | |  |   ";
-            inf->col6        = BGREEN "   |  \\_____/  |   ";
-            inf->col7        = BGREEN "   \\___________/   ";
-            inf->col8        = BGREEN "";
+            inf->col6        = BGREEN "   |  | | | |  |   ";
+            inf->col7        = BGREEN "   |  \\_____/  |   ";
+            inf->col8        = BGREEN "   \\___________/   ";
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
         } else if (strncmp(osn, "Manjaro", 7) == 0) {
             inf->col1        = BGREEN "  ________  __ \n";
@@ -273,26 +260,26 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col8        = BGREEN " |__| |__| |__|";
             inf->getPkgCount = "pacman -Qq | wc -l";
         } else if (strncmp(osn, "NixOS", 5) == 0) {
-            inf->col1        = BMAGENTA "             \n";
-            inf->col2        = BMAGENTA "   \\\\  \\\\ //     ";
-            inf->col3        = BMAGENTA "  ==\\\\__\\\\/ //   ";
-            inf->col4        = BMAGENTA "    //   \\\\//    ";
-            inf->col5        = BMAGENTA " ==//     //==   ";
-            inf->col6        = BMAGENTA "  //\\\\___//      ";
-            inf->col7        = BMAGENTA " // /\\\\  \\\\==    ";
-            inf->col8        = BMAGENTA "   // \\\\  \\\\     ";
+            inf->col1        = BMAGENTA "";
+            inf->col2        = BMAGENTA "   \\\\  \\\\ //  ";
+            inf->col3        = BMAGENTA "  ==\\\\__\\\\/ //";
+            inf->col4        = BMAGENTA "    //   \\\\// ";
+            inf->col5        = BMAGENTA " ==//     //==";
+            inf->col6        = BMAGENTA "  //\\\\___//   ";
+            inf->col7        = BMAGENTA " // /\\\\  \\\\== ";
+            inf->col8        = BMAGENTA "   // \\\\  \\\\  ";
             inf->getPkgCount = "nix-store -q --requisites "
                                "/run/current-system/sw | wc -l";
         } else if (strncmp(osn, "openSUSE Leap", 10) == 0 ||
                    strncmp(osn, "openSUSE Tumbleweed", 19) == 0) {
-            inf->col1        = BGREEN "   _______\n";
-            inf->col2        = BGREEN " __|   __ \\ ";
-            inf->col3        = BGREEN "      / .\\ \\";
-            inf->col4        = BGREEN "      \\__/ |";
-            inf->col5        = BGREEN "    _______|";
-            inf->col6        = BGREEN "    \\_______";
-            inf->col7        = BGREEN " __________/";
-            inf->col8        = BGREEN "";
+            inf->col1        = BGREEN "";
+            inf->col2        = BGREEN "   _______  ";
+            inf->col3        = BGREEN " __|   __ \\ ";
+            inf->col4        = BGREEN "      / .\\ \\";
+            inf->col5        = BGREEN "      \\__/ |";
+            inf->col6        = BGREEN "    _______|";
+            inf->col7        = BGREEN "    \\_______";
+            inf->col8        = BGREEN " __________/";
             inf->getPkgCount = "rpm -qa | wc -l";
         } else if (strncmp(osn, "Parabola", 8) == 0) {
             inf->col1        = BMAGENTA "";
@@ -302,7 +289,7 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col5        = BMAGENTA "          / .`  ";
             inf->col6        = BMAGENTA "         /.`    ";
             inf->col7        = BMAGENTA "        /`      ";
-            inf->col8        = BMAGENTA "";
+            inf->col8        = BMAGENTA "                ";
             inf->getPkgCount = "pacman -Qq | wc -l";
         } else if (strncmp(osn, "Pop!_OS", 7) == 0) {
             inf->col1        = BCYAN " ______\n";
@@ -312,7 +299,7 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col5        = BCYAN "    \\  ___\\  /_/  ";
             inf->col6        = BCYAN "     \\ \\    _     ";
             inf->col7        = BCYAN "    __\\_\\__(_)_   ";
-            inf->col8        = BCYAN "   (___________)";
+            inf->col8        = BCYAN "   (___________)  ";
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
         } else if (strncmp(osn, "postmarketOS", 13) == 0) {
             inf->col1        = BGREEN "        /\\       \n";
@@ -325,14 +312,14 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col8        = BGREEN " /_____/________\\";
             inf->getPkgCount = "grep 'P:' /lib/apk/db/installed | wc -l";
         } else if (strncmp(osn, "Slackware", 10) == 0) {
-            inf->col1        = BBLUE "    ________\n";
-            inf->col2        = BBLUE "   /  ______| ";
-            inf->col3        = BBLUE "   | |______  ";
-            inf->col4        = BBLUE "   \\______  \\ ";
-            inf->col5        = BBLUE "    ______| | ";
-            inf->col6        = BBLUE " | |________/ ";
-            inf->col7        = BBLUE " |____________";
-            inf->col8        = BBLUE "";
+            inf->col1        = BBLUE "";
+            inf->col2        = BBLUE "    ________  ";
+            inf->col3        = BBLUE "   /  ______| ";
+            inf->col4        = BBLUE "   | |______  ";
+            inf->col5        = BBLUE "   \\______  \\ ";
+            inf->col6        = BBLUE "    ______| | ";
+            inf->col7        = BBLUE " | |________/ ";
+            inf->col8        = BBLUE " |____________";
             inf->getPkgCount = "ls /var/log/packages | wc -l";
         } else if (strncmp(osn, "Solus", 5) == 0) {
             inf->col1        = BMAGENTA "     __________\n";
@@ -342,7 +329,7 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col5        = BMAGENTA " |   /    \\ \\     |";
             inf->col6        = BMAGENTA "  \\--------------/ ";
             inf->col7        = BMAGENTA "   \\------------/  ";
-            inf->col8        = BMAGENTA "    \\----------/";
+            inf->col8        = BMAGENTA "    \\----------/   ";
             inf->getPkgCount = "ls /var/lib/eopkg/package/ | wc -l";
         } else if (strncmp(osn, "Ubuntu", 6) == 0) {
             inf->col1        = BRED "";
@@ -352,7 +339,7 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col5        = BRED " (_) |   |   ";
             inf->col6        = BRED "   \\  --- _/ ";
             inf->col7        = BRED "      ---(_) ";
-            inf->col8        = BRED "";
+            inf->col8        = BRED "             ";
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
         } else if (strncmp(osn, "void", 4) == 0) {
             inf->col1 = BGREEN "      _____\n";
@@ -362,17 +349,17 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
             inf->col5 = BGREEN " | |  " BGRAY BITAL "VOID  " BGREEN "| |";
             inf->col6 = BGREEN " \\ \\ \\____/ / /";
             inf->col7 = BGREEN "  \\ \\____  /_/ ";
-            inf->col8 = BGREEN "   -_____\\";
+            inf->col8 = BGREEN "   -_____\\     ";
             inf->getPkgCount = "xbps-query -l | wc -l";
         } else if (strncmp(osn, "Zorin OS", 8) == 0) {
-            inf->col1        = BBLUE "    ______   \n";
-            inf->col2        = BBLUE "   /______\\  ";
-            inf->col3        = BBLUE "  /      / \\ ";
-            inf->col4        = BBLUE " /      /   \\";
-            inf->col5        = BBLUE " \\     /    /";
-            inf->col6        = BBLUE "  \\   /___ / ";
-            inf->col7        = BBLUE "   \\______/  ";
-            inf->col8        = BBLUE "";
+            inf->col1        = BBLUE "";
+            inf->col2        = BBLUE "    ______    ";
+            inf->col3        = BBLUE "   /______\\  ";
+            inf->col4        = BBLUE "  /      / \\ ";
+            inf->col5        = BBLUE " /      /   \\";
+            inf->col6        = BBLUE " \\     /    /";
+            inf->col7        = BBLUE "  \\   /___ / ";
+            inf->col8        = BBLUE "   \\______/  ";
             inf->getPkgCount = "dpkg -l | tail -n+6 | wc -l";
         }
     } else if (strncmp(sysInfo->sysname, "Darwin", 6) == 0) {
@@ -414,18 +401,18 @@ void os(struct utsname *sysInfo, struct dist *inf, char *osn)
         inf->col5        = BRED " |           |";
         inf->col6        = BRED "  ;         ; ";
         inf->col7        = BRED "   '-_____-'  ";
-        inf->col8        = BRED "";
+        inf->col8        = BRED "              ";
         inf->getPkgCount = "pkg info | wc -l | tr -d ' '";
         osn              = sysInfo->sysname;
     } else if (strncmp(sysInfo->sysname, "OpenBSD", 7) == 0) {
-        inf->col1        = BYELLOW "      _____    \n";
-        inf->col2        = BYELLOW "    \\-     -/  ";
-        inf->col3        = BYELLOW " \\_/         \\ ";
-        inf->col4        = BYELLOW " |        " BWHITE "O O" BYELLOW " |";
-        inf->col5        = BYELLOW " |_  <   )  3 )";
-        inf->col6        = BYELLOW " / \\         / ";
-        inf->col7        = BYELLOW "    /-_____-\\  ";
-        inf->col8        = BYELLOW "";
+        inf->col1        = BYELLOW "";
+        inf->col2        = BYELLOW "      _____    ";
+        inf->col3        = BYELLOW "    \\-     -/  ";
+        inf->col4        = BYELLOW " \\_/         \\ ";
+        inf->col5        = BYELLOW " |        " BWHITE "O O" BYELLOW " |";
+        inf->col6        = BYELLOW " |_  <   )  3 )";
+        inf->col7        = BYELLOW " / \\         / ";
+        inf->col8        = BYELLOW "    /-_____-\\  ";
         inf->getPkgCount = "/bin/ls -1 /var/db/pkg/ | wc -l | tr -d ' '";
         osn              = sysInfo->sysname;
     } else if (strncmp(sysInfo->sysname, "NetBSD", 6) == 0) {
@@ -450,14 +437,14 @@ void colourDraw()
 int main()
 {
     struct dist info = {
-        .col1        = BGREEN "      ___   \n",
-        .col2        = BGREEN "  ___/   \\___ ",
-        .col3        = BGREEN " /   '---'   \\",
-        .col4        = BGREEN " '--_______--'",
-        .col5        = BWHITE "      / \\     ",
-        .col6        = BWHITE "     /   \\    ",
-        .col7        = BWHITE "    /     \\   ",
-        .col8        = BWHITE "              ",
+        .col1        = BWHITE "",
+        .col2        = BGREEN "      ___     ",
+        .col3        = BGREEN "  ___/   \\___ ",
+        .col4        = BGREEN " /   '---'   \\",
+        .col5        = BGREEN " '--_______--'",
+        .col6        = BWHITE "      / \\     ",
+        .col7        = BWHITE "     /   \\    ",
+        .col8        = BWHITE "    /     \\   ",
         .getPkgCount = "echo unsupported",
     };
     struct utsname sysInfo;
