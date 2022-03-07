@@ -2,7 +2,7 @@
 <h4 align="center"> Simple system info </h4>
 
 <p align="center">
-<a img src="https://repology.org/badge/vertical-allrepos/afetch.svg" height="85px"> </a>
+<a img src="https://repology.org/badge/vertical-allrepos/afetch.svg" width="300px"> </a>
 </p>
 
 <img align="right" src="img/logo.png" height="250px">
