@@ -1,19 +1,18 @@
-#define UserText    "  " // "   USER "
-#define OsText      "  " // "     OS "
-#define KernelText  "  " // " KERNEL "
-#define UptimeText  "  " // " UPTIME "
-#define ShellText   "  " // "  SHELL "
-#define PackageText "  " // "   PKGS "
-#define ColourText  "  "
+#define OS_TEXT      "  " // "     OS "
+#define KERNEL_TEXT  "  " // " KERNEL "
+#define UPTIME_TEXT  "  " // " UPTIME "
+#define SHELL_TEXT   "  " // "  SHELL "
+#define PACKAGE_TEXT "  " // "   PKGS "
+#define COLOR_TEXT   "  "
 
-/* See options in colour.h file */
-#define TextColour     BGREEN
-#define VariableColour BMAGENTA
+/* See options in color.h file */
+#define TEXT_COLOR     BGREEN
+#define VARIABLE_COLOR BMAGENTA
 
-#define PrintColours    true /* must be either 'true' or 'false' */
-#define ColourCharacter "███"
+#define PRINT_COLORS    1 /* 0 == false, anything else is true */
+#define COLOR_CHARACTER "███"
 
-/* Some examples of things you may want to use for your ColourCharacter
+/* Some examples of things you may want to use for your COLOR_CHARACTER
 
           ▀ ▁ ▂ ▃ ▄ ▅ ▆ ▇ █ ▉ ▊ ▋ ▌ ▍ ▎ ▏
 
