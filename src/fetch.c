@@ -428,10 +428,6 @@ void colourDraw()
     for (int i = 31; i < 37; i++) {
         printf("\033[0;%dm%s", i, ColourCharacter);
     } // print regular term colours
-    // printf("\n                  ");
-    // for (int i = 31; i < 37; i++) {
-    //     printf("\033[1;%dm%s", i, ColourCharacter);
-    // }
 }
 
 int main()
