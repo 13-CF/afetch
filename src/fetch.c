@@ -34,11 +34,8 @@ char *pipe_read(const char *exec)
     char     *return_val   = malloc(256);
     const int scanf_return = fscanf(pipe, "%[^\n]256s", return_val);
     pclose(pipe);
-    if (scanf_return == EOF) {
-        fprintf(stderr, "ERROR: scanf failed!\n");
-        exit(EXIT_FAILURE);
-    }
-    return return_val;
+
+    return scanf_return == EOF ? NULL : return_val;
 }
 
 void uptime(long *uptime_h, long *uptime_m)

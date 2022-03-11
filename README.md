@@ -11,6 +11,11 @@ Fast and simple system info (for UNIX based operating systems) written in POSIX 
 <h3> Why use afetch? </h3>
 afetch is written in C99, meaning that it should be able to be compiled with almost all C compilers. As well as being written in a very fast language. The only bottleneck it has is the speed of your distros package manager! </p>
 
+**Installation**
+```
+make && make install
+afetch
+```
 
 **Requirements**
 *  `/etc/os-release` file for package count on Linux

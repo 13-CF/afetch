@@ -1,5 +1,5 @@
 #define OS_TEXT      "  " // "     OS "
-#define KERNEL_TEXT  "  " // " KERNEL "
+#define KERNEL_TEXT  "  " // " KERNEL "
 #define UPTIME_TEXT  "  " // " UPTIME "
 #define SHELL_TEXT   "  " // "  SHELL "
 #define PACKAGE_TEXT "  " // "   PKGS "
@@ -20,14 +20,14 @@
 */
 
 /* These lines are automatically set by get_os.sh */
-#define DISTRO "Android 11"
-#define GET_PKG_CNT "pacman -Qq | wc -l"
+#define DISTRO "Distro"
+#define GET_PKG_CNT ""
 #define ASCII_ART \
-    .row1 = BCYAN "",                  \
-    .row2 = BCYAN "       /\\      ",  \
-    .row3 = BCYAN "      /  \\     ",  \
-    .row4 = BCYAN "     /\\   \\    ", \
-    .row5 = BBLUE "    /      \\   ",  \
-    .row6 = BBLUE "   /   ,,   \\  ",  \
-    .row7 = BBLUE "  /   |  |  -\\ ",  \
-    .row8 = BBLUE " /_-''    ''-_\\"
+    .row1 = BWHITE "",                \
+    .row2 = BGREEN "      ___     ",  \
+    .row3 = BGREEN "  ___/   \\___ ", \
+    .row4 = BGREEN " /   '---'   \\", \
+    .row5 = BGREEN " '--_______--'",  \
+    .row6 = BWHITE "      / \\     ", \
+    .row7 = BWHITE "     /   \\    ", \
+    .row8 = BWHITE "    /     \\   "
