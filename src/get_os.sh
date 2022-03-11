@@ -275,11 +275,9 @@ get_pkgs() {
 main() {
     get_os
     get_pkgs
-    DISTRO="Android 11"
     
     sed -i "s/.*#define DISTRO.*/#define DISTRO \"$DISTRO\"/" src/config.h
     sed -i "s/.*#define GET_PKG_CNT.*/#define GET_PKG_CNT \"$PACKAGES | wc -l\"/" src/config.h
-
     
     if grep -q "$DISTRO" src/distros.txt; then
         sed -i -e '/#define ASCII_ART/,+8d' src/config.h
