@@ -5,8 +5,9 @@ DEBUGFLAGS = -g -Og -std=c99 -Wall -Wextra
 PREFIX ?= /usr/local
 
 all: afetch
+	sh src/get_os.sh
 
-afetch: ${SRC} src/config.h src/color.h src/distros.h
+afetch: ${SRC} src/config.h src/color.h
 	${CC} ${CFLAGS} ${SRC} -o afetch
 
 debug:

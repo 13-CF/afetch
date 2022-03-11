@@ -19,3 +19,15 @@
           █ ▄ ▀ ●
 */
 
+/* These lines are automatically set by get_os.sh */
+#define DISTRO "Arch Linux"
+#define GET_PKG_CNT "pacman -Qq | wc -l"
+#define ASCII_ART \
+    .row1 = BCYAN "",                  \
+    .row2 = BCYAN "       /\\      ",  \
+    .row3 = BCYAN "      /  \\     ",  \
+    .row4 = BCYAN "     /\\   \\    ", \
+    .row5 = BBLUE "    /      \\   ",  \
+    .row6 = BBLUE "   /   ,,   \\  ",  \
+    .row7 = BBLUE "  /   |  |  -\\ ",  \
+    .row8 = BBLUE " /_-''    ''-_\\"

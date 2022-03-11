@@ -17,41 +17,6 @@ afetch is written in C99, meaning that it should be able to be compiled with alm
 *  A C compiler
 *  A <a href="https://en.wikipedia.org/wiki/C_POSIX_library">compatible C standard library</a> implementation
 
-**Package count supported**
-
-*  Alpine
-*  Arch
-*  Arch7
-*  ArchBang
-*  Arco
-*  Artix
-*  CelOS
-*  Debian
-*  Deepin
-*  Elementary OS
-*  EndeavourOS
-*  Fedora (slow due to package manager)
-*  FreeBSD
-*  Gentoo
-*  MacOS (homebrew)
-*  Manjaro
-*  Mint
-*  NetBSD
-*  NixOS
-*  OpenBSD
-*  OpenSUSE Leap (slow due to package manager)
-*  OpenSUSE Tumbleweed (slow due to package manager)
-*  Parabola
-*  Pop!\_OS
-*  postmarketOS
-*  Slackware
-*  Solus
-*  Ubuntu
-*  Void
-*  Zorin
-
-afetch is made to be run anywhere, but if your operating system isn't in the list above then open an issue! If on Linux please show the output of `cat /etc/os-release`, or if you're using something else then `uname -s`. 
-
 
 **Configuration options**
 *  Custom text for each seperate row of info
@@ -62,9 +27,6 @@ afetch is made to be run anywhere, but if your operating system isn't in the lis
 
 **To do**
 *  Make README.md more dynamic (adapt to different screen sizes)
-*  Add links to information about distros in README.md
-*  Find more efficient ways to do certain things.
-*  Create CONFIG.md file with in depth guide to customisation
 
 **Thanks**
 *  All the [contributors](https://github.com/13-CF/afetch/graphs/contributors) <3
@@ -73,5 +35,5 @@ afetch is made to be run anywhere, but if your operating system isn't in the lis
 *  [ufetch](https://github.com/jschx/ufetch)
 *  [nerdfetch](https://github.com/ThatOneCalculator/NerdFetch)
 *  [bitfetch](https://gitlab.com/bit9tream/bitfetch)
-
+*  [pfetch](https://github.com/dylanaraps/pfetch)
 
