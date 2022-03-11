@@ -278,9 +278,10 @@ main() {
     
     sed -i "s/.*#define DISTRO.*/#define DISTRO \"$DISTRO\"/" src/config.h
     sed -i "s/.*#define GET_PKG_CNT.*/#define GET_PKG_CNT \"$PACKAGES | wc -l\"/" src/config.h
-    sed -i -e '/#define ASCII_ART/,+8d' src/config.h
-    echo "#define ASCII_ART \\" >> src/config.h
-    sed -n "/$DISTRO/,+8p" src/distros.txt | sed '1d' >> src/config.h
+    if (sed -i -e '/#define ASCII_ART/,+8d' src/config.h); then
+        echo "#define ASCII_ART \\" >> src/config.h
+        sed -n "/$DISTRO/,+8p" src/distros.txt | sed '1d' >> src/config.h
+    fi
 }
 
 main
