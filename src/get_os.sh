@@ -189,7 +189,7 @@ get_pkgs() {
                 has bonsai     && printf "bonsai list"
                 has crux       && printf "pkginfo -i"
                 has pacman-key && printf "pacman -Qq"
-                has dpkg       && printf "dpkg-query -f '.\n' -W"
+                has dpkg       && printf "dpkg-query -f '.\\\n' -W"
                 has rpm        && printf "rpm -qa"
                 has xbps-query && printf "xbps-query -l"
                 has apk        && printf "apk info"
