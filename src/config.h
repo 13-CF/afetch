@@ -20,7 +20,7 @@
 */
 
 /* These lines are automatically set by get_os.sh */
-#define DISTRO "Arch Linux"
+#define DISTRO "Android 11"
 #define GET_PKG_CNT "pacman -Qq | wc -l"
 #define ASCII_ART \
     .row1 = BCYAN "",                  \
