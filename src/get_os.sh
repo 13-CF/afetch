@@ -189,7 +189,7 @@ get_pkgs() {
                 has bonsai     && printf "bonsai list"
                 has crux       && printf "pkginfo -i"
                 has pacman-key && printf "pacman -Qq"
-                has dpkg       && printf "dpkg-query -f '.\\\n' -W"
+                has dpkg       && echo "dpkg-query -f '.\\\n' -W"
                 has rpm        && printf "rpm -qa"
                 has xbps-query && printf "xbps-query -l"
                 has apk        && printf "apk info"
@@ -275,7 +275,7 @@ get_pkgs() {
 main() {
     get_os
     get_pkgs
-    
+
     sed -i "s/.*#define DISTRO.*/#define DISTRO \"$DISTRO\"/" src/config.h
     sed -i "s/.*#define GET_PKG_CNT.*/#define GET_PKG_CNT \"$PACKAGES | wc -l\"/" src/config.h
     if grep -q "$DISTRO" src/distros.txt; then
