@@ -95,7 +95,7 @@ int main()
     colour_draw();
     printf("%s   ", logo.row8);
 
-    printf("%s\n\n", RESET);
+    printf("%s\n", RESET);
     free(pkg_cnt);
 
     return 0;
