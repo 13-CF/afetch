@@ -1,25 +1,25 @@
 Alpine Linux:
-    .row1 = BBLUE "",                  \
-    .row2 = BBLUE "     /\\ /\\    ",  \
-    .row3 = BBLUE "    /  \\  \\   ",  \
-    .row4 = BBLUE "   /    \\  \\  ",  \
-    .row5 = BBLUE "  /      \\  \\ ",  \
-    .row6 = BBLUE " /        \\  \\",  \
-    .row7 = BBLUE "           \\  ",   \
+    .row1 = BBLUE "     /\\ /\\    ",  \
+    .row2 = BBLUE "    /  \\  \\   ",  \
+    .row3 = BBLUE "   /    \\  \\  ",  \
+    .row4 = BBLUE "  /      \\  \\ ",  \
+    .row5 = BBLUE " /        \\  \\",  \
+    .row6 = BBLUE "           \\  ",   \
+    .row7 = BBLUE "              ",    \
     .row8 = BBLUE "              "
 
 Arch Linux:
-    .row1 = BCYAN "",                  \
-    .row2 = BCYAN "       /\\      ",  \
-    .row3 = BCYAN "      /  \\     ",  \
-    .row4 = BCYAN "     /\\   \\    ", \
-    .row5 = BBLUE "    /      \\   ",  \
-    .row6 = BBLUE "   /   ,,   \\  ",  \
-    .row7 = BBLUE "  /   |  |  -\\ ",  \
-    .row8 = BBLUE " /_-''    ''-_\\"
+    .row1 = BCYAN "       /\\      ",  \
+    .row2 = BCYAN "      /  \\     ",  \
+    .row3 = BCYAN "     /\\   \\    ", \
+    .row4 = BBLUE "    /      \\   ",  \
+    .row5 = BBLUE "   /   ,,   \\  ",  \
+    .row6 = BBLUE "  /   |  |  -\\ ",  \
+    .row7 = BBLUE " /_-''    ''-_\\",  \
+    .row8 = BCYAN "               "
 
 Arch bang Linux:
-    .row1 = BCYAN "           ____\n", \
+    .row1 = BCYAN "           ____",   \
     .row2 = BCYAN "       /\\ /   /",  \
     .row3 = BCYAN "      /  /   / ",   \
     .row4 = BCYAN "     /   / /   ",   \
@@ -29,128 +29,117 @@ Arch bang Linux:
     .row8 = BCYAN " /_-''    ''-_\\"
 
 ArcoLinux:
-    .row1 = BBLUE "",                  \
-    .row2 = BBLUE "       /\\      ",  \
-    .row3 = BBLUE "      /  \\     ",  \
-    .row4 = BBLUE "     / /\\ \\    ", \
-    .row5 = BBLUE "    / /  \\ \\   ", \
-    .row6 = BBLUE "   / /    \\ \\  ", \
-    .row7 = BBLUE "  / / _____\\ \\ ", \
-    .row8 = BBLUE " /_/  `----.\\_\\"
+    .row1 = BBLUE "       /\\      ",  \
+    .row2 = BBLUE "      /  \\     ",  \
+    .row3 = BBLUE "     / /\\ \\    ", \
+    .row4 = BBLUE "    / /  \\ \\   ", \
+    .row5 = BBLUE "   / /    \\ \\  ", \
+    .row6 = BBLUE "  / / _____\\ \\ ", \
+    .row7 = BBLUE " /_/  `----.\\_\\", \
+    .row8 = BBLUE "               "
 
 Artix Linux:
-    .row1 = BCYAN "",                  \
-    .row2 = BCYAN "       /\\      ",  \
-    .row3 = BCYAN "      /  \\     ",  \
-    .row4 = BCYAN "     /`'.,\\    ",  \
-    .row5 = BCYAN "    /     ',   ",   \
-    .row6 = BCYAN "   /      ,`\\  ",  \
-    .row7 = BCYAN "  /   ,.'`.  \\ ",  \
-    .row8 = BCYAN " /.,'`     `'.\\"
+    .row1 = BCYAN "       /\\      ",  \
+    .row2 = BCYAN "      /  \\     ",  \
+    .row3 = BCYAN "     /`'.,\\    ",  \
+    .row4 = BCYAN "    /     ',   ",   \
+    .row5 = BCYAN "   /      ,`\\  ",  \
+    .row6 = BCYAN "  /   ,.'`.  \\ ",  \
+    .row7 = BCYAN " /.,'`     `'.\\",  \
+    .row8 = BCYAN "               "
 
 CelOS:
-    .row1 = BMAGENTA "",                                                            \
-    .row2 = BMAGENTA "      ______     ",                                           \
-    .row3 = BMAGENTA "    _-" BWHITE " _____" BMAGENTA "\\" BWHITE " __ " BMAGENTA, \
-    .row4 = BMAGENTA "   -         -   ",                                           \
-    .row5 = BWHITE   " __" BMAGENTA "|" BWHITE "_____" BMAGENTA "     |  ",         \
-    .row6 = BMAGENTA "   |          |  ",                                           \
-    .row7 = BMAGENTA "   -_" BWHITE "  ______" BMAGENTA "/" BWHITE "_  " BMAGENTA,  \
-    .row8 = BMAGENTA "     -______/    "
-
-Deepin:
-    /* TO DO: CREATE DEEPIN LOGO */
-    // .row1        = BRED "", \
-    // .row2        = BRED "", \
-    // .row3        = BRED "", \
-    // .row4        = BRED "", \
-    // .row5        = BRED "", \
-    // .row6        = BRED "", \
-    // .row7        = BRED "", \
-    // .row8        = BRED ""
+    .row1 = BMAGENTA "      ______     ",                                   \
+    .row2 = BMAGENTA "    _-" BWHITE " _____" BMAGENTA "\\" BWHITE " __ ",  \
+    .row3 = BMAGENTA "   -         -   ",                                   \
+    .row4 = BWHITE   " __" BMAGENTA "|" BWHITE "_____" BMAGENTA "     |  ", \
+    .row5 = BMAGENTA "   |          |  ",                                   \
+    .row6 = BMAGENTA "   -_" BWHITE "  ______" BMAGENTA "/" BWHITE "_  ",   \
+    .row7 = BMAGENTA "     -______/    ",                                   \
+    .row8 = BMAGENTA "                 "
 
 Debian GNU Linux:
-    .row1 = BRED "",            \
-    .row2 = BRED "   _____  ",  \
-    .row3 = BRED "  /  __ \\ ", \
-    .row4 = BRED " |  /    |",  \
-    .row5 = BRED " |  \\___- ", \
-    .row6 = BRED " -_       ",  \
-    .row7 = BRED "   --_    ",  \
+    .row1 = BRED "   _____  ",  \
+    .row2 = BRED "  /  __ \\ ", \
+    .row3 = BRED " |  /    |",  \
+    .row4 = BRED " |  \\___- ", \
+    .row5 = BRED " -_       ",  \
+    .row6 = BRED "   --_    ",  \
+    .row7 = BRED "          ",  \
     .row8 = BRED "          "
 
 Arch7:
-    .row1 = BCYAN "",                  \
-    .row2 = BCYAN "  _______      ",   \
-    .row3 = BCYAN " |____   \\     ",  \
-    .row4 = BCYAN "     / /\\ \\    ", \
-    .row5 = BCYAN "    / /__\\ \\   ", \
-    .row6 = BCYAN "   / /____\\ \\  ", \
-    .row7 = BCYAN "  /_/      \\_\\ ", \
+    .row1 = BCYAN "  _______      ",   \
+    .row2 = BCYAN " |____   \\     ",  \
+    .row3 = BCYAN "     / /\\ \\    ", \
+    .row4 = BCYAN "    / /__\\ \\   ", \
+    .row5 = BCYAN "   / /____\\ \\  ", \
+    .row6 = BCYAN "  /_/      \\_\\ ", \
+    .row7 = BCYAN "               ",   \
     .row8 = BCYAN "               "
 
 elementary OS:
-    .row1 = BCYAN "",              \
-    .row2 = BCYAN "   _______  ",  \
-    .row3 = BCYAN "  / ____  \\ ", \
-    .row4 = BCYAN " /  |  /  /\\", \
-    .row5 = BCYAN " |__\\ /  / |", \
-    .row6 = BCYAN " \\   /__/  /", \
-    .row7 = BCYAN "  \\_______/ ", \
+    .row1 = BCYAN "   _______  ",  \
+    .row2 = BCYAN "  / ____  \\ ", \
+    .row3 = BCYAN " /  |  /  /\\", \
+    .row4 = BCYAN " |__\\ /  / |", \
+    .row5 = BCYAN " \\   /__/  /", \
+    .row6 = BCYAN "  \\_______/ ", \
+    .row7 = BCYAN "            ",  \
     .row8 = BCYAN "            "
 
 EndeavourOS:
-    .row1 = BCYAN "",                                         \
-    .row2 = BRED  "       /" BBLUE "\\     " BCYAN,           \
-    .row3 = BRED  "     /" BBLUE "/  \\" BCYAN "\\   " BCYAN, \
-    .row4 = BRED  "    /" BBLUE "/    \\ " BCYAN "\\ " BCYAN, \
-    .row5 = BRED  "  / " BBLUE "/     _) " BCYAN ")" BCYAN,   \
-    .row6 = BRED  " /_" BBLUE "/___-- " BCYAN "__- " BCYAN,   \
-    .row7 = BCYAN "  /____--     " BCYAN,                     \
+    .row1 = BRED  "       /" BBLUE "\\     ",           \
+    .row2 = BRED  "     /" BBLUE "/  \\" BCYAN "\\   ", \
+    .row3 = BRED  "    /" BBLUE "/    \\ " BCYAN "\\ ", \
+    .row4 = BRED  "  / " BBLUE "/     _) " BCYAN ")",   \
+    .row5 = BRED  " /_" BBLUE "/___-- " BCYAN "__- ",   \
+    .row6 = BCYAN "  /____--     ",                     \
+    .row7 = BCYAN "              ",                     \
     .row8 = BCYAN "              "
 
 Fedora:
-    .row1 = BWHITE "       _____\n" BBLUE,               \
+    .row1 = BWHITE "       _____   ",                    \
     .row2 = BWHITE "      /   __)" BBLUE "\\ ",          \
     .row3 = BWHITE "      |  /  " BBLUE "\\ \\",         \
     .row4 = BWHITE "   ___|  |" BBLUE "__/ /",           \
     .row5 = BBLUE  "  / " BWHITE "(_    _)" BBLUE "_/ ", \
-    .row6 = BBLUE  " / /  " BWHITE "|  |     " BBLUE,    \
-    .row7 = BBLUE  " \\ \\" BWHITE "__/  |     " BBLUE,  \
-    .row8 = BBLUE  "  \\" BWHITE "(_____/     " BBLUE
+    .row6 = BBLUE  " / /  " BWHITE "|  |     ",          \
+    .row7 = BBLUE  " \\ \\" BWHITE "__/  |     ",        \
+    .row8 = BBLUE  "  \\" BWHITE "(_____/     "
 
 Gentoo:
-    .row1 = BWHITE   "",                \
-    .row2 = BMAGENTA "   _-----_   ",   \
-    .row3 = BMAGENTA "  (       \\  ",  \
-    .row4 = BMAGENTA "  \\    0   \\ ", \
-    .row5 = BMAGENTA "   \\        )",  \
-    .row6 = BMAGENTA "   /      _/ ",   \
-    .row7 = BMAGENTA "  (     _-   ",   \
-    .row8 = BMAGENTA "  \\____-     "
+    .row1 = BMAGENTA "   _-----_   ",   \
+    .row2 = BMAGENTA "  (       \\  ",  \
+    .row3 = BMAGENTA "  \\    0   \\ ", \
+    .row4 = BMAGENTA "   \\        )",  \
+    .row5 = BMAGENTA "   /      _/ ",   \
+    .row6 = BMAGENTA "  (     _-   ",   \
+    .row7 = BMAGENTA "  \\____-     ",  \
+    .row8 = BMAGENTA "              "
 
 KDE neon:
-    .row1 = BGREEN "",              \
-    .row2 = BGREEN "            ",  \
-    .row3 = BGREEN "     --- _  ",  \
-    .row4 = BGREEN "  /  ---  \\ ", \
-    .row5 = BGREEN " |  |   |  |",  \
-    .row6 = BGREEN "  \\  --- _/ ", \
-    .row7 = BGREEN "     ---    ",  \
+    .row1 = BGREEN "            ",  \
+    .row2 = BGREEN "     --- _  ",  \
+    .row3 = BGREEN "  /  ---  \\ ", \
+    .row4 = BGREEN " |  |   |  |",  \
+    .row5 = BGREEN "  \\  --- _/ ", \
+    .row6 = BGREEN "     ---    ",  \
+    .row7 = BGREEN "            ",  \
     .row8 = BGREEN "            "
 
 Linux Mint:
-    .row1 = BGREEN "",                     \
-    .row2 = BGREEN "   _____________   ",  \
-    .row3 = BGREEN "  |_            \\  ", \
-    .row4 = BGREEN "   |  | _____  |   ",  \
+    .row1 = BGREEN "   _____________   ",  \
+    .row2 = BGREEN "  |_            \\  ", \
+    .row3 = BGREEN "   |  | _____  |   ",  \
+    .row4 = BGREEN "   |  | | | |  |   ",  \
     .row5 = BGREEN "   |  | | | |  |   ",  \
-    .row6 = BGREEN "   |  | | | |  |   ",  \
-    .row7 = BGREEN "   |  \\_____/  |   ", \
-    .row8 = BGREEN "   \\___________/   "
+    .row6 = BGREEN "   |  \\_____/  |   ", \
+    .row7 = BGREEN "   \\___________/   ", \
+    .row8 = BGREEN "                    "
 
 Manjaro:
-    .row1 = BGREEN "  ________  __ \n", \
+    .row1 = BGREEN "  ________  __ ",   \
     .row2 = BGREEN " |       | |  |",   \
     .row3 = BGREEN " |   ____| |  |",   \
     .row4 = BGREEN " |  |  __  |  |",   \
@@ -160,47 +149,37 @@ Manjaro:
     .row8 = BGREEN " |__| |__| |__|"
 
 NixOS:
-    .row1 = BMAGENTA "",                   \
-    .row2 = BMAGENTA "   \\\\  \\\\ //  ", \
-    .row3 = BMAGENTA "  ==\\\\__\\\\/ //", \
-    .row4 = BMAGENTA "    //   \\\\// ",   \
-    .row5 = BMAGENTA " ==//     //==",     \
-    .row6 = BMAGENTA "  //\\\\___//   ",   \
-    .row7 = BMAGENTA " // /\\\\  \\\\== ", \
-    .row8 = BMAGENTA "   // \\\\  \\\\  "
+    .row1 = BMAGENTA "   \\\\  \\\\ //  ", \
+    .row2 = BMAGENTA "  ==\\\\__\\\\/ //", \
+    .row3 = BMAGENTA "    //   \\\\// ",   \
+    .row4 = BMAGENTA " ==//     //==",     \
+    .row5 = BMAGENTA "  //\\\\___//   ",   \
+    .row6 = BMAGENTA " // /\\\\  \\\\== ", \
+    .row7 = BMAGENTA "   // \\\\  \\\\  ", \
+    .row8 = BMAGENTA "              "
 
-openSUSE Leap:
-    .row1 = BGREEN "",               \
-    .row2 = BGREEN "   _______  ",   \
-    .row3 = BGREEN " __|   __ \\ ",  \
-    .row4 = BGREEN "      / .\\ \\", \
-    .row5 = BGREEN "      \\__/ |",  \
-    .row6 = BGREEN "    _______|",   \
-    .row7 = BGREEN "    \\_______",  \
-    .row8 = BGREEN " __________/"
-
-openSUSE Tumbleweed:                    
-    .row1 = BGREEN "",               \
-    .row2 = BGREEN "   _______  ",   \
-    .row3 = BGREEN " __|   __ \\ ",  \
-    .row4 = BGREEN "      / .\\ \\", \
-    .row5 = BGREEN "      \\__/ |",  \
-    .row6 = BGREEN "    _______|",   \
-    .row7 = BGREEN "    \\_______",  \
-    .row8 = BGREEN " __________/"
+openSUSE:                    
+    .row1 = BGREEN "   _______  ",   \
+    .row2 = BGREEN " __|   __ \\ ",  \
+    .row3 = BGREEN "      / .\\ \\", \
+    .row4 = BGREEN "      \\__/ |",  \
+    .row5 = BGREEN "    _______|",   \
+    .row6 = BGREEN "    \\_______",  \
+    .row7 = BGREEN " __________/",   \
+    .row8 = BGREEN "            "
 
 Parabola:
-    .row1 = BMAGENTA "",                 \
-    .row2 = BMAGENTA "   __ __ __  _  ", \
-    .row3 = BMAGENTA " .`_//_//_/ / `.", \
-    .row4 = BMAGENTA "           /  .`", \
-    .row5 = BMAGENTA "          / .`  ", \
-    .row6 = BMAGENTA "         /.`    ", \
-    .row7 = BMAGENTA "        /`      ", \
+    .row1 = BMAGENTA "   __ __ __  _  ", \
+    .row2 = BMAGENTA " .`_//_//_/ / `.", \
+    .row3 = BMAGENTA "           /  .`", \
+    .row4 = BMAGENTA "          / .`  ", \
+    .row5 = BMAGENTA "         /.`    ", \
+    .row6 = BMAGENTA "        /`      ", \
+    .row7 = BMAGENTA "                ", \
     .row8 = BMAGENTA "                "
 
 Pop!_OS:
-    .row1 = BCYAN " ______\n",              \
+    .row1 = BCYAN " ______           ",     \
     .row2 = BCYAN " \\   _ \\        __",   \
     .row3 = BCYAN "  \\ \\ \\ \\      / /", \
     .row4 = BCYAN "   \\ \\_\\ \\    / / ", \
@@ -210,7 +189,7 @@ Pop!_OS:
     .row8 = BCYAN "   (___________)  "
 
 postmarketOS:                               
-    .row1 = BGREEN "        /\\       \n", \
+    .row1 = BGREEN "        /\\       ",   \
     .row2 = BGREEN "       /  \\      ",   \
     .row3 = BGREEN "      /    \\     ",   \
     .row4 = BGREEN "     /\\__   \\    ",  \
@@ -220,17 +199,17 @@ postmarketOS:
     .row8 = BGREEN " /_____/________\\"
 
 Slackware:
-    .row1 = BBLUE "",                 \
-    .row2 = BBLUE "    ________  ",   \
-    .row3 = BBLUE "   /  ______| ",   \
-    .row4 = BBLUE "   | |______  ",   \
-    .row5 = BBLUE "   \\______  \\ ", \
-    .row6 = BBLUE "    ______| | ",   \
-    .row7 = BBLUE " | |________/ ",   \
-    .row8 = BBLUE " |____________"
+    .row1 = BBLUE "    ________  ",   \
+    .row2 = BBLUE "   /  ______| ",   \
+    .row3 = BBLUE "   | |______  ",   \
+    .row4 = BBLUE "   \\______  \\ ", \
+    .row5 = BBLUE "    ______| | ",   \
+    .row6 = BBLUE " | |________/ ",   \
+    .row7 = BBLUE " |____________",   \
+    .row8 = BBLUE "              "
 
 Solus:
-    .row1 = BMAGENTA "     __________\n",      \
+    .row1 = BMAGENTA "     __________    ",    \
     .row2 = BMAGENTA "    /          \\   ",   \
     .row3 = BMAGENTA "   /   /\\ \\     \\  ", \
     .row4 = BMAGENTA "  /   /  \\ \\     \\ ", \
@@ -240,17 +219,17 @@ Solus:
     .row8 = BMAGENTA "    \\----------/   "
 
 Ubuntu:
-    .row1 = BRED "",               \
-    .row2 = BRED "          _  ",  \
-    .row3 = BRED "      ---(_) ",  \
-    .row4 = BRED "  _/  ---  \\ ", \
-    .row5 = BRED " (_) |   |   ",  \
-    .row6 = BRED "   \\  --- _/ ", \
-    .row7 = BRED "      ---(_) ",  \
+    .row1 = BRED "          _  ",  \
+    .row2 = BRED "      ---(_) ",  \
+    .row3 = BRED "  _/  ---  \\ ", \
+    .row4 = BRED " (_) |   |   ",  \
+    .row5 = BRED "   \\  --- _/ ", \
+    .row6 = BRED "      ---(_) ",  \
+    .row7 = BRED "             ",  \
     .row8 = BRED "             "
 
 void:
-    .row1 = BGREEN "      _____\n",                            \
+    .row1 = BGREEN "      _____     ",                         \
     .row2 = BGREEN "   _  \\____ -  ",                         \
     .row3 = BGREEN "  / / ____ \\ \\ ",                        \
     .row4 = BGREEN " / / /    \\ \\ \\",                       \
@@ -260,43 +239,54 @@ void:
     .row8 = BGREEN "   -_____\\     "
 
 Zorin OS:
-    .row1 = BBLUE "",               \
-    .row2 = BBLUE "    ______    ", \
-    .row3 = BBLUE "   /______\\  ", \
-    .row4 = BBLUE "  /      / \\ ", \
-    .row5 = BBLUE " /      /   \\", \
-    .row6 = BBLUE " \\     /    /", \
-    .row7 = BBLUE "  \\   /___ / ", \
-    .row8 = BBLUE "   \\______/  "
+    .row1 = BBLUE "    ______    ", \
+    .row2 = BBLUE "   /______\\  ", \
+    .row3 = BBLUE "  /      / \\ ", \
+    .row4 = BBLUE " /      /   \\", \
+    .row5 = BBLUE " \\     /    /", \
+    .row6 = BBLUE "  \\   /___ / ", \
+    .row7 = BBLUE "   \\______/  ", \
+    .row8 = BBLUE "              "
+
+Android:
+    .row1 = BGREEN "  ;,           ,;  ",  \
+    .row2 = BGREEN "   ';,.-----.,;'   ",  \
+    .row3 = BGREEN "  ,'           ',  ",  \
+    .row4 = BGREEN " /    O     O    \\ ", \
+    .row5 = BGREEN "|                 |",  \
+    .row6 = BGREEN "'-----------------'",  \
+    .row7 = BGREEN "                   ",  \
+    .row8 = BGREEN "                   "
+
 
 Darwin:
-    .row1 = "" BYELLOW,                          \
-    .row2 = BGREEN "          .:'   " BYELLOW,   \
-    .row3 = BGREEN "      __ :'__   " BYELLOW,   \
-    .row4 = BYELLOW "   .'`__`-'__``." BYELLOW,  \
-    .row5 = BRED "  :__________.-'" BYELLOW,     \
-    .row6 = BRED "  :_________:   " BYELLOW,     \
-    .row7 = BMAGENTA "   :_________`-;" BYELLOW, \
-    .row8 = BBLUE "    `.__.-.__.' " BYELLOW
+    .row1 = BGREEN   "          .:'   ", \
+    .row2 = BGREEN   "      __ :'__   ", \
+    .row3 = BYELLOW  "   .'`__`-'__``.", \
+    .row4 = BRED     "  :__________.-'", \
+    .row5 = BRED     "  :_________:   ", \
+    .row6 = BMAGENTA "   :_________`-;", \
+    .row7 = BBLUE    "    `.__.-.__.' ", \
+    .row8 = BYELLOW  "                "
 
 FreeBSD:
-    .row1 = BRED "",                 \
-    .row2 = BRED " /\\,-'''''-,/\\", \
-    .row3 = BRED " \\_)       (_/",  \
+    .row1 = BRED " /\\,-'''''-,/\\", \
+    .row2 = BRED " \\_)       (_/",  \
+    .row3 = BRED " |           |",   \
     .row4 = BRED " |           |",   \
-    .row5 = BRED " |           |",   \
-    .row6 = BRED "  ;         ; ",   \
-    .row7 = BRED "   '-_____-'  ",   \
+    .row5 = BRED "  ;         ; ",   \
+    .row6 = BRED "   '-_____-'  ",   \
+    .row7 = BRED "              ",   \
     .row8 = BRED "              "
 
 OpenBSD:
-    .row1 = BYELLOW "",                                     \
-    .row2 = BYELLOW "      _____    ",                      \
-    .row3 = BYELLOW "    \\-     -/  ",                     \
-    .row4 = BYELLOW " \\_/         \\ ",                    \
-    .row5 = BYELLOW " |        " BWHITE "O O" BYELLOW " |", \
-    .row6 = BYELLOW " |_  <   )  3 )",                      \
-    .row7 = BYELLOW " / \\         / ",                     \
-    .row8 = BYELLOW "    /-_____-\\  "
+    .row1 = BYELLOW "      _____    ",                      \
+    .row2 = BYELLOW "    \\-     -/  ",                     \
+    .row3 = BYELLOW " \\_/         \\ ",                    \
+    .row4 = BYELLOW " |        " BWHITE "O O" BYELLOW " |", \
+    .row5 = BYELLOW " |_  <   )  3 )",                      \
+    .row6 = BYELLOW " / \\         / ",                     \
+    .row7 = BYELLOW "    /-_____-\\  ",                     \
+    .row8 = BYELLOW "               "
 
 
