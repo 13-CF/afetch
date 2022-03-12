@@ -15,17 +15,6 @@ typedef struct ascii_art {
     char *row1, *row2, *row3, *row4, *row5, *row6, *row7, *row8;
 } ascii_art;
 
-unsigned int hash(char *str)
-{
-    unsigned int hash = 5381;
-    int          c;
-
-    while ((c = *str++))
-        hash = ((hash << 5) + hash) + c; // hash * 33 + c
-
-    return hash;
-}
-
 char *pipe_read(const char *exec)
 {
     FILE *pipe = popen(exec, "r");
@@ -75,6 +64,7 @@ void colour_draw()
     for (int i = 31; i < 37; i++) {
         printf("\033[0;%dm%s", i, COLOR_CHARACTER);
     } // print regular term colours
+    printf("\n");
 }
 
 int main()
@@ -82,29 +72,31 @@ int main()
     struct ascii_art logo = {ASCII_ART};
     struct utsname   sys_info;
     uname(&sys_info);
-    char hostname[HOST_NAME_MAX + 1];
+    char hostname[HOST_NAME_MAX + 1], *pkg_cnt;
     long uptime_h, uptime_m;
 
     gethostname(hostname, HOST_NAME_MAX + 1);
     uptime(&uptime_h, &uptime_m);
+    pkg_cnt = pipe_read(GET_PKG_CNT);
 
-    printf("%s", logo.row1);
-    printf("%s   " BYELLOW "%s" BRED "@" BBLUE "%s\n", logo.row2, getlogin(),
+    printf("%s   " BYELLOW "%s" BRED "@" BBLUE "%s\n", logo.row1, getlogin(),
            hostname); // user@host
-    printf("%s   %s%s%s%s\n", logo.row3, VARIABLE_COLOR, OS_TEXT, TEXT_COLOR,
+    printf("%s   %s%s%s%s\n", logo.row2, VARIABLE_COLOR, OS_TEXT, TEXT_COLOR,
            DISTRO); // osname
-    printf("%s   %s%s%s%s\n", logo.row4, VARIABLE_COLOR, KERNEL_TEXT,
+    printf("%s   %s%s%s%s\n", logo.row3, VARIABLE_COLOR, KERNEL_TEXT,
            TEXT_COLOR, sys_info.release); // kernel version
-    printf("%s   %s%s%s%ldh %ldm\n", logo.row5, VARIABLE_COLOR, UPTIME_TEXT,
+    printf("%s   %s%s%s%ldh %ldm\n", logo.row4, VARIABLE_COLOR, UPTIME_TEXT,
            TEXT_COLOR, uptime_h, uptime_m); // uptime
-    printf("%s   %s%s%s%s\n", logo.row6, VARIABLE_COLOR, SHELL_TEXT, TEXT_COLOR,
+    printf("%s   %s%s%s%s\n", logo.row5, VARIABLE_COLOR, SHELL_TEXT, TEXT_COLOR,
            shell()); // shell
-    printf("%s   %s%s%s%s\n", logo.row7, VARIABLE_COLOR, PACKAGE_TEXT,
-           TEXT_COLOR, pipe_read(GET_PKG_CNT)); // package count
+    printf("%s   %s%s%s%s\n", logo.row6, VARIABLE_COLOR, PACKAGE_TEXT,
+           TEXT_COLOR, pkg_cnt); // package count
+    printf("%s   ", logo.row7);
+    colour_draw();
     printf("%s   ", logo.row8);
 
-    colour_draw();
     printf("%s\n\n", RESET);
+    free(pkg_cnt);
 
     return 0;
 }
