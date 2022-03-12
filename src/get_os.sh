@@ -180,16 +180,14 @@ get_pkgs() {
     #    code here
     # )
     #
-    # shellcheck disable=2006
-    # shellcheck disable=2028
-    PACKAGES=`
+    PACKAGES=$(
         case $OS in
             Linux*)
                 # Commands which print packages one per line.
                 has bonsai     && printf "bonsai list"
                 has crux       && printf "pkginfo -i"
                 has pacman-key && printf "pacman -Qq"
-                has dpkg       && printf "dpkg-query -f '.\\\n' -W"
+                has dpkg       && printf "dpkg-query -f '.\\\\\\\n' -W"
                 has rpm        && printf "rpm -qa"
                 has xbps-query && printf "xbps-query -l"
                 has apk        && printf "apk info"
@@ -197,11 +195,11 @@ get_pkgs() {
                 has opkg       && printf "opkg list-installed"
 
                 # Directories containing packages.
-                has kiss       && printf "printf '%%s\\\n' /var/db/kiss/installed/*/"
-                has brew       && printf "printf '%%s\\\n' \"\$(brew --cellar)/\"*"
-                has emerge     && printf "printf '%%s\\\n' /var/db/pkg/*/*/"
-                has pkgtool    && printf "printf '%%s\\\n' /var/log/packages/*"
-                has eopkg      && printf "printf '%%s\\\n' /var/lib/eopkg/package/*"
+                has kiss       && printf "printf '%%s\\\\\\\n' /var/db/kiss/installed/*/"
+                has brew       && printf "printf '%%s\\\\\\\n' \"\$(brew --cellar)/\"*"
+                has emerge     && printf "printf '%%s\\\\\\\n' /var/db/pkg/*/*/"
+                has pkgtool    && printf "printf '%%s\\\\\\\n' /var/log/packages/*"
+                has eopkg      && printf "printf '%%s\\\\\\\n' /var/lib/eopkg/package/*"
 
                 # 'nix' requires two commands.
                 has nix-store  && {
@@ -215,7 +213,7 @@ get_pkgs() {
                 has pkgin      && printf "pkgin list"
 
                 # Directories containing packages.
-                has brew       && printf "printf '%%s\\\n' /usr/local/Cellar/*"
+                has brew       && printf "printf '%%s\\\\\\\n' /usr/local/Cellar/*"
 
                 # 'port' prints a single line of output to 'stdout'
                 # when no packages are installed and exits with
@@ -229,7 +227,7 @@ get_pkgs() {
                     pkg_list=$(port installed)
 
                     [ "$pkg_list" = "No ports are installed." ] ||
-                        printf "printf '%%s\\\n' \"\$pkg_list\""
+                        printf "printf '%%s\\\\\\\n' \"\$pkg_list\""
                 }
             ;;
 
@@ -238,7 +236,7 @@ get_pkgs() {
             ;;
 
             OpenBSD*)
-                printf "printf '%%s\\\n' /var/db/pkg/*/"
+                printf "printf '%%s\\\\\\\n' /var/db/pkg/*/"
             ;;
 
             NetBSD*)
@@ -246,11 +244,11 @@ get_pkgs() {
             ;;
 
             Haiku)
-                printf "printf '%%s\\\n' /boot/system/package-links/*"
+                printf "printf '%%s\\\\\\\n' /boot/system/package-links/*"
             ;;
 
             Minix)
-                printf "printf '%%s\\\n' /usr/pkg/var/db/pkg/*/"
+                printf "printf '%%s\\\\\\\n' /usr/pkg/var/db/pkg/*/"
             ;;
 
             SunOS)
@@ -262,7 +260,7 @@ get_pkgs() {
                 printf "versions -b"
             ;;
         esac
-    `
+    )
 
     case $OS in
         # IRIX's package manager adds 3 lines of extra
