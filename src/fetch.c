@@ -6,6 +6,7 @@
 #include <string.h>
 #include <sys/utsname.h>
 #include <time.h>
+#include <fcntl.h>
 #include <unistd.h>
 
 #include "color.h"
@@ -55,6 +56,46 @@ char *shell()
     return shell;
 }
 
+void memory()
+{
+    unsigned long mem_used, mem_total, mem_free, mem_available, buffers, cached, shmem, s_reclaimable;
+    int fd = open("/proc/meminfo", O_RDONLY);
+    if (fd < 0) {
+        printf("error");
+        return;
+    }
+
+    char buf[1024] = {0}, *ptr;
+    read(fd, buf, 1024 - 1);
+
+    ptr = strstr(buf, "MemTotal:");
+    sscanf(ptr, "MemTotal: %lu", &mem_total);
+
+    ptr = strstr(ptr, "MemFree:");
+    sscanf(ptr, "MemFree: %lu", &mem_free);
+
+    ptr = strstr(ptr, "MemAvailable:");
+    sscanf(ptr, "MemAvailable: %lu", &mem_available);
+
+    ptr = strstr(ptr, "Buffers:");
+    sscanf(ptr, "Buffers: %lu", &buffers);
+
+    ptr = strstr(ptr, "Cached:");
+    sscanf(ptr, "Cached: %lu", &cached);
+
+    ptr = strstr(ptr, "Shmem:");
+    sscanf(ptr, "Shmem: %lu", &shmem);
+
+    ptr = strstr(ptr, "SReclaimable:");
+    sscanf(ptr, "SReclaimable: %lu", &s_reclaimable);
+
+    mem_used = mem_total + shmem - mem_free - buffers - cached - s_reclaimable;
+
+    printf("%luMB / %luMB\n", mem_used / 1024, mem_total / 1024);
+
+    close(fd);
+}
+
 void colour_draw()
 {
     if (!PRINT_COLORS)
@@ -91,9 +132,10 @@ int main()
            shell()); // shell
     printf("%s   %s%s%s%s\n", logo.row6, VARIABLE_COLOR, PACKAGE_TEXT,
            TEXT_COLOR, pkg_cnt); // package count
-    printf("%s   ", logo.row7);
-    colour_draw();
+    printf("%s   %s%s%s", logo.row7, VARIABLE_COLOR, MEMORY_TEXT, TEXT_COLOR);
+    memory();
     printf("%s   ", logo.row8);
+    colour_draw();
 
     printf("%s\n", RESET);
     free(pkg_cnt);
