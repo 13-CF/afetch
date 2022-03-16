@@ -6,7 +6,6 @@
 #include <string.h>
 #include <sys/utsname.h>
 #include <time.h>
-#include <fcntl.h>
 #include <unistd.h>
 
 #include "color.h"
@@ -59,14 +58,14 @@ char *shell()
 void memory()
 {
     unsigned long mem_used, mem_total, mem_free, mem_available, buffers, cached, shmem, s_reclaimable;
-    int fd = open("/proc/meminfo", O_RDONLY);
-    if (fd < 0) {
+    FILE* fp = fopen("/proc/meminfo", "r");
+    if (!fp) {
         printf("error");
         return;
     }
 
     char buf[1024] = {0}, *ptr;
-    read(fd, buf, 1024 - 1);
+    fread(buf, 1024, 1, fp);
 
     ptr = strstr(buf, "MemTotal:");
     sscanf(ptr, "MemTotal: %lu", &mem_total);
@@ -91,9 +90,9 @@ void memory()
 
     mem_used = mem_total + shmem - mem_free - buffers - cached - s_reclaimable;
 
-    printf("%luMB / %luMB\n", mem_used / 1024, mem_total / 1024);
+    printf("%lu/%lu MB (%d%%)\n", mem_used / 1024, mem_total / 1024, (int)(mem_used/(double)mem_total * 100));
 
-    close(fd);
+    fclose(fp);
 }
 
 void colour_draw()
