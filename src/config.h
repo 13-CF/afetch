@@ -3,6 +3,7 @@
 #define UPTIME_TEXT  "UPTIME  " // "  "
 #define SHELL_TEXT   "SHELL   " // "  "
 #define PACKAGE_TEXT "PKGS    " // "  "
+#define MEMORY_TEXT  "MEMORY  " // "  "
 #define COLOR_TEXT   ""         // "  "
 
 /* See options in color.h file */
