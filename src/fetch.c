@@ -119,9 +119,7 @@ void print_stats(char *host, struct utsname sys_info, struct uptime time,
                  unsigned long mem_total)
 {
     int row = 7;
-
-    printf("\033[7A");
-    // printf("\033[15C");
+    printf("\033[%dA", row);
 
     if (PRINT_HOST) {
         printf("\033[s");
