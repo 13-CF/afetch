@@ -15,6 +15,10 @@ typedef struct ascii_art {
     char *row1, *row2, *row3, *row4, *row5, *row6, *row7, *row8;
 } ascii_art;
 
+typedef struct uptime {
+    int day, hour, minute;
+} uptime;
+
 char *pipe_read(const char *exec)
 {
     FILE *pipe = popen(exec, "r");
@@ -27,8 +31,9 @@ char *pipe_read(const char *exec)
     return scanf_return == EOF ? NULL : return_val;
 }
 
-void uptime(long *uptime_h, long *uptime_m)
+uptime get_uptime()
 {
+    uptime          up;
     struct timespec time;
 #if defined(CLOCK_BOOTTIME)
 #define CLOCK CLOCK_BOOTTIME
@@ -40,12 +45,14 @@ void uptime(long *uptime_h, long *uptime_m)
 
 #ifdef CLOCK
     clock_gettime(CLOCK, &time);
-    *uptime_h = time.tv_sec / 3600;
-    *uptime_m = (time.tv_sec / 60) - (time.tv_sec / 3600 * 60);
+    up.day    = time.tv_sec / (24 * 3600);
+    up.hour   = (time.tv_sec / 3600) - (time.tv_sec / (24 * 3600) * 24);
+    up.minute = (time.tv_sec / 60) - (time.tv_sec / 3600 * 60);
 #endif
+    return up;
 }
 
-char *shell()
+char *get_shell()
 {
     char *shell = getenv("SHELL");
     char *slash = strrchr(shell, '/');
@@ -55,10 +62,11 @@ char *shell()
     return shell;
 }
 
-void memory()
+void get_memory_usage(unsigned long *mem_used, unsigned long *mem_total)
 {
-    unsigned long mem_used, mem_total, mem_free, mem_available, buffers, cached, shmem, s_reclaimable;
-    FILE* fp = fopen("/proc/meminfo", "r");
+    unsigned long mem_free, mem_available, buffers, cached, shmem,
+        s_reclaimable;
+    FILE *fp = fopen("/proc/meminfo", "r");
     if (!fp) {
         printf("error");
         return;
@@ -68,7 +76,7 @@ void memory()
     fread(buf, 1024, 1, fp);
 
     ptr = strstr(buf, "MemTotal:");
-    sscanf(ptr, "MemTotal: %lu", &mem_total);
+    sscanf(ptr, "MemTotal: %lu", mem_total);
 
     ptr = strstr(ptr, "MemFree:");
     sscanf(ptr, "MemFree: %lu", &mem_free);
@@ -88,55 +96,116 @@ void memory()
     ptr = strstr(ptr, "SReclaimable:");
     sscanf(ptr, "SReclaimable: %lu", &s_reclaimable);
 
-    mem_used = mem_total + shmem - mem_free - buffers - cached - s_reclaimable;
-
-    printf("%lu/%lu MB (%d%%)\n", mem_used / 1024, mem_total / 1024, (int)(mem_used/(double)mem_total * 100));
+    *mem_used =
+        *mem_total + shmem - mem_free - buffers - cached - s_reclaimable;
 
     fclose(fp);
 }
 
-void colour_draw()
+void print_logo(ascii_art ascii)
 {
-    if (!PRINT_COLORS)
-        return;
+    printf("%s\n", ascii.row1);
+    printf("%s\n", ascii.row2);
+    printf("%s\n", ascii.row3);
+    printf("%s\n", ascii.row4);
+    printf("%s\n", ascii.row5);
+    printf("%s\n", ascii.row6);
+    printf("%s\n", ascii.row7);
+    printf("%s\n", ascii.row8);
+}
 
-    printf("%s%s", VARIABLE_COLOR, COLOR_TEXT);
-    for (int i = 31; i < 37; i++) {
-        printf("\033[0;%dm%s", i, COLOR_CHARACTER);
-    } // print regular term colours
-    printf("\n");
+void print_stats(char *host, struct utsname sys_info, struct uptime time,
+                 char *pkg_cnt, char *shell, unsigned long mem_used,
+                 unsigned long mem_total)
+{
+    int row = 7;
+
+    printf("\033[8A");
+    printf("\033[15C");
+
+    if (PRINT_HOST) {
+        printf("   " BYELLOW "%s" BRED "@" BBLUE "%s\n", getlogin(), host);
+        printf("\033[15C");
+        row--;
+    }
+
+    if (PRINT_OS) {
+        printf("   " VARIABLE_COLOR OS_TEXT TEXT_COLOR DISTRO "\n");
+        printf("\033[15C");
+        row--;
+    }
+
+    if (PRINT_KERNEL) {
+        printf("   " VARIABLE_COLOR KERNEL_TEXT TEXT_COLOR "%s\n",
+               sys_info.release);
+        printf("\033[15C");
+        row--;
+    }
+
+    if (PRINT_UPTIME) {
+        printf("   " VARIABLE_COLOR UPTIME_TEXT TEXT_COLOR);
+        if (time.day)
+            printf("%dd ", time.day);
+        if (time.hour)
+            printf("%dh ", time.hour);
+        if (time.minute)
+            printf("%dm ", time.minute);
+
+        printf("\n\033[15C");
+        row--;
+    }
+
+    if (PRINT_PKGS) {
+        printf("   " VARIABLE_COLOR PACKAGE_TEXT TEXT_COLOR "%s\n", pkg_cnt);
+        printf("\033[15C");
+        row--;
+    }
+
+    if (PRINT_SHELL) {
+        printf("   " VARIABLE_COLOR PACKAGE_TEXT TEXT_COLOR "%s\n", shell);
+        printf("\033[15C");
+        row--;
+    }
+
+    if (PRINT_MEMORY) {
+        printf("   " VARIABLE_COLOR MEMORY_TEXT TEXT_COLOR);
+        printf("%lu/%lu MB (%d%%)\n", mem_used / 1024, mem_total / 1024,
+               (int)(mem_used / (double)mem_total * 100));
+        printf("\033[15C   ");
+        row--;
+    }
+
+    if (PRINT_COLORS) {
+        printf(VARIABLE_COLOR COLOR_TEXT);
+        for (int i = 31; i < 37; i++) {
+            printf("\033[0;%dm%s", i, COLOR_CHARACTER);
+        } // print regular term colours
+        printf("\n");
+        row--;
+    }
+
+    if (row > 0)
+        printf("\033[%dB", row);
+    printf("%s\n", RESET);
 }
 
 int main()
 {
     struct ascii_art logo = {ASCII_ART};
     struct utsname   sys_info;
-    uname(&sys_info);
-    char hostname[HOST_NAME_MAX + 1], *pkg_cnt;
-    long uptime_h, uptime_m;
+    struct uptime    time;
+    char             hostname[HOST_NAME_MAX + 1], *pkg_cnt, *shell;
+    unsigned long    mem_used, mem_total;
 
     gethostname(hostname, HOST_NAME_MAX + 1);
-    uptime(&uptime_h, &uptime_m);
+    uname(&sys_info);
+    time    = get_uptime();
     pkg_cnt = pipe_read(GET_PKG_CNT);
+    shell   = get_shell();
+    get_memory_usage(&mem_used, &mem_total);
 
-    printf("%s   " BYELLOW "%s" BRED "@" BBLUE "%s\n", logo.row1, getlogin(),
-           hostname); // user@host
-    printf("%s   %s%s%s%s\n", logo.row2, VARIABLE_COLOR, OS_TEXT, TEXT_COLOR,
-           DISTRO); // osname
-    printf("%s   %s%s%s%s\n", logo.row3, VARIABLE_COLOR, KERNEL_TEXT,
-           TEXT_COLOR, sys_info.release); // kernel version
-    printf("%s   %s%s%s%ldh %ldm\n", logo.row4, VARIABLE_COLOR, UPTIME_TEXT,
-           TEXT_COLOR, uptime_h, uptime_m); // uptime
-    printf("%s   %s%s%s%s\n", logo.row5, VARIABLE_COLOR, SHELL_TEXT, TEXT_COLOR,
-           shell()); // shell
-    printf("%s   %s%s%s%s\n", logo.row6, VARIABLE_COLOR, PACKAGE_TEXT,
-           TEXT_COLOR, pkg_cnt); // package count
-    printf("%s   %s%s%s", logo.row7, VARIABLE_COLOR, MEMORY_TEXT, TEXT_COLOR);
-    memory();
-    printf("%s   ", logo.row8);
-    colour_draw();
-
-    printf("%s\n", RESET);
+    print_logo(logo);
+    print_stats(hostname, sys_info, time, pkg_cnt, shell, mem_used, mem_total);
     free(pkg_cnt);
 
     return 0;

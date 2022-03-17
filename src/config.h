@@ -10,7 +10,14 @@
 #define TEXT_COLOR     BGREEN
 #define VARIABLE_COLOR BMAGENTA
 
-#define PRINT_COLORS    1 // 0 == false, anything else is true
+#define PRINT_HOST      1 // 0 == false, anything else is true
+#define PRINT_OS        1 
+#define PRINT_KERNEL    1 
+#define PRINT_UPTIME    1 
+#define PRINT_PKGS      1 
+#define PRINT_SHELL     0
+#define PRINT_MEMORY    1 
+#define PRINT_COLORS    1
 #define COLOR_CHARACTER "● "
 
 /* Some examples of things you may want to use for your COLOR_CHARACTER
