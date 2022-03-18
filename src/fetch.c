@@ -150,9 +150,7 @@ void print_stats(char *host, struct utsname sys_info, struct uptime time,
             printf("%dd ", time.day);
         if (time.hour)
             printf("%dh ", time.hour);
-        if (time.minute)
-            printf("%dm ", time.minute);
-
+        printf("%dm ", time.minute);
         printf("\033[u\033[1B");
         row--;
     }
