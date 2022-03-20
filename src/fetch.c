@@ -118,68 +118,67 @@ void print_stats(char *host, struct utsname sys_info, struct uptime time,
                  char *pkg_cnt, char *shell, unsigned long mem_used,
                  unsigned long mem_total)
 {
-    int row = 7;
+    int row = 7, shift = 0;
     printf("\033[%dA", row);
 
     if (PRINT_HOST) {
-        printf("\033[s");
-        printf("   " BYELLOW "%s" BRED "@" BBLUE "%s\n", getlogin(), host);
-        printf("\033[u\033[1B");
+        shift = printf(BYELLOW "%s" BRED "@" BBLUE "%s", getlogin(), host);
+        shift -= sizeof(BYELLOW BRED BBLUE) - 1;
+        printf("\033[%dD\033[1B", shift);
         row--;
     }
 
     if (PRINT_OS) {
-        printf("\033[s");
-        printf("   " VARIABLE_COLOR OS_TEXT TEXT_COLOR DISTRO "\n");
-        printf("\033[u\033[1B");
+        shift = printf(VARIABLE_COLOR OS_TEXT TEXT_COLOR DISTRO);
+        shift -= sizeof(VARIABLE_COLOR TEXT_COLOR) - 1;
+        printf("\033[%dD\033[1B", shift);
         row--;
     }
 
     if (PRINT_KERNEL) {
-        printf("\033[s");
-        printf("   " VARIABLE_COLOR KERNEL_TEXT TEXT_COLOR "%s\n",
-               sys_info.release);
-        printf("\033[u\033[1B");
+        shift = printf(VARIABLE_COLOR KERNEL_TEXT TEXT_COLOR "%s",
+                       sys_info.release);
+        shift -= sizeof(VARIABLE_COLOR TEXT_COLOR) - 1;
+        printf("\033[%dD\033[1B", shift);
         row--;
     }
 
     if (PRINT_UPTIME) {
-        printf("\033[s");
-        printf("   " VARIABLE_COLOR UPTIME_TEXT TEXT_COLOR);
+        shift = printf(VARIABLE_COLOR UPTIME_TEXT TEXT_COLOR);
+        shift -= sizeof(VARIABLE_COLOR TEXT_COLOR) - 1;
         if (time.day)
-            printf("%dd ", time.day);
+            shift += printf("%dd ", time.day);
         if (time.hour)
-            printf("%dh ", time.hour);
-        printf("%dm ", time.minute);
-        printf("\033[u\033[1B");
+            shift += printf("%dh ", time.hour);
+        shift += printf("%dm ", time.minute);
+        printf("\033[%dD\033[1B", shift);
         row--;
     }
 
     if (PRINT_PKGS) {
-        printf("\033[s");
-        printf("   " VARIABLE_COLOR PACKAGE_TEXT TEXT_COLOR "%s\n", pkg_cnt);
-        printf("\033[u\033[1B");
+        shift = printf(VARIABLE_COLOR PACKAGE_TEXT TEXT_COLOR "%s", pkg_cnt);
+        shift -= sizeof(VARIABLE_COLOR TEXT_COLOR) - 1;
+        printf("\033[%dD\033[1B", shift);
         row--;
     }
 
     if (PRINT_SHELL) {
-        printf("\033[s");
-        printf("   " VARIABLE_COLOR PACKAGE_TEXT TEXT_COLOR "%s\n", shell);
-        printf("\033[u\033[1B");
+        shift = printf(VARIABLE_COLOR PACKAGE_TEXT TEXT_COLOR "%s", shell);
+        shift -= sizeof(VARIABLE_COLOR TEXT_COLOR) - 1;
+        printf("\033[%dD\033[1B", shift);
         row--;
     }
 
     if (PRINT_MEMORY) {
-        printf("\033[s");
-        printf("   " VARIABLE_COLOR MEMORY_TEXT TEXT_COLOR);
-        printf("%lu/%lu MB (%d%%)\n", mem_used / 1024, mem_total / 1024,
-               (int)(mem_used / (double)mem_total * 100));
-        printf("\033[u\033[1B");
+        shift = printf(VARIABLE_COLOR MEMORY_TEXT TEXT_COLOR);
+        shift -= sizeof(VARIABLE_COLOR TEXT_COLOR) - 1;
+        shift += printf("%lu/%lu MB (%d%%)", mem_used / 1024, mem_total / 1024,
+                        (int)(mem_used / (double)mem_total * 100));
+        printf("\033[%dD\033[1B", shift);
         row--;
     }
 
     if (PRINT_COLORS) {
-        printf("   " VARIABLE_COLOR COLOR_TEXT);
         for (int i = 31; i < 37; i++) {
             printf("\033[0;%dm%s", i, COLOR_CHARACTER);
         } // print regular term colours
