@@ -73,7 +73,6 @@ void *kernel()
 
 void *uptime()
 {
-	struct timespec time;
 #if defined(CLOCK_BOOTTIME)
 	#define CLOCK CLOCK_BOOTTIME
 #elif defined(CLOCK_UPTIME)
@@ -83,6 +82,7 @@ void *uptime()
 #endif
 
 #ifdef CLOCK
+	struct timespec time;
 	clock_gettime(CLOCK, &time);
 	uptimeH = time.tv_sec / 3600;
 	uptimeM = (time.tv_sec / 60) - (time.tv_sec / 3600 * 60);
