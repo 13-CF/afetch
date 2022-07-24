@@ -503,7 +503,16 @@ void *os()
 		    "/bin/ls -1 /var/db/pkg/ | wc -l | tr -d ' '";
 		osname = sysInfo.sysname;
 	} else if (strncmp(sysInfo.sysname, "NetBSD", 6) == 0) {
-
+		info.col1 = BWHITE "\\\\" BYELLOW "`-______,----__  \n",
+		info.col2 = BWHITE " \\\\" BYELLOW "        __,---`_",
+		info.col3 = BWHITE "  \\\\" BYELLOW "       `.____  ",
+		info.col4 = BWHITE "   \\\\" BYELLOW "-______,----`-",
+		info.col5 = BWHITE "    \\\\" BYELLOW "             ",
+		info.col6 = BWHITE "     \\\\" BYELLOW "            ",
+		info.col7 = BWHITE "      \\\\" BYELLOW "           ",
+		info.col8 = BWHITE "";
+		info.getPkgCount = "pkg_info | grep -c .";
+		osname = sysInfo.sysname;
 	}
 	pkgCount = pipeRead(info.getPkgCount);
 
