@@ -504,6 +504,16 @@ void *os()
 		osname = sysInfo.sysname;
 	} else if (strncmp(sysInfo.sysname, "NetBSD", 6) == 0) {
 
+	} else if (strncmp(sysInfo.sysname, "MorphOS", 7) == 0) {
+		info.col1 = BBLUE "";
+		info.col2 = BBLUE " __ \\/ __ ";
+		info.col3 = BBLUE "/o \\{}/ o\\";
+		info.col4 = BBLUE "\\   ()   /";
+		info.col5 = BBLUE " `> /\\ <` ";
+		info.col6 = BBLUE " (o/\\/\\o) ";
+		info.col7 = BBLUE "  )    (  ";
+		info.col8 = BBLUE "";
+		osname = sysInfo.sysname;
 	}
 	pkgCount = pipeRead(info.getPkgCount);
 
