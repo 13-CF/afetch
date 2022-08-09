@@ -163,7 +163,7 @@ void print_stats(char *host, struct utsname sys_info, struct uptime time,
     }
 
     if (PRINT_SHELL) {
-        shift = printf(VARIABLE_COLOR PACKAGE_TEXT TEXT_COLOR "%s", shell);
+        shift = printf(VARIABLE_COLOR SHELL_TEXT TEXT_COLOR "%s", shell);
         shift -= sizeof(VARIABLE_COLOR TEXT_COLOR) - 1;
         printf("\033[%dD\033[1B", shift);
         row--;
