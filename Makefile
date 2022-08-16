@@ -1,7 +1,7 @@
 SRC = src/fetch.c
 CC ?= cc
-CFLAGS = -O2 -std=c99 -Wall -Wextra
-LDFLAGS = -lpthread
+CFLAGS += -O2 -std=c99 -Wall -Wextra
+LDFLAGS += -lpthread
 DEBUGFLAGS = -g -Og -std=c99 -Wall -Wextra
 PREFIX ?= /usr/local
 
@@ -19,7 +19,7 @@ clean:
 install: afetch
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp afetch ${DESTDIR}${PREFIX}/bin
-	chmod 711 ${DESTDIR}${PREFIX}/bin/afetch
+	chmod 755 ${DESTDIR}${PREFIX}/bin/afetch
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/afetch
