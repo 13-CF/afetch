@@ -78,7 +78,7 @@ void *uptime()
 	#define CLOCK CLOCK_BOOTTIME
 #elif defined(CLOCK_UPTIME)
 	#define CLOCK CLOCK_UPTIME
-#elif defined(__APPLE__)
+#elif defined(CLOCK_MONOTONIC)
 	#define CLOCK CLOCK_MONOTONIC
 #endif
 
