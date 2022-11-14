@@ -480,16 +480,65 @@ void *os()
 			free(macVer);
 		}
 	} else if (strncmp(sysInfo.sysname, "FreeBSD", 7) == 0) {
-		info.col1 = BRED "";
-		info.col2 = BRED "/\\,-'''''-,/\\";
-		info.col3 = BRED "\\_)       (_/";
-		info.col4 = BRED "|           |";
-		info.col5 = BRED "|           |";
-		info.col6 = BRED " ;         ; ";
-		info.col7 = BRED "  '-_____-'  ";
-		info.col8 = BRED "";
-		info.getPkgCount = "pkg info | wc -l | tr -d ' '";
-		osname = sysInfo.sysname;
+		char *osContents = malloc(512);
+		char *newContents = malloc(512);
+		int line = 0;
+		FILE *f = fopen("/etc/os-release", "rt");
+		if (f == NULL || osContents == NULL)
+			return "FreeBSD";
+		/* look through each line of /etc/os-release until we're on the
+		 * NAME= line */
+		while (fgets(osContents, 512, f)) {
+			snprintf(newContents, 512, "%.*s", 511, osContents + 4);
+			if (strncmp(newContents, "=", 1) == 0)
+				break;
+			line++;
+		}
+		fclose(f);
+		free(osContents);
+		if (strncmp(newContents, "=", 1) == 0) {
+			int len = strlen(newContents);
+			for (int i = 0; i < len; i++) {
+				if (newContents[i] == '\"' ||
+				    newContents[i] == '=') {
+					for (int ii = 0; ii < len; ii++)
+						newContents[ii] =
+						    newContents[ii + 1];
+					newContents[strlen(newContents) - 1] =
+					    '\0';
+				}
+			}
+		}
+		if (osname == NULL)
+			osname = malloc(512);
+		strcpy(osname, newContents);
+		free(newContents);
+		/* end */
+
+		if (strncmp(osname, "FreeBSD", 5) == 0) {
+			info.col1 = BRED "";
+			info.col2 = BRED "/\\,-'''''-,/\\";
+			info.col3 = BRED "\\_)       (_/";
+			info.col4 = BRED "|           |";
+			info.col5 = BRED "|           |";
+			info.col6 = BRED " ;         ; ";
+			info.col7 = BRED "  '-_____-'  ";
+			info.col8 = BRED "";
+			info.getPkgCount = "pkg info | wc -l | tr -d ' '";
+		} 
+		
+		else if (strncmp(osname, "Enso", 14) == 0) {
+			info.col1 = BWHITE "     .---:.     \n";
+			info.col2 = BWHITE "   =###+++*#=.  ";
+			info.col3 = BWHITE " .##+.     .+*: ";
+			info.col4 = BWHITE " *%#         ++ ";
+			info.col5 = BWHITE " #%#         -+ ";
+			info.col6 = BWHITE " :##*:       =. ";
+			info.col7 = BWHITE "  .*##%#.  ::   ";
+			info.col8 = BWHITE "     :--        ";
+			info.getPkgCount = "pkg info | wc -l | tr -d ' '";
+		}
+
 	} else if (strncmp(sysInfo.sysname, "OpenBSD", 7) == 0) {
 		info.col1 = BYELLOW "      _____    \n";
 		info.col2 = BYELLOW "    \\-     -/  ";

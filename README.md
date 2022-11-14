@@ -31,6 +31,7 @@ afetch is written in C99, meaning that it should be able to be compiled with alm
 *  Deepin
 *  Elementary OS
 *  EndeavourOS
+*  Enso
 *  Fedora (slow due to package manager)
 *  FreeBSD
 *  Gentoo
