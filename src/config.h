@@ -4,6 +4,7 @@
 #define UptimeText  " UPTIME " //
 #define ShellText   "  SHELL " //
 #define PackageText "   PKGS " //
+#define EditorText  " EDITOR " //󰧭  
 
 /* Those two options are mutually exclusive.
  * Either set one to 'true' or both to 'false'. */
