@@ -416,8 +416,7 @@ void *os()
 			info.col4 = BMAGENTA " /   /  \\ \\     \\ ";
 			info.col5 = BMAGENTA "|   /    \\ \\     |";
 			info.col6 = BMAGENTA " \\--------------/ ";
-			info.col7 = BMAGENTA "  \\------------/  ";   _  \____ -         USER yalo
-
+			info.col7 = BMAGENTA "  \\------------/  ";
 			info.col8 = BMAGENTA "   \\----------/";
 			info.getPkgCount =
 				"ls /var/lib/eopkg/package/ | wc -l";
