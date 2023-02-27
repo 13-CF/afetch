@@ -432,7 +432,7 @@ void *os()
 			info.col8 = BRED "            ";
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
-		} else if (strncmp(osname, "void", 4) == 0) {
+		} else if (strncmp(osname, "Void", 4) == 0) {
 			info.col1 = BGREEN "      _____\n";
 			info.col2 = BGREEN "   _  \\____ -  ";
 			info.col3 = BGREEN "  / / ____ \\ \\ ";
