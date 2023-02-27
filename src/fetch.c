@@ -181,7 +181,7 @@ void *os()
 			info.col5 = BCYAN "   /      \\   ";
 			info.col6 = BCYAN "  /   ,,   \\  ";
 			info.col7 = BCYAN " /   |  |  -\\ ";
-			info.col8 = BCYAN "/_-''    ''-_\\\n";
+			info.col8 = BCYAN "/_-''    ''-_\\";
 			info.getPkgCount = "pacman -Qq | wc -l";
 		} else if (strncmp(osname, "Arch bang Linux", 15) ==
 				0) {
@@ -192,7 +192,7 @@ void *os()
 			info.col5 = BCYAN "   /   /_/\\   ";
 			info.col6 = BCYAN "  /   __   \\  ";
 			info.col7 = BCYAN " /   /_/\\   \\ ";
-			info.col8 = BCYAN "/_-''    ''-_\\\n";
+			info.col8 = BCYAN "/_-''    ''-_\\";
 			info.getPkgCount = "pacman -Qq | wc -l";
 		} else if (strncmp(osname, "ArcoLinux", 9) == 0) {
 			info.col1 = BBLUE "";
@@ -202,7 +202,7 @@ void *os()
 			info.col5 = BBLUE "   / /  \\ \\   ";
 			info.col6 = BBLUE "  / /    \\ \\  ";
 			info.col7 = BBLUE " / / _____\\ \\ ";
-			info.col8 = BBLUE "/_/  `----.\\_\\\n";
+			info.col8 = BBLUE "/_/  `----.\\_\\";
 			info.getPkgCount = "pacman -Qq | wc -l";
 		} else if (strncmp(osname, "Artix Linux", 11) == 0) {
 			info.col1 = BCYAN "";
@@ -212,7 +212,7 @@ void *os()
 			info.col5 = BCYAN "   /     ',   ";
 			info.col6 = BCYAN "  /      ,`\\  ";
 			info.col7 = BCYAN " /   ,.'`.  \\ ";
-			info.col8 = BCYAN "/.,'`     `'.\\\n";
+			info.col8 = BCYAN "/.,'`     `'.\\";
 			info.getPkgCount = "pacman -Qq | wc -l";
 		} else if (strncmp(osname, "CelOS", 5) == 0) {
 			info.col1 = BMAGENTA "\n";
@@ -222,7 +222,7 @@ void *os()
 			info.col5 = BWHITE "__"BMAGENTA"|"BWHITE"_____"BMAGENTA"     |  ";
 			info.col6 = BMAGENTA "  |          |  ";
 			info.col7 = BMAGENTA "  -_"BWHITE"  ______"BMAGENTA"/"BWHITE"_  "BMAGENTA;
-			info.col8 = BMAGENTA "    -______/    \n";
+			info.col8 = BMAGENTA "    -______/    ";
 			// have to add support for flatpak too
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 		/* TO DO: CREATE DEEPIN LOGO */
@@ -309,7 +309,7 @@ void *os()
 			info.col5 = BMAGENTA "   /      _/ ";
 			info.col6 = BMAGENTA "  (     _-   ";
 			info.col7 = BMAGENTA "  \\____-     ";
-			info.col8 = BWHITE "\n";
+			info.col8 = BWHITE "";
 			info.getPkgCount = "qlist -IRv | wc -l";
 		} else if (strncmp(osname, "KDE neon", 8) == 0) {
 			info.col1 = BGREEN "";
@@ -330,7 +330,7 @@ void *os()
 			info.col5 = BGREEN "   |  | | | |  |   ";
 			info.col6 = BGREEN "   |  \\_____/  |   ";
 			info.col7 = BGREEN "   \\___________/   ";
-			info.col8 = BGREEN "\n";
+			info.col8 = BGREEN "";
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 		} else if (strncmp(osname, "Manjaro", 7) == 0) {
 			info.col1 = BGREEN " ________  __ \n";
@@ -340,7 +340,7 @@ void *os()
 			info.col5 = BGREEN "|  | |  | |  |";
 			info.col6 = BGREEN "|  | |  | |  |";
 			info.col7 = BGREEN "|  | |  | |  |";
-			info.col8 = BGREEN "|__| |__| |__|\n";
+			info.col8 = BGREEN "|__| |__| |__|";
 			info.getPkgCount = "pacman -Qq | wc -l";
 		} else if (strncmp(osname, "NixOS", 5) == 0) {
 			info.col1 = BMAGENTA "            \n";
@@ -439,7 +439,7 @@ void *os()
 			info.col5 = BGREEN " | |  " BGRAY BITAL "VOID  " BGREEN "| |";
 			info.col6 = BGREEN " \\ \\ \\____/ / /";
 			info.col7 = BGREEN "  \\ \\____  /_/ ";
-			info.col8 = BGREEN "   -_____\\\n";
+			info.col8 = BGREEN "   -_____\\";
 			info.getPkgCount = "xbps-query -l | wc -l";
 		} else if (strncmp(osname, "Zorin OS", 8) == 0) {
 			info.col1 = BBLUE "   ______   \n";
