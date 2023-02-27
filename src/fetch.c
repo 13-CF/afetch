@@ -26,7 +26,7 @@ struct dist info = {
 	.col8 = BWHITE "",
 	.getPkgCount = "echo unsupported",
 };
-char *username, *osname, *shellname, *pkgCount;
+char *username, *osname, *shellname, *pkgCount, *editorname;
 char *krnlver;
 long uptimeH, uptimeM;
 
@@ -110,6 +110,13 @@ void *shell()
 		shell = slash + 1;
 	}
 	shellname = shell;
+	return NULL;
+}
+
+void *editor()
+{
+	editorname = getenv("EDITOR");
+	
 	return NULL;
 }
 
@@ -536,13 +543,14 @@ int main()
 {
 	struct utsname sysInfo;
 	uname(&sysInfo);
-	pthread_t threads[6];
+	pthread_t threads[7];
 
 	pthread_create(&threads[0], NULL, user, NULL);
 	pthread_create(&threads[1], NULL, os, NULL);
 	pthread_create(&threads[2], NULL, kernel, NULL);
 	pthread_create(&threads[3], NULL, uptime, NULL);
 	pthread_create(&threads[4], NULL, shell, NULL);
+	pthread_create(&threads[5], NULL, editor, NULL);
 
 	pthread_join(threads[0], NULL);
 	/* os function must be run to get info.col1 */
@@ -558,10 +566,10 @@ int main()
 	pthread_join(threads[4], NULL);
 	printf("%s    %s%s%s\n", info.col6, ShellText, TextColour, shellname);
 	printf("%s    %s%s%s\n", info.col7, PackageText, TextColour, pkgCount);
-	printf("%s\n", info.col8);
+	printf("%s    %s%s%s\n", info.col8, EditorText, TextColour, editorname);
 
-	pthread_create(&threads[5], NULL, colourDraw, NULL);
-	pthread_join(threads[5], NULL);
+	pthread_create(&threads[6], NULL, colourDraw, NULL);
+	pthread_join(threads[6], NULL);
 	printf("%s", RESET);
 	return 0;
 }
