@@ -170,7 +170,7 @@ void *os()
 			info.col5 = BBLUE " /      \\  \\ ";
 			info.col6 = BBLUE "/        \\  \\";
 			info.col7 = BBLUE "          \\  ";
-			info.col8 = BBLUE "";
+			info.col8 = BBLUE "             ";
 			info.getPkgCount =
 				"grep 'P:' /lib/apk/db/installed | wc -l";
 		} else if (strncmp(osname, "Arch Linux", 10) == 0) {
@@ -245,7 +245,7 @@ void *os()
 			info.col5 = BRED "-_       ";
 			info.col6 = BRED "  --_    ";
 			info.col7 = BRED "         ";
-			info.col8 = BRED "";
+			info.col8 = BRED "         ";
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
 		} else if (strncmp(osname, "Arch7", 10 ) == 0){
@@ -295,7 +295,7 @@ void *os()
 				BBLUE "/ /  " BWHITE "|  |     " BBLUE;
 			info.col7 =
 				BBLUE "\\ \\" BWHITE "__/  |     " BBLUE;
-			info.col8 = BBLUE " \\" BWHITE "(_____/" BBLUE;
+			info.col8 = BBLUE " \\" BWHITE "(_____/     " BBLUE;
 			info.getPkgCount =
 				"[[ $(which sqlite3 2>/dev/null) && $? -ne "
 				"1 ]] && (sqlite3 "
@@ -330,7 +330,7 @@ void *os()
 			info.col5 = BGREEN "   |  | | | |  |   ";
 			info.col6 = BGREEN "   |  \\_____/  |   ";
 			info.col7 = BGREEN "   \\___________/   ";
-			info.col8 = BGREEN "";
+			info.col8 = BGREEN "                   ";
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
 		} else if (strncmp(osname, "Manjaro", 7) == 0) {
 			info.col1 = BGREEN " ________  __ \n";
@@ -364,7 +364,7 @@ void *os()
 			info.col5 = BGREEN "   _______|";
 			info.col6 = BGREEN "   \\_______";
 			info.col7 = BGREEN "__________/";
-			info.col8 = BGREEN "";
+			info.col8 = BGREEN "           ";
 			info.getPkgCount = "rpm -qa | wc -l";
 		} else if (strncmp(osname, "Parabola", 8) == 0) {
 			info.col1 = BMAGENTA "";
@@ -374,7 +374,7 @@ void *os()
 			info.col5 = BMAGENTA "         / .`  ";
 			info.col6 = BMAGENTA "        /.`    ";
 			info.col7 = BMAGENTA "       /`      ";
-			info.col8 = BMAGENTA "";
+			info.col8 = BMAGENTA "               ";
 			info.getPkgCount = "pacman -Qq | wc -l";
 		} else if (strncmp(osname, "Pop!_OS", 7) == 0) {
 			info.col1 = BCYAN "______\n";
@@ -406,7 +406,7 @@ void *os()
 			info.col5 = BBLUE "   ______| | ";
 			info.col6 = BBLUE "| |________/ ";
 			info.col7 = BBLUE "|____________";
-			info.col8 = BBLUE "";
+			info.col8 = BBLUE "             ";
 			info.getPkgCount =
 				"ls /var/log/packages | wc -l";
 		} else if (strncmp(osname, "Solus", 5) == 0) {
@@ -416,7 +416,8 @@ void *os()
 			info.col4 = BMAGENTA " /   /  \\ \\     \\ ";
 			info.col5 = BMAGENTA "|   /    \\ \\     |";
 			info.col6 = BMAGENTA " \\--------------/ ";
-			info.col7 = BMAGENTA "  \\------------/  ";
+			info.col7 = BMAGENTA "  \\------------/  ";   _  \____ -         USER yalo
+
 			info.col8 = BMAGENTA "   \\----------/";
 			info.getPkgCount =
 				"ls /var/lib/eopkg/package/ | wc -l";
@@ -428,7 +429,7 @@ void *os()
 			info.col5 = BRED "(_) |   |   ";
 			info.col6 = BRED "  \\  --- _/ ";
 			info.col7 = BRED "     ---(_) ";
-			info.col8 = BRED "";
+			info.col8 = BRED "            ";
 			info.getPkgCount =
 				"dpkg -l | tail -n+6 | wc -l";
 		} else if (strncmp(osname, "void", 4) == 0) {
@@ -439,7 +440,7 @@ void *os()
 			info.col5 = BGREEN " | |  " BGRAY BITAL "VOID  " BGREEN "| |";
 			info.col6 = BGREEN " \\ \\ \\____/ / /";
 			info.col7 = BGREEN "  \\ \\____  /_/ ";
-			info.col8 = BGREEN "   -_____\\";
+			info.col8 = BGREEN "   -_____\\     ";
 			info.getPkgCount = "xbps-query -l | wc -l";
 		} else if (strncmp(osname, "Zorin OS", 8) == 0) {
 			info.col1 = BBLUE "   ______   \n";
