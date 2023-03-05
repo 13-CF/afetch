@@ -218,6 +218,22 @@ void *os()
 			info.col8 = BMAGENTA "    -______/    \n";
 			// have to add support for flatpak too
 			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
+		/* TO DO: CREATE CENTOS STREAM LOGO */
+		} else if (strncmp(osname, "CentOS Stream", 16) == 0) {
+			info.col1 = BBLUE "           \n";
+			info.col2 = BGREEN "         ..          "BBLUE;
+			info.col3 = BYELLOW "  VI 'VK "BGREEN "LJ" BBLUE " KV' 'V "BGRAY;
+			info.col4 = BYELLOW " .KKA.'V "BGREEN "LJ" BBLUE " V'.4KK.    "BGRAY;
+			info.col5 = BRED " +QDD +++  +++ GFD+    "BGRAY;
+			info.col6 = BGREEN " 'VKK'.4 " BYELLOW "LJ" WHITE" K.'KKV'   "BGRAY;
+			info.col7 = BGREEN "  A. .4K " BYELLOW "LJ" WHITE" KA. .4   "BGRAY;
+			info.col8 = BYELLOW "         ..";
+			info.getPkgCount = "dpkg -l | tail -n+6 | wc -l";
+			info.getPkgCount =
+				"[[ $(which sqlite3 2>/dev/null) && $? -ne "
+				"1 ]] && (sqlite3 "
+				"/var/lib/rpm/rpmdb.sqlite \"select * from "
+				"Name\"|wc -l) || rpm -qa | wc -l";
 		/* TO DO: CREATE DEEPIN LOGO */
 		} else if (strncmp(osname, "Deepin", 6) == 0) {
 			info.col1 = BRED "\n";
