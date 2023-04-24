@@ -1,4 +1,4 @@
-/* BOLD COLOURS */
+/* BOLD COLORS */
 #define BBLACK   "\033[1;30m"
 #define BGRAY    "\033[1;90m"
 #define BRED     "\033[1;31m"
@@ -8,7 +8,7 @@
 #define BMAGENTA "\033[1;35m"
 #define BCYAN    "\033[1;36m"
 #define BWHITE   "\033[1;37m"
-/* NORMAL COLOURS */
+/* NORMAL COLORS */
 #define BLACK   "\033[0;30m"
 #define RED     "\033[0;31m"
 #define GREEN   "\033[0;32m"
@@ -19,4 +19,4 @@
 #define WHITE   "\033[0;37m"
 /* OTHER */
 #define RESET "\033[0;m"
-#define BITAL "\033[1;3m" 
+#define BITAL "\033[1;3m"
