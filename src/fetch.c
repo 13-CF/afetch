@@ -348,8 +348,8 @@ void *os()
 				"nix-store -q --requisites "
 				"/run/current-system/sw | wc -l";
 		} else if (strncmp(osname, "openSUSE Leap", 10) == 0 ||
-				strncmp(osname, "openSUSE Tumbleweed", 19) ==
-				0) {
+		           strncmp(osname, "openSUSE Tumbleweed", 19) == 0 ||
+		           strncmp(osname, "openSUSE MicroOS", 16) == 0) {
 			info.col1 = BGREEN "  _______\n";
 			info.col2 = BGREEN "__|   __ \\ ";
 			info.col3 = BGREEN "     / .\\ \\";
